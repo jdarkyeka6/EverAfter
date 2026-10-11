@@ -8,6 +8,25 @@ An original, choice-driven life simulator for iOS and iPadOS, moved from the wor
 
 The game is bundled in `Everafter/Game/index.html`. The SwiftUI entry point and WebKit offline wrapper load it from inside the app; no web server is necessary to play.
 
+## Play EverAfter on the web 🌐
+
+EverAfter is also a self-contained, responsive website. It runs the **same offline-capable game** as the Windows and iPhone apps.
+
+The repository root has a `vercel.json` file. Connect this GitHub repository to a Vercel project with the **root directory left empty / repository root**. The Vercel build runs `node scripts/build-web.cjs` and serves `web-dist/` as static files.
+
+To test the exact web output locally:
+
+```sh
+node scripts/build-web.cjs
+node scripts/test-web.cjs
+```
+
+The website comes with all 187 illustrated SVG assets, a web-app manifest, 192/512px icons, an installable app experience and a service worker that caches the full game for offline play.
+
+**Saves:** Lives are stored in the browser's local storage. This is separate from iPhone/Windows local storage. Use the in-game **Save & Load → Export / Import** functions to transfer lives. Clearing the browser's site data or using private browsing can remove locally stored saves.
+
+The website does not need any environment variables, database, Apple certificates or paid Vercel add-ons.
+
 ## Identity
 
 | Item | Value |

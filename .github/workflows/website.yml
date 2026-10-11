@@ -1,0 +1,47 @@
+name: EverAfter Website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Everafter/Game/**"
+      - "scripts/build-web.cjs"
+      - "scripts/test-web.cjs"
+      - "vercel.json"
+      - ".github/workflows/website.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check gameplay
+        run: node scripts/test_game_ui.cjs
+
+      - name: Validate all 187 illustrations
+        run: python3 scripts/validate_assets.py
+
+      - name: Build Vercel website
+        run: node scripts/build-web.cjs
+
+      - name: Test offline and installable website
+        run: node scripts/test-web.cjs
+
+      - name: Upload previewable website
+        uses: actions/upload-artifact@v4
+        with:
+          name: EverAfter-Website
+          path: web-dist/
+          retention-days: 14
