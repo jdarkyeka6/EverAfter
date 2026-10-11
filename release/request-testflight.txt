@@ -8,3 +8,5 @@ Requested: 2026-10-11
 Retry #2: fix iPad multitasking interface orientations and verify Apple upload response. 2026-10-11
 
 Build #3: mobile home screen overhaul (fixed menu header, name and cash row, four expandable stats, only events scroll, Actions categories, life-stage button, animated Age Up). 2026-10-11.
+
+Build #4 (2026-10-11): birthday animation v2, Age Up centered, oldest-first recent events, nonrepeating incident history with 38 new early-life events, and bottom Relationships shortcut; CI tests before shipping.
