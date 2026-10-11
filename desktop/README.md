@@ -7,8 +7,8 @@ A native Windows desktop edition of the same **offline EverAfter life-simulation
 1. Go to [EverAfter Windows Desktop builds](https://github.com/jdarkyeka6/EverAfter/actions/workflows/windows-desktop.yml).
 2. Open the newest **successful** run and download the **EverAfter-Windows-Desktop** artifact under Artifacts. GitHub may require you to sign in.
 3. Unzip the artifact. It includes:
-   - `EverAfter-1.0.0-x64-nsis.exe`: Windows installer with shortcuts.
-   - `EverAfter-1.0.0-x64-portable.exe`: standalone EXE, no installation required.
+   - `EverAfter Setup 1.0.0.exe` (or similarly named): Windows installer with shortcuts.
+   - `EverAfter 1.0.0.exe` (or similarly named): standalone EXE, no installation required.
 
 Builds are **not code-signed**; Windows may show an unknown-publisher warning. Obtain the application only from the trusted repository's own GitHub Actions run.
 
