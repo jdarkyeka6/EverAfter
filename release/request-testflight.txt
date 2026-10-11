@@ -12,3 +12,5 @@ Build #3: mobile home screen overhaul (fixed menu header, name and cash row, fou
 Build #4 (2026-10-11): birthday animation v2, Age Up centered, oldest-first recent events, nonrepeating incident history with 38 new early-life events, and bottom Relationships shortcut; CI tests before shipping.
 
 Build #5 (2026-10-11): EverAfter quality overhaul. Cinematic birthday chapter recaps, cash/stat consequences, 10 decision-based story arcs, grouped chronological journal with preserved scroll position, upgraded incident dialog, animation speed settings (Full/Fast/Off), save compatibility and expanded regression tests.
+
+Build #6 (2026-10-11): integrate 187 separate, offline SVG production assets (60 age-evolving portraits, 5 stage environments, 15 icon assets, EverAfter wordmark and full-scene vector art for all 106 story incidents). Preserve old saves and verify asset files in native iOS archive before upload.
