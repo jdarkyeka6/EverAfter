@@ -166,6 +166,37 @@ body.everafter-home-active{background:radial-gradient(ellipse at 50% -20%,#5b368
 }
 @media(max-width:365px) and (max-height:720px){.birthday-scene .birthday-numbers{height:85px}.birthday-scene .birthday-previous{font-size:75px}.birthday-scene .birthday-current{font-size:88px}.birthday-scene .birthday-summary{margin-top:9px;gap:5px}.birthday-summary .recap-card{padding:7px 11px}}
 @media(prefers-reduced-motion:reduce){.home-controls .home-control.primary:before,.birthday-scene .birthday-summary{animation:none!important}}
+
+/* Actual offline custom vector artwork */
+@media(max-width:760px){
+ .mobile-topbar .app-wordmark{display:flex;align-items:center;justify-content:center}
+ .mobile-topbar .brand-logo{display:block;width:min(154px,100%);height:35px;object-fit:contain}
+ .mobile-topbar .nav-circle{width:35px;height:35px;padding:5px}
+ .mobile-topbar .nav-circle img{width:23px;height:23px;object-fit:contain;display:block}
+ .life-header{background-color:#1b142b;background-position:center center;background-size:cover;border:1px solid #9b7db663;border-radius:20px;padding:11px 9px 12px;box-shadow:inset 0 0 0 1px #d5abf51b}
+ .life-idrow{padding:2px 0 11px}
+ .life-avatar{padding:0;overflow:hidden;border:1px solid #e4b9f7b3;box-shadow:0 3px 21px #1609288a;background:#3c2656}
+ .life-avatar .portrait-image{width:100%;height:100%;object-fit:cover;display:block}
+ .life-identity .life-name{text-shadow:0 1px 10px #0c0b20}
+ .life-chips{gap:6px}
+ .life-stat{background:#1b112fdb;border-color:#9873b57a}
+ .life-stat .symbol{display:flex;align-items:center;justify-content:center}
+ .life-stat .symbol img{width:22px;height:22px;object-fit:contain}
+ .home-control .control-symbol{width:24px;height:24px;display:block;object-fit:contain;flex:0 0 auto}
+ .home-control.primary .control-symbol{width:29px;height:29px}
+ .home-control.relations-shortcut .control-symbol{width:21px;height:21px}
+ .life-home .home-controls{gap:7px}
+ .modal.life-dilemma{overflow-y:auto;overscroll-behavior:contain;max-height:calc(90dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom))}
+ .modal.life-dilemma .event-illustration{display:block;width:100%;height:clamp(132px,24vh,185px);object-fit:cover;border-radius:16px;border:1px solid #c9a9f553;margin:3px 0 14px;box-shadow:0 8px 25px #09061e80;background:#2c1b47}
+ .modal.life-dilemma .modal-icon{display:none}
+ .modal.life-dilemma .event-tag{margin:0 0 11px}
+ .birthday-scene .birthday-stage-art{position:absolute;inset:auto 0 0;height:42%;opacity:.22;object-fit:cover;width:100%;pointer-events:none;mask-image:linear-gradient(to bottom,transparent,#000 38%,#000)}
+ .setup .avatar-selection-preview{display:flex;align-items:center;gap:12px;margin-top:9px}
+ .setup .avatar-selection-preview img{width:68px;height:68px;border-radius:18px;border:1px solid #b997e2}
+ .setup .avatar-selection-preview small{font-size:11px;color:#c9b0de;line-height:1.4}
+}
+@media(min-width:761px){.hero .avatar.portrait{overflow:hidden;padding:0}.hero .avatar.portrait img{width:100%;height:100%;object-fit:cover;border-radius:inherit}}
+
 </style></head>
 <body><div id="app"></div><div id="modal-root"></div><div class="toast-zone" id="toasts"></div><input type="file" id="import-file" accept=".json,application/json" hidden><script>
 'use strict';
@@ -575,7 +606,7 @@ const item=(name,description,buttons,icon='',tag='')=>`<div class="item-card"><d
 const grid=x=>`<div class="action-grid">${x.join('')}</div>`;
 const statBar=(key,label,colour)=>{const v=cap(s.stats[key]);return `<div class="statbox"><div class="statbox-head"><span>${label}</span><strong>${v}%</strong></div><div class="bar" style="--barcolor:${colour}"><div style="width:${v}%"></div></div></div>`};
 const prog=(name,n,max=100)=>`<div style="margin:10px 0"><div class="progressline"><span>${name}</span><strong>${Math.round(n)}/${max}</strong></div><div class="progressbar"><span style="width:${cap(n/max*100)}%"></span></div></div>`;
-function renderSetup(){const countries=COUNTRIES.map(c=>`<option value="${esc(c[0])}" ${c[0]==='Australia'?'selected':''}>${c[1]} ${c[0]}</option>`).join('');document.getElementById('app').innerHTML=`<div class="setup glass"><div class="setup-head"><div class="setup-logo">🌠</div><div class="eyebrow">YOUR LIFE. YOUR RULES.</div><h1>EVERAFTER</h1><p>A ridiculously deep, choice-driven life sandbox. Start as a baby, shape your destiny, and leave a legendary legacy. Every expansion is free, forever.</p></div><form id="new-game-form"><div class="form-grid"><div class="fieldbox"><label for="f-name">Full name</label><input class="field" id="f-name" maxlength="32" placeholder="Random if blank"></div><div class="fieldbox"><label for="f-country">Birth country</label><select class="field" id="f-country">${countries}</select></div><div class="fieldbox"><label for="f-origin">Family background</label><select class="field" id="f-origin"><option value="ordinary">🏡 Ordinary family</option><option value="struggling">💪 Struggling family</option><option value="wealthy">💎 Wealthy family</option><option value="royal">👑 Royal dynasty</option></select></div><div class="fieldbox"><label for="f-talent">Natural talent (free Creator power)</label><select class="field" id="f-talent"><option value="random">🎲 Surprise me</option><option value="music">🎸 Musical prodigy</option><option value="sport">⚽ Sports prodigy</option><option value="acting">🎭 Acting prodigy</option><option value="coding">💻 Tech prodigy</option><option value="business">📈 Business prodigy</option><option value="politics">🏛️ Political prodigy</option><option value="social">📱 Social media prodigy</option><option value="all">⚡ Genius at everything</option></select></div><div class="fieldbox"><label for="f-avatar">Your avatar</label><select class="field" id="f-avatar">${EMOJIS.map(e=>`<option value="${e}">${e} Avatar</option>`).join('')}</select></div><div class="fieldbox"><label for="f-gender">Identity</label><select class="field" id="f-gender"><option>Nonbinary</option><option>Male</option><option>Female</option></select></div></div><button class="agebtn" type="submit">✨ BEGIN MY LIFE</button></form><div class="setup-points"><div><span>♾️</span>No paywalls</div><div><span>🕰️</span>Free time travel</div><div><span>💾</span>Offline autosave</div></div><div style="margin-top:19px;text-align:center"><small>Original game, inspired by the life-simulation genre. All amounts are fictional in-game currency.</small></div></div>`;document.querySelector('#new-game-form').addEventListener('submit',e=>{e.preventDefault();s=newState({name:document.getElementById('f-name').value,country:document.getElementById('f-country').value,origin:document.getElementById('f-origin').value,talent:document.getElementById('f-talent').value,avatar:document.getElementById('f-avatar').value,gender:document.getElementById('f-gender').value});tab='home';commit(`✨ Welcome to the world, ${s.name}!`,'birth')});}
+function renderSetup(){const countries=COUNTRIES.map(c=>`<option value="${esc(c[0])}" ${c[0]==='Australia'?'selected':''}>${c[1]} ${c[0]}</option>`).join('');document.getElementById('app').innerHTML=`<div class="setup glass"><div class="setup-head"><div class="setup-logo">🌠</div><div class="eyebrow">YOUR LIFE. YOUR RULES.</div><h1>EVERAFTER</h1><p>A ridiculously deep, choice-driven life sandbox. Start as a baby, shape your destiny, and leave a legendary legacy. Every expansion is free, forever.</p></div><form id="new-game-form"><div class="form-grid"><div class="fieldbox"><label for="f-name">Full name</label><input class="field" id="f-name" maxlength="32" placeholder="Random if blank"></div><div class="fieldbox"><label for="f-country">Birth country</label><select class="field" id="f-country">${countries}</select></div><div class="fieldbox"><label for="f-origin">Family background</label><select class="field" id="f-origin"><option value="ordinary">🏡 Ordinary family</option><option value="struggling">💪 Struggling family</option><option value="wealthy">💎 Wealthy family</option><option value="royal">👑 Royal dynasty</option></select></div><div class="fieldbox"><label for="f-talent">Natural talent (free Creator power)</label><select class="field" id="f-talent"><option value="random">🎲 Surprise me</option><option value="music">🎸 Musical prodigy</option><option value="sport">⚽ Sports prodigy</option><option value="acting">🎭 Acting prodigy</option><option value="coding">💻 Tech prodigy</option><option value="business">📈 Business prodigy</option><option value="politics">🏛️ Political prodigy</option><option value="social">📱 Social media prodigy</option><option value="all">⚡ Genius at everything</option></select></div><div class="fieldbox"><label for="f-avatar">Your avatar</label><select class="field" id="f-avatar">${EMOJIS.map((e,i)=>`<option value="${e}">Portrait ${i+1} · ${e}</option>`).join('')}</select><div class="avatar-selection-preview"><img id="avatar-preview" src="assets/avatars/baby-01.svg" alt="Character preview"><small>Your character illustration changes as they grow. Choose a look to begin.</small></div></div><div class="fieldbox"><label for="f-gender">Identity</label><select class="field" id="f-gender"><option>Nonbinary</option><option>Male</option><option>Female</option></select></div></div><button class="agebtn" type="submit">✨ BEGIN MY LIFE</button></form><div class="setup-points"><div><span>♾️</span>No paywalls</div><div><span>🕰️</span>Free time travel</div><div><span>💾</span>Offline autosave</div></div><div style="margin-top:19px;text-align:center"><small>Original game, inspired by the life-simulation genre. All amounts are fictional in-game currency.</small></div></div>`;document.querySelector('#new-game-form').addEventListener('submit',e=>{e.preventDefault();s=newState({name:document.getElementById('f-name').value,country:document.getElementById('f-country').value,origin:document.getElementById('f-origin').value,talent:document.getElementById('f-talent').value,avatar:document.getElementById('f-avatar').value,gender:document.getElementById('f-gender').value});tab='home';commit(`✨ Welcome to the world, ${s.name}!`,'birth')});}
 function renderSidebar(){return `<aside class="sidebar"><div class="brand"><div class="brand-icon">🌠</div><div><h3>Everafter</h3><small>UNLIMITED EDITION</small></div></div>${NAV.map(([title,tabs])=>`<div class="navgroup">${title}</div>${tabs.map(([id,icon,name])=>`<button class="navbtn ${tab===id?'active':''}" data-tab="${id}"><span class="ico">${icon}</span><span>${name}</span>${id==='god'?'<span class="navkey">FREE</span>':''}</button>`).join('')}`).join('')}<div class="sidebottom">✦ Indie life sandbox • Version 1.0<br>Everything unlocked • No accounts • No ads</div></aside>`}
 function renderRight(){return `<aside class="sidepanel"><div class="panel glass"><div class="eyebrow">NEXT CHAPTER</div><div class="mini-value" style="margin:6px 0 12px">Age ${s.age+1} 🎂</div><button class="agebtn" data-act="age" ${!s.alive?'disabled':''}>➜ AGE UP ONE YEAR</button><p class="tip" style="margin:12px 0 0">Aging advances your story, pays salaries, changes markets and triggers a fresh dilemma. Your actions refresh too.</p></div><div class="panel glass"><h3>📊 Life at a glance</h3><div class="mini-row"><span>Action points</span><strong>${s.ap} ⚡</strong></div><div class="mini-row"><span>Net worth</span><strong class="money">${cash(worth())}</strong></div><div class="mini-row"><span>Annual income</span><strong>${cash(income())}</strong></div><div class="mini-row"><span>Estimated living costs</span><strong>${cash(lifeCost())}</strong></div><div class="mini-row"><span>Degree</span><strong>${esc(s.degree||'None')}</strong></div><div class="mini-row"><span>Occupation</span><strong>${esc(s.job?.name||'None')}</strong></div><div class="mini-row"><span>Known followers</span><strong>${compact(s.followers)}</strong></div><div class="mini-row"><span>Achievements</span><strong>${s.awards.length}/${AWARDS.length}</strong></div><hr class="separator">${btn('📜 Full timeline','goTimeline','','','smallbutton')}${btn('💾 Save this life','saveSlot','0','','smallbutton')}</div><div class="panel glass"><h3>💫 A little advice</h3><p class="tip">${s.age<13?'Your early choices build your stats. Talk to family, study, have fun, and make friends.':s.age<18?'School performance and practising talents can open future career paths.':s.prison>0?'Use your time to study, exercise or apply for early release.':s.age<25?'Degrees take time and money. Apprenticeship-style jobs, creative careers and startups offer other routes.':'Everything you own changes value over time. Diversify your opportunities, not just your investments.'}</p></div></aside>`}
 function renderDesktopTop(){return `<div class="topbar old-topbar"><div><div class="eyebrow">✦ THE UNWRITTEN STORY</div><small>Chapter ${s.age+1} · Year ${s.year}</small></div><div class="topbar-actions"><span class="pill">⚡ ${s.ap} AP</span><button class="iconbtn" data-tab="saves" title="Save games">💾</button><button class="iconbtn" data-tab="god" title="Creator Mode">✨</button></div></div>`}
@@ -584,14 +615,14 @@ function mobileTop(){
   const homeTab=tab==='home';
   const title=homeTab?'EverAfter':({'actions':'Actions','baby':'Baby','education':'School','career':s.job?'Employment':'Unemployed','navigation':'Menu','stats':'Your Stats','settings':'Settings','saves':'Saves'}[tab]||'EverAfter');
   return `<div class="mobile-topbar">
-    <button class="nav-circle ${homeTab?'':'back-circle'}" data-tab="${homeTab?'navigation':'home'}" aria-label="${homeTab?'Open menu':'Back to life'}">${homeTab?'☰':'‹'}</button>
-    <span class="app-wordmark ${homeTab?'':'subpage'}">${title}</span>
-    <button class="nav-circle" data-tab="saves" aria-label="Save and load">💾</button>
-    <button class="nav-circle" data-tab="settings" aria-label="Settings">⚙️</button>
+    <button class="nav-circle ${homeTab?'':'back-circle'}" data-tab="${homeTab?'navigation':'home'}" aria-label="${homeTab?'Open menu':'Back to life'}">${homeTab?'<img src="assets/icons/menu.svg" alt="">':'‹'}</button>
+    <span class="app-wordmark ${homeTab?'':'subpage'}">${homeTab?'<img class="brand-logo" src="assets/brand/everafter-logo.svg" alt="EverAfter">':esc(title)}</span>
+    <button class="nav-circle" data-tab="saves" aria-label="Save and load"><img src="assets/icons/save.svg" alt=""></button>
+    <button class="nav-circle" data-tab="settings" aria-label="Settings"><img src="assets/icons/settings.svg" alt=""></button>
   </div>`;
 }
 function renderTop(){return renderDesktopTop()+mobileTop()}
-function renderHero(){return `<div class="hero glass"><div class="hero-grid"><div class="person"><div class="avatar">${s.avatar}</div><div><div class="eyebrow">${s.alive?'✦ YOUR LIFE':'🕯️ IN LOVING MEMORY'}</div><h1>${esc(s.name)}</h1><div class="subtitle">${s.alive?esc(s.education):'Life complete'} · ${countryObj(s.country)[1]} ${esc(s.country)} · ${esc(s.gender)}</div></div></div><div class="age-block"><div class="age-number">${s.age}</div><small>YEARS OLD</small></div></div><div class="hero-chips"><span class="chip">${s.job?s.job.icon+' '+esc(s.job.name):s.age<18?'🎒 Growing up':'💼 Looking for work'}</span><span class="chip">💰 ${cash(worth())} net worth</span><span class="chip">${s.office?'🏛️ '+esc(s.office.name):s.prison>0?'🔒 In prison':'🌟 '+s.stats.fame+' fame'}</span><span class="chip">${s.legacyParent?'🧬 '+esc(s.legacyParent):'♾️ Everything unlocked'}</span></div></div>`}
+function renderHero(){return `<div class="hero glass"><div class="hero-grid"><div class="person"><div class="avatar portrait"><img src="${avatarArt()}" alt="Portrait of ${esc(s.name)}"></div><div><div class="eyebrow">${s.alive?'✦ YOUR LIFE':'🕯️ IN LOVING MEMORY'}</div><h1>${esc(s.name)}</h1><div class="subtitle">${s.alive?esc(s.education):'Life complete'} · ${countryObj(s.country)[1]} ${esc(s.country)} · ${esc(s.gender)}</div></div></div><div class="age-block"><div class="age-number">${s.age}</div><small>YEARS OLD</small></div></div><div class="hero-chips"><span class="chip">${s.job?s.job.icon+' '+esc(s.job.name):s.age<18?'🎒 Growing up':'💼 Looking for work'}</span><span class="chip">💰 ${cash(worth())} net worth</span><span class="chip">${s.office?'🏛️ '+esc(s.office.name):s.prison>0?'🔒 In prison':'🌟 '+s.stats.fame+' fame'}</span><span class="chip">${s.legacyParent?'🧬 '+esc(s.legacyParent):'♾️ Everything unlocked'}</span></div></div>`}
 function renderStats(){return `<div class="stat-grid">${statBar('happy','😊 Happiness','#ffce79')}${statBar('health','❤️ Health','#fa7a8a')}${statBar('smart','🧠 Intelligence','#a59eff')}${statBar('looks','✨ Looks','#f58fbe')}${statBar('fitness','💪 Fitness','#7ed6fb')}${statBar('discipline','🎯 Discipline','#b9dc8b')}${statBar('reputation','🤝 Reputation','#5ae2cb')}${statBar('fame','🌟 Fame','#ffaf70')}</div>`}
 function renderSummary(){return `<div class="summary-grid"><div class="summary glass"><div class="label">💰 Cash</div><div class="value">${cash(s.cash)}</div><small>Available balance</small></div><div class="summary glass"><div class="label">💎 Net Worth</div><div class="value">${cash(worth())}</div><small>Including assets</small></div><div class="summary glass"><div class="label">⚡ Actions Left</div><div class="value">${s.ap}</div><small>Refresh on birthday</small></div></div>`}
 function timelineList(limit=40){const entries=s.log.slice(0,limit);return `<div class="feed glass">${entries.map(e=>`<div class="entry ${e.type||''}"><span class="entry-age">${e.age}</span><span class="entry-text">${esc(e.text)}</span></div>`).join('')}</div>`}
@@ -606,6 +637,19 @@ const LIFE_ACTION_CATEGORIES=[
   ['Your Ambitions',[['fame','🌟','Fame & Talent'],['politics','🏛️','Politics'],['space','🚀','Space Missions'],['society','🔮','Clubs & Society']]],
   ['More To Explore',[['crime','⚖️','Crime & Justice'],['underworld','🎩','Underworld'],['collect','💎','Collections'],['achievements','🏆','Achievements'],['god','✨','Creator Mode']]]
 ];
+
+/* Every image comes from Game/assets and is bundled offline with iOS. */
+function lifeArtStage(age=s?.age||0){return age<5?'baby':age<13?'child':age<18?'teen':age<60?'adult':'elder'}
+function avatarVariant(){
+ const id=EMOJIS.indexOf(s?.avatar);
+ return String((id<0?0:id)+1).padStart(2,'0');
+}
+function avatarArt(stage=lifeArtStage()){return 'assets/avatars/'+stage+'-'+avatarVariant()+'.svg'}
+function assetIcon(name){return 'assets/icons/'+name+'.svg'}
+function eventArtPath(title){
+ return 'assets/events/'+String(title).normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.svg';
+}
+
 function lifeStage(){
   if(s.age<5)return {label:'Baby',icon:'👶',tab:'baby'};
   if(s.age<18)return {label:'School',icon:'🎒',tab:'education'};
@@ -614,7 +658,7 @@ function lifeStage(){
 }
 function miniLifeStat(key,emoji,label,tint){
   const n=cap(s.stats[key]);
-  return `<button class="life-stat" data-tab="stats" title="Open all stats" style="--tint:${tint};--amount:${n}%"><span class="symbol">${emoji}</span><span class="stat-name">${label}</span><span class="stat-value">${n}%</span><span class="stat-track"><i></i></span></button>`;
+  return `<button class="life-stat" data-tab="stats" title="Open all stats" style="--tint:${tint};--amount:${n}%"><span class="symbol"><img src="${assetIcon(key)}" alt="" aria-hidden="true"></span><span class="stat-name">${label}</span><span class="stat-value">${n}%</span><span class="stat-track"><i></i></span></button>`;
 }
 function homeMobile(){
   const stage=lifeStage();
@@ -626,9 +670,9 @@ function homeMobile(){
     return marker+`<div class="entry ${e.type||''}"><span class="entry-age">Age ${e.age}</span><span class="entry-text">${esc(e.text)}</span></div>`;
   }).join('');
   return `<div class="mobile-home-only life-home ${ageFxPending?'age-playing':''}">
-    <div class="life-header">
+    <div class="life-header" style="background-image:linear-gradient(100deg,#120d20f5 0%,#180c29eb 55%,#190e2ac4 100%),url('assets/stages/${lifeArtStage()}.svg')">
       <div class="life-idrow">
-        <div class="life-avatar" aria-hidden="true">${s.avatar}</div>
+        <div class="life-avatar"><img class="portrait-image" src="${avatarArt()}" alt="Portrait of ${esc(s.name)}"></div>
         <div class="life-identity">
           <div class="life-name">${esc(s.name)}</div>
           <div class="life-sub">${countryObj(s.country)[1]} ${esc(s.country)} · Age <strong class="age-display">${s.age}</strong></div>
@@ -650,10 +694,10 @@ function homeMobile(){
       </div>
     </section>
     <div class="home-controls">
-      <button class="home-control actions-shortcut" data-tab="actions"><span class="control-symbol">⚡</span>Actions</button>
-      <button class="home-control primary" data-act="age" ${s.alive?'':'disabled'}><span class="control-symbol">🎂</span>Age Up</button>
-      <button class="home-control stage-shortcut" data-tab="${stage.tab}"><span class="control-symbol">${stage.icon}</span>${stage.label}</button>
-      <button class="home-control relations-shortcut" data-tab="people"><span class="control-symbol">💞</span>Relationships</button>
+      <button class="home-control actions-shortcut" data-tab="actions"><img class="control-symbol" src="${assetIcon('actions')}" alt="">Actions</button>
+      <button class="home-control primary" data-act="age" ${s.alive?'':'disabled'}><img class="control-symbol" src="${assetIcon('age')}" alt="">Age Up</button>
+      <button class="home-control stage-shortcut" data-tab="${stage.tab}"><img class="control-symbol" src="${assetIcon(stage.tab==='career'?(s.job?'employment':'unemployed'):stage.tab==='education'?'school':'baby')}" alt="">${stage.label}</button>
+      <button class="home-control relations-shortcut" data-tab="people"><img class="control-symbol" src="${assetIcon('relationships')}" alt="">Relationships</button>
     </div>
   </div>`;
 }
@@ -778,7 +822,7 @@ function birthdayScreen(){
   const sparks=Array.from({length:16},(_,i)=>`<span class="birthday-spark" style="--angle:${i*22.5}deg;--delay:${(i%4)*45}ms"></span>`).join('');
   return `<div class="birthday-scene" role="status" aria-label="You turned ${ageFxTo}">
     ${sparks}
-    <div class="birthday-caption">✦ Chapter ${ageFxTo+1} ✦</div>
+    <img class="birthday-stage-art" src="assets/stages/${lifeArtStage()}.svg" alt="" aria-hidden="true"><div class="birthday-caption">✦ Chapter ${ageFxTo+1} ✦</div>
     <div class="birthday-numbers"><span class="birthday-previous" aria-hidden="true">${ageFxFrom}</span><span class="birthday-current">${ageFxTo}</span></div>
     <div class="birthday-message">Your story evolves ✨</div>
     <div class="birthday-year">${esc(lifeChapterLabel(ageFxTo))} · ${s.year}</div>
@@ -804,6 +848,7 @@ function renderModal(){
  const m=modal,isEvent=m.kind==='life-event';
  root.innerHTML=`<div class="modal-backdrop" role="presentation"><div class="modal ${m.wide?'wide':''} ${isEvent?'life-dilemma':''}" role="dialog" aria-modal="true" aria-label="${esc(m.title)}">
  ${isEvent?`<div class="event-tag">✦ Age ${s.age} · Your choice matters</div>`:''}
+ ${isEvent?`<img class="event-illustration" src="${eventArtPath(m.title)}" alt="Illustration for ${esc(m.title)}">`:''}
  <div class="modal-icon">${m.icon||'✨'}</div><h2>${esc(m.title)}</h2><p>${m.body||''}</p>
  <div class="modal-actions">${(m.choices||[]).map((c,i)=>`<button class="choice" data-choice="${i}">${isEvent?`<span class="option-index">${i+1}</span>`:''}<span class="option-copy"><strong>${esc(c.text)}</strong>${c.hint?`<small>${esc(c.hint)}</small>`:''}</span><span class="arrow">›</span></button>`).join('')}</div>
  ${!m.noClose?'<button class="modal-close" data-close="1">✕ Close</button>':''}
@@ -822,7 +867,10 @@ document.addEventListener('click',e=>{
  if(b.dataset.act==='navigate'){setTab(b.dataset.id);return}if(b.dataset.act==='goTimeline'){setTab('timeline');return}
  try{act(b.dataset.act,b.dataset.id,b.dataset.extra)}catch(err){console.error(err);fail('Action error: '+err.message)}
 });
-document.addEventListener('change',e=>{if(e.target.id==='job-tier'){categoryFilter=e.target.value;render()}});
+document.addEventListener('change',e=>{
+ if(e.target.id==='job-tier'){categoryFilter=e.target.value;render()}
+ if(e.target.id==='f-avatar'){const img=document.getElementById('avatar-preview');if(img){const id=Math.max(0,EMOJIS.indexOf(e.target.value));img.src='assets/avatars/baby-'+String(id+1).padStart(2,'0')+'.svg'}}
+});
 document.addEventListener('input',e=>{if(e.target.id==='job-search'){jobQuery=e.target.value;filterJobList()}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal){closeDialog();return}if(e.key.toLowerCase()==='a'&&(!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))&&!modal&&s?.alive){ageUp()}});
 render();

@@ -81,4 +81,33 @@ const rSelector=makeSelector(rState);
 rSelector.rememberStoryChoice({title:'The Toy Incident'},0);
 rSelector.rememberStoryChoice({title:'The Toy Incident'},0);
 assert.equal(rState.storyThreads.length,1,'An original incident must not queue the same arc twice');
-console.log('PASS: '+events.length+' events, 20 unique incidents, old save migration, 10 choice-driven story arcs, birthday recaps, event consequence logging, UI and chronology.');
+
+const assetsRoot='Everafter/Game/assets';
+const exists=(type,file)=>fs.existsSync(assetsRoot+'/'+type+'/'+file);
+const svgData=(type,file)=>{
+ const path=assetsRoot+'/'+type+'/'+file;
+ assert.ok(exists(type,file),'Missing custom asset: '+path);
+ const contents=fs.readFileSync(path,'utf8');
+ assert.ok(contents.includes('<svg')&&contents.includes('</svg>'),'Invalid SVG asset: '+path);
+ assert.ok(contents.length>300,'SVG asset unexpectedly empty: '+path);
+ return contents;
+};
+const lifeStages=['baby','child','teen','adult','elder'];
+for(const stage of lifeStages){
+ svgData('stages',stage+'.svg');
+ for(let i=1;i<=12;i++)svgData('avatars',stage+'-'+String(i).padStart(2,'0')+'.svg');
+}
+const requiredIcons=['menu','save','settings','health','happy','smart','looks','actions','age','relationships','school','employment','baby','unemployed','finance'];
+for(const id of requiredIcons)svgData('icons',id+'.svg');
+svgData('brand','everafter-logo.svg');
+const slug=name=>String(name).normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+for(const e of events)svgData('events',slug(e.title)+'.svg');
+for(const key of Object.keys(storyline.STORY_ARCS))svgData('events',slug(storyline.STORY_ARCS[key].title)+'.svg');
+assert.equal(fs.readdirSync(assetsRoot+'/events').filter(x=>x.endsWith('.svg')).length,events.length+Object.keys(storyline.STORY_ARCS).length,'Every event must have its own illustration');
+assert.ok(script.includes('eventArtPath(m.title)'),'Event modal is not using real assets');
+assert.ok(script.includes('avatarArt()'),'Life portrait is not using real assets');
+assert.ok(script.includes("assetIcon('relationships')"),'Bottom navigation is not using custom icons');
+assert.ok(script.includes('assets/stages/'),'Life stages must use their illustrated environments');
+assert.ok(script.includes('avatar-preview'),'Character selection must preview the portrait');
+
+console.log('PASS: '+events.length+' events, '+(events.length+Object.keys(storyline.STORY_ARCS).length)+' illustrated event assets, 60 avatars, 5 scenes, 15 icons, story arcs, saves and UI.');

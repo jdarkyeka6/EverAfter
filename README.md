@@ -100,6 +100,22 @@ If the app later adds non-exempt encryption or third-party encryption libraries,
 - **Regression checks:** verify story arcs, old saves, recap calculations, age controls, chronology and animation settings before any build/upload.
 - The old `everafter_life_v1` save format and its existing game systems are preserved.
 
+## Built-in custom art assets (build 6)
+
+The game's artwork is now made up of **187 production SVG files** inside `Everafter/Game/assets/`, not a single illustrative style-guide image. Every file is an editable, resolution-independent vector, delivered offline with the iOS app. No external website or remote asset loading.
+
+| Folder | Contents |
+|---|---|
+| `assets/avatars/` | 60 character portraits, 12 character variants × 5 age stages |
+| `assets/stages/` | 5 life-stage scenes: baby, child, teen, adult, elder |
+| `assets/events/` | 106 individually keyed, full-scene vector event illustrations covering 96 core events plus 10 connected story arcs |
+| `assets/icons/` | 15 custom navigation, stat and action icons |
+| `assets/brand/` | The EverAfter SVG wordmark |
+
+The iPhone game now displays the scene for your current age, evolves the character portrait automatically, uses the new vector buttons/stats/logo, and displays the matching full illustration in each story-event popup. The new-game avatar picker previews its art. The existing `s.avatar` identity in old saves is mapped onto the new portrait system without migrating or resetting save data.
+
+Every GitHub Actions build checks the full artwork inventory; the TestFlight workflow also checks that essential assets were embedded into the `.app` archive before Apple upload.
+
 ## Storage
 
 The game uses a persistent `WKWebView` data store for local save slots. It supports JSON export and import from the in-game interface. Like any app, save data could be lost when uninstalling, so export anything important beforehand.

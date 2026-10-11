@@ -123,6 +123,10 @@ jobs:
           APP_PATH="$PWD/build/Everafter.xcarchive/Products/Applications/Everafter.app"
           test -d "$APP_PATH"
           test -s "$APP_PATH/Game/index.html" || test -s "$APP_PATH/index.html"
+          for asset in             "brand/everafter-logo.svg"             "avatars/baby-01.svg"             "avatars/elder-12.svg"             "stages/baby.svg"             "stages/elder.svg"             "events/the-toy-incident.svg"             "icons/relationships.svg"; do
+            test -s "$APP_PATH/Game/assets/$asset" || { echo "::error::Offline game asset missing from iOS app bundle: $asset"; exit 1; }
+          done
+          echo "Verified packaged offline SVG artwork"
           DISPLAY_NAME=$(/usr/libexec/PlistBuddy -c 'Print CFBundleDisplayName' "$APP_PATH/Info.plist")
           ACTUAL_ID=$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$APP_PATH/Info.plist")
           test "$DISPLAY_NAME" = "EverAfter"
