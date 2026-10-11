@@ -1,0 +1,17 @@
+# Builds and generated projects
+Everafter.xcodeproj/
+DerivedData/
+build/
+*.xcuserstate
+xcuserdata/
+.DS_Store
+.swiftpm/
+
+# Never commit signing material
+*.p8
+*.p12
+*.mobileprovision
+*.cer
+*.key
+.env
+.env.*

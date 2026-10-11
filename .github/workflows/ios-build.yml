@@ -1,0 +1,43 @@
+name: Everafter iOS Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  simulator-build:
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate app icon
+        shell: bash
+        run: |
+          set -euo pipefail
+          swift scripts/make_app_icon.swift Everafter/Assets.xcassets/AppIcon.appiconset/Icon-1024.png
+          sips -s format jpeg Everafter/Assets.xcassets/AppIcon.appiconset/Icon-1024.png --out "$RUNNER_TEMP/everafter-icon.jpg" >/dev/null
+          sips -s format png "$RUNNER_TEMP/everafter-icon.jpg" --out Everafter/Assets.xcassets/AppIcon.appiconset/Icon-1024.png >/dev/null
+
+      - name: Generate Xcode project
+        shell: bash
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Validate game files
+        shell: bash
+        run: |
+          test -s Everafter/Game/index.html
+          grep -qi 'EVERAFTER' Everafter/Game/index.html
+
+      - name: Build iOS Simulator without signing
+        shell: bash
+        run: |
+          xcodebuild -project Everafter.xcodeproj -scheme Everafter -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
