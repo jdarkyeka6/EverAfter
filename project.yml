@@ -17,6 +17,7 @@ targets:
       path: Everafter/Info.plist
       properties:
         CFBundleDisplayName: EverAfter
+        ITSAppUsesNonExemptEncryption: false
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         UISupportedInterfaceOrientations~ipad:

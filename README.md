@@ -71,6 +71,14 @@ On 11 October 2026, the iOS home screen was redesigned for a compact, non-scroll
 
 **Apple confirmed TestFlight build 3 upload:** [GitHub Actions run #3](https://github.com/jdarkyeka6/EverAfter/actions/runs/38119329058), log text `UPLOAD SUCCEEDED with no errors`. Apple's processing and tester availability may follow later.
 
+## Export compliance
+
+EverAfter is a standalone offline life simulator. It does not implement custom cryptography or non-exempt encryption, so the XcodeGen `project.yml` supplies `ITSAppUsesNonExemptEncryption: false` in the generated app `Info.plist`, as prescribed by Apple. The TestFlight workflow validates that the built app contains this Boolean value before distribution.
+
+This is intended to prevent future **Missing Compliance** warnings on new builds. Existing builds (including build 3) are not changed: answer Apple's **Manage** export-compliance questions for them in App Store Connect.
+
+If the app later adds non-exempt encryption or third-party encryption libraries, reassess this declaration rather than keeping it false automatically.
+
 ## Storage
 
 The game uses a persistent `WKWebView` data store for local save slots. It supports JSON export and import from the in-game interface. Like any app, save data could be lost when uninstalling, so export anything important beforehand.

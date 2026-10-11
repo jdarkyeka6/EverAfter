@@ -139,7 +139,9 @@ jobs:
               raise SystemExit(f'Missing iPhone portrait orientation in Info.plist: {iphone!r}')
           if not isinstance(ipad, list) or not expected_ipad.issubset(ipad):
               raise SystemExit(f'Missing required iPad orientations in Info.plist: {ipad!r}')
-          print('Verified iPhone portrait and all four iPad interface orientations')
+          if info.get('ITSAppUsesNonExemptEncryption') is not False:
+              raise SystemExit('Export compliance missing: Info.plist must declare ITSAppUsesNonExemptEncryption = false')
+          print('Verified iPhone portrait, iPad orientations and exempt-encryption declaration')
           PY
 
       - name: Configure automatic App Store distribution signing
