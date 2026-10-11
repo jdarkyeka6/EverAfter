@@ -115,7 +115,7 @@ assert.ok(script.includes('avatar-preview'),'Character selection must preview th
 assert.ok(!/\\bs\\.ap\\b/.test(script),'AP counter must be absent from game logic');
 assert.ok(!script.includes('No action points left'),'No action point gate must remain');
 assert.ok(!script.includes('if(msg)showToast'),'Routine actions should not show toast popups');
-assert.ok(script.includes('.toast-zone{position:fixed;top:'),'Any remaining error notice should be near the top, not bottom');
+assert.ok(html.includes('.toast-zone{position:fixed;top:'),'Any remaining error notice should be near the top, not bottom');
 assert.ok(script.includes("function repeatHint("),'Show diminishing returns on repeatable action cards');
 assert.ok(script.includes('withActionContext(key,()=>o.fn())'),'A modal selection must retain its original action key');
 assert.ok(script.includes('s.actionReps={}'),'Age up must refresh the per-year repeat counters');
