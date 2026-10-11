@@ -65,6 +65,12 @@ Keep Everafter's exact registered bundle ID under the target's Signing settings.
 
 Check App Store Connect for subsequent processing status. A successful upload is not a guarantee that the build has already finished processing or can be installed by testers.
 
+## Mobile life-screen redesign (build 3)
+
+On 11 October 2026, the iOS home screen was redesigned for a compact, non-scrolling phone layout. It now shows the EverAfter header with menu/save/settings, the character's nationality/age and cash on the same row, four tappable stats, a scrollable recent-events area, and fixed Actions / Baby-School-Employment-Unemployed / Age Up buttons. The Actions menu uses full-screen categories and the age counter animates before life-event choices are shown. The full game content and save-key format remain unchanged.
+
+**Apple confirmed TestFlight build 3 upload:** [GitHub Actions run #3](https://github.com/jdarkyeka6/EverAfter/actions/runs/38119329058), log text `UPLOAD SUCCEEDED with no errors`. Apple's processing and tester availability may follow later.
+
 ## Storage
 
 The game uses a persistent `WKWebView` data store for local save slots. It supports JSON export and import from the in-game interface. Like any app, save data could be lost when uninstalling, so export anything important beforehand.
