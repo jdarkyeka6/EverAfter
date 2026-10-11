@@ -1,0 +1,6 @@
+EverAfter TestFlight build request
+New App Store Connect listing: EverAfter
+SKU: EverAfter001
+Bundle identifier: com.jdarkyeka6.everafter
+Signing: automatic, using ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_CONTENT and APPLE_TEAM_ID GitHub secrets
+Requested: 2026-10-11

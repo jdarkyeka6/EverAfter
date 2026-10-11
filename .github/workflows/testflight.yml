@@ -2,6 +2,10 @@ name: Everafter TestFlight Upload
 
 on:
   workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - release/request-testflight.txt
 
 permissions:
   contents: read
@@ -117,7 +121,7 @@ jobs:
           test -s "$APP_PATH/Game/index.html" || test -s "$APP_PATH/index.html"
           DISPLAY_NAME=$(/usr/libexec/PlistBuddy -c 'Print CFBundleDisplayName' "$APP_PATH/Info.plist")
           ACTUAL_ID=$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$APP_PATH/Info.plist")
-          test "$DISPLAY_NAME" = "Everafter"
+          test "$DISPLAY_NAME" = "EverAfter"
           test "$ACTUAL_ID" = "$BUNDLE_ID"
 
       - name: Configure automatic App Store distribution signing
