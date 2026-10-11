@@ -12,7 +12,7 @@ The game is bundled in `Everafter/Game/index.html`. The SwiftUI entry point and 
 
 | Item | Value |
 |---|---|
-| Display name | Everafter |
+| Display name | EverAfter |
 | Xcode project / scheme | Everafter |
 | Default bundle ID | `com.jdarkyeka6.everafter` (suggested; **must match your Apple registration**) |
 | Version | 1.0.0 |
@@ -38,7 +38,9 @@ Do not commit certificates, passwords or API keys to the repository. You can reu
 
 **TestFlight:** after your new Everafter app record, registered bundle ID and four secrets are ready, go to **Actions → Everafter TestFlight Upload → Run workflow**. It archives the complete game and attempts to sign it automatically with Xcode and the stored API key, then upload it to the newly created Everafter app.
 
-GitHub's previous TideLife pipeline had an Apple signing error: `No Account for Team`. The new repo is configured for automatic signing, but the same Apple Developer team/API permission issue may need to be fixed in Apple Developer/App Store Connect. **First TestFlight upload succeeded on 11 October 2026** (GitHub Actions [run #1](https://github.com/jdarkyeka6/EverAfter/actions/runs/38117767256)). Apple may still be processing the uploaded build before it appears in App Store Connect → EverAfter → TestFlight. The successful upload does not guarantee that Apple's subsequent processing and testing review have finished.
+The previous TideLife pipeline had signing errors. This new EverAfter pipeline automatically signed and exported a valid IPA. The first EverAfter attempt ([run #1](https://github.com/jdarkyeka6/EverAfter/actions/runs/38117767256)) was **rejected by Apple** because the app was missing required iPad orientations. The uploader printed `UPLOAD FAILED` but exited with code 0, so GitHub incorrectly reported success. The fix added the four required iPad orientations and an explicit upload-output check.
+
+**Apple accepted the second upload on 11 October 2026:** [successful verified upload run #2](https://github.com/jdarkyeka6/EverAfter/actions/runs/38118332836). The log explicitly confirms `UPLOAD SUCCEEDED with no errors`. Apple may need to process the build before it appears in App Store Connect → EverAfter → TestFlight, and tester access may need to be configured.
 
 ## Local Xcode
 
@@ -53,9 +55,15 @@ open Everafter.xcodeproj
 
 Keep Everafter's exact registered bundle ID under the target's Signing settings. App Store Connect listing name and home-screen display name can be changed separately without changing the bundle ID.
 
-## First TestFlight upload
+## Successful TestFlight upload
 
-**Confirmed successful GitHub Actions upload:** [EverAfter TestFlight run #1](https://github.com/jdarkyeka6/EverAfter/actions/runs/38117767256). Bundle ID `com.jdarkyeka6.everafter`, home-screen name `EverAfter`, automatic signing. Check App Store Connect for Apple's processing status before enabling testers.
+- **Bundle ID:** `com.jdarkyeka6.everafter`
+- **Display name:** `EverAfter`
+- **Signing:** Xcode automatic signing
+- **Apple uploader confirmation:** `UPLOAD SUCCEEDED with no errors`
+- **Run:** [EverAfter TestFlight run #2](https://github.com/jdarkyeka6/EverAfter/actions/runs/38118332836)
+
+Check App Store Connect for subsequent processing status. A successful upload is not a guarantee that the build has already finished processing or can be installed by testers.
 
 ## Storage
 
