@@ -38,7 +38,7 @@ Do not commit certificates, passwords or API keys to the repository. You can reu
 
 **TestFlight:** after your new Everafter app record, registered bundle ID and four secrets are ready, go to **Actions → Everafter TestFlight Upload → Run workflow**. It archives the complete game and attempts to sign it automatically with Xcode and the stored API key, then upload it to the newly created Everafter app.
 
-GitHub's previous TideLife pipeline had an Apple signing error: `No Account for Team`. The new repo is configured for automatic signing, but the same Apple Developer team/API permission issue may need to be fixed in Apple Developer/App Store Connect. **Successful compilation is not the same as a TestFlight upload.**
+GitHub's previous TideLife pipeline had an Apple signing error: `No Account for Team`. The new repo is configured for automatic signing, but the same Apple Developer team/API permission issue may need to be fixed in Apple Developer/App Store Connect. **First TestFlight upload succeeded on 11 October 2026** (GitHub Actions [run #1](https://github.com/jdarkyeka6/EverAfter/actions/runs/38117767256)). Apple may still be processing the uploaded build before it appears in App Store Connect → EverAfter → TestFlight. The successful upload does not guarantee that Apple's subsequent processing and testing review have finished.
 
 ## Local Xcode
 
@@ -52,6 +52,10 @@ open Everafter.xcodeproj
 ```
 
 Keep Everafter's exact registered bundle ID under the target's Signing settings. App Store Connect listing name and home-screen display name can be changed separately without changing the bundle ID.
+
+## First TestFlight upload
+
+**Confirmed successful GitHub Actions upload:** [EverAfter TestFlight run #1](https://github.com/jdarkyeka6/EverAfter/actions/runs/38117767256). Bundle ID `com.jdarkyeka6.everafter`, home-screen name `EverAfter`, automatic signing. Check App Store Connect for Apple's processing status before enabling testers.
 
 ## Storage
 
