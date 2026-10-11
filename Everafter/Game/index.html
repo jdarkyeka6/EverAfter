@@ -90,6 +90,36 @@
  .life-home.age-playing .age-display,.life-home.age-playing .home-scroll-wrap{animation:none}
 }
 
+
+/* Chapter transition v2 and balanced mobile controls */
+@media(max-width:760px){
+ .home-controls{grid-template-columns:minmax(0,1fr) minmax(0,1.14fr) minmax(0,1fr);row-gap:7px}
+ .home-controls .home-control.actions-shortcut{grid-column:1;grid-row:1}
+ .home-controls .home-control.primary{grid-column:2;grid-row:1;min-height:65px;font-size:13px;color:#160e2a;background:linear-gradient(150deg,#dab4ff,#af78f8 47%,#8c5ee3);border-color:#dcbbff;box-shadow:0 7px 27px #9b61ee65}
+ .home-controls .home-control.stage-shortcut{grid-column:3;grid-row:1}
+ .home-controls .home-control.relations-shortcut{grid-column:1/-1;grid-row:2;min-height:34px;padding:8px;flex-direction:row;gap:8px;font-size:12px;border-color:#583d71;background:#221a35}
+ .home-controls .home-control.relations-shortcut .control-symbol{font-size:17px}
+ .birthday-scene{position:fixed;inset:0;z-index:47;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:white;background:radial-gradient(ellipse 95% 75% at 50% 45%,#522b79f2,#20132ff9 57%,#090b16);animation:birthdayFade .25s ease both}
+ .birthday-scene:before{content:"";position:absolute;width:min(90vw,440px);aspect-ratio:1;border:1px solid #d3a1ff52;border-radius:50%;box-shadow:0 0 0 25px #a261e015,0 0 0 75px #af72e00e,0 0 110px #a06deb74;animation:birthdayHalo 1.55s ease both}
+ .birthday-scene .birthday-spark{position:absolute;left:50%;top:50%;height:6px;width:6px;background:#f5d1ff;box-shadow:0 0 15px #fff;border-radius:50%;opacity:0;animation:birthdayBurst 1.2s ease-out both;animation-delay:var(--delay);pointer-events:none}
+ .birthday-scene .birthday-caption{z-index:1;letter-spacing:4px;text-transform:uppercase;font-size:12px;color:#e6c5ff;font-weight:900;animation:birthdayRise .55s .14s both}
+ .birthday-scene .birthday-numbers{z-index:1;position:relative;height:169px;width:220px;filter:drop-shadow(0 9px 26px #9855d266)}
+ .birthday-scene .birthday-previous{position:absolute;inset:0;display:grid;place-items:center;font-size:99px;font-weight:950;letter-spacing:-8px;color:#dfc7ff;animation:birthdayOld .7s .15s both}
+ .birthday-scene .birthday-current{position:absolute;inset:0;display:grid;place-items:center;font-size:116px;font-weight:950;letter-spacing:-9px;color:#fff;animation:birthdayNew .86s .42s cubic-bezier(.16,.82,.23,1.15) both;text-shadow:0 0 45px #c696ffc9}
+ .birthday-scene .birthday-message{z-index:1;font-size:20px;font-weight:900;animation:birthdayRise .5s .8s both}
+ .birthday-scene .birthday-year{z-index:1;margin-top:10px;color:#e5cefa;font-size:12px;animation:birthdayRise .5s .98s both}
+ .birthday-scene .birthday-skip{position:absolute;z-index:1;left:50%;bottom:calc(env(safe-area-inset-bottom) + 28px);transform:translateX(-50%);border:1px solid #ffffff32;border-radius:100px;background:#ffffff16;color:#e9d8fb;padding:10px 18px;font-size:11px}
+ @keyframes birthdayFade{from{opacity:0}to{opacity:1}}
+ @keyframes birthdayHalo{from{transform:scale(.48) rotate(-25deg);opacity:0}to{transform:scale(1.08) rotate(20deg);opacity:.85}}
+ @keyframes birthdayOld{from{transform:translateY(0) scale(1);opacity:1;filter:blur(0)}to{transform:translateY(-90px) rotate(-8deg) scale(.65);opacity:0;filter:blur(7px)}}
+ @keyframes birthdayNew{0%{transform:translateY(100px) scale(.48);opacity:0;filter:blur(9px)}65%{transform:translateY(-7px) scale(1.1);opacity:1;filter:blur(0)}100%{transform:translateY(0) scale(1);opacity:1;filter:blur(0)}}
+ @keyframes birthdayRise{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
+ @keyframes birthdayBurst{0%{opacity:0;transform:rotate(var(--angle)) translateY(-22px) scale(.3)}30%{opacity:1}100%{opacity:0;transform:rotate(var(--angle)) translateY(-165px) scale(.1)}}
+}
+@media(prefers-reduced-motion:reduce){
+ .birthday-scene,.birthday-scene:before,.birthday-scene .birthday-spark,.birthday-scene .birthday-caption,.birthday-scene .birthday-previous,.birthday-scene .birthday-current,.birthday-scene .birthday-message,.birthday-scene .birthday-year{animation:none!important}
+ .birthday-scene .birthday-previous{display:none}
+}
 </style></head>
 <body><div id="app"></div><div id="modal-root"></div><div class="toast-zone" id="toasts"></div><input type="file" id="import-file" accept=".json,application/json" hidden><script>
 'use strict';
@@ -128,10 +158,10 @@ function newState(o={}){
  const stats={health:rand(64,94),happy:rand(65,95),smart:rand(40,91),looks:rand(34,91),fitness:rand(30,80),discipline:rand(35,82),karma:60,fame:0,reputation:65};if(origin==='struggling'){stats.discipline+=8;stats.happy-=8}if(origin==='wealthy'||origin==='royal'){stats.happy+=4;stats.smart+=7}if(talent!=='random'&&talent!=='all')stats[talent]&&(stats[talent]=Math.max(stats[talent],82));Object.keys(stats).forEach(k=>stats[k]=cap(stats[k]));
  const skills={music:rand(0,34),sport:rand(0,34),acting:rand(0,34),coding:rand(0,34),business:rand(0,34),social:rand(0,34),politics:rand(0,34),art:rand(0,34),writing:rand(0,34)};if(talent!=='random'&&skills[talent]!=null)skills[talent]=80;if(talent==='all')Object.keys(skills).forEach(k=>skills[k]=85);
  const relations=[{id:1,name:pick(FIRST)+' '+pick(LAST),type:'mother',bond:base,age:rand(24,42),alive:true},{id:2,name:pick(FIRST)+' '+pick(LAST),type:'father',bond:base,age:rand(26,46),alive:true}];if(chance(58))relations.push({id:3,name:relationshipName(),type:'sibling',bond:rand(35,95),age:rand(0,8),alive:true});
- return {version:1,id:Date.now(),name,avatar:o.avatar||pick(EMOJIS),gender:o.gender||'Nonbinary',country,origin,age:0,year:2000,alive:true,deathCause:'',stats,skills,ap:6,cash:origin==='royal'?5000:origin==='wealthy'?500:origin==='struggling'?0:50,debt:0,allowance:origin==='wealthy'?120:origin==='struggling'?8:35,familyWealth:familCash,grades:rand(53,86),education:'Preschool',degree:'',degrees:[],studying:null,job:null,jobHistory:[],unemployed:0,office:null,approval:50,relationships:relations,nextRelId:4,childrenBorn:0,pets:[],homes:[],cars:[],businesses:[],portfolio:{index:0,tech:0,green:0,crypto:0,bonds:0},prices:Object.fromEntries(MARKETS.map(m=>[m.id,m.base])),marketNews:'The markets are calm.',followers:rand(0,25),creations:0,records:0,books:0,prison:0,criminalRecord:0,scandal:0,crimeCount:0,healthConditions:[],places:[],donated:0,volunteer:0,log:[{age:0,text:`🌟 ${name} was born in ${country}. A brand-new story begins.`,type:'birth'}],flags:{companiesFounded:0,rewound:false,served:false,gambleLoss:false},yearAction:{},snapshots:[],awards:[],paused:false,legacyParent:o.legacyParent||null,gameplayTurns:0}
+ return {version:1,id:Date.now(),name,avatar:o.avatar||pick(EMOJIS),gender:o.gender||'Nonbinary',country,origin,age:0,year:2000,alive:true,deathCause:'',stats,skills,ap:6,cash:origin==='royal'?5000:origin==='wealthy'?500:origin==='struggling'?0:50,debt:0,allowance:origin==='wealthy'?120:origin==='struggling'?8:35,familyWealth:familCash,grades:rand(53,86),education:'Preschool',degree:'',degrees:[],studying:null,job:null,jobHistory:[],unemployed:0,office:null,approval:50,relationships:relations,nextRelId:4,childrenBorn:0,pets:[],homes:[],cars:[],businesses:[],portfolio:{index:0,tech:0,green:0,crypto:0,bonds:0},prices:Object.fromEntries(MARKETS.map(m=>[m.id,m.base])),marketNews:'The markets are calm.',followers:rand(0,25),creations:0,records:0,books:0,prison:0,criminalRecord:0,scandal:0,crimeCount:0,healthConditions:[],places:[],donated:0,volunteer:0,log:[{age:0,text:`🌟 ${name} was born in ${country}. A brand-new story begins.`,type:'birth'}],eventHistory:[],flags:{companiesFounded:0,rewound:false,served:false,gambleLoss:false},yearAction:{},snapshots:[],awards:[],paused:false,legacyParent:o.legacyParent||null,gameplayTurns:0}
 }
 let s=null, tab='home', modal=null, toastTimer=null, categoryFilter='all', jobQuery='', feedLimit=40;
-let ageFxPending=false,ageFxTimer=null;
+let ageFxPending=false,ageFxTimer=null,ageFxFrom=0,ageFxTo=0;
 try{const loaded=JSON.parse(storage.getItem(KEY));if(loaded&&loaded.version===1&&loaded.stats&&Array.isArray(loaded.log))s=loaded}catch(e){}
 function save(){try{storage.setItem(KEY,JSON.stringify(s))}catch(e){}}
 function log(t,type='normal'){if(!s)return;s.log.unshift({age:s.age,text:t,type});if(s.log.length>520)s.log.length=520}
@@ -161,7 +191,7 @@ function ageUp(){
  ensureExpansions(s);
  if(!s||!s.alive){fail('Your story has ended. Start a new life or open your legacy.');return}
  const snapshot=objcopy({...s,snapshots:[]});s.snapshots.unshift(snapshot);if(s.snapshots.length>8)s.snapshots.length=8;
- s.age++;ageFxPending=tab==='home'&&window.matchMedia('(max-width:760px)').matches;log(`🎂 You turned ${s.age}. Another chapter begins!`,'event');s.year=2000+s.age;s.ap=9+(s.stats.discipline>=85?2:0);s.yearAction={};
+ ageFxFrom=s.age;s.age++;ageFxTo=s.age;ageFxPending=tab==='home'&&window.matchMedia('(max-width:760px)').matches;log(`🎂 You turned ${s.age}. Another chapter begins!`,'event');s.year=2000+s.age;s.ap=9+(s.stats.discipline>=85?2:0);s.yearAction={};
  if(s.age<=17){const allowance=Math.round(s.allowance*(s.age>=13?4:1));s.cash+=allowance;s.grades=cap(s.grades+rand(-6,4)+Math.round((s.stats.smart-55)/15));s.education=s.age<5?'Early Childhood':s.age<13?'Primary School':s.age<18?'Secondary School':'Secondary School';if(s.age===5)log('🎒 Your first day at primary school!');if(s.age===13)log('🏫 You started secondary school.');if(s.age===16)log('🚘 You are old enough to start learning to drive.');}
  if(s.age===18){s.education='High School Graduate';log(`🎓 You graduated high school with ${s.grades}% marks. What comes next?`,'event');if(s.origin==='wealthy'&&chance(75)){let gift=rand(10000,75000);s.cash+=gift;log(`🎁 Your family gave you ${cash(gift)} as an adulthood gift.`)}}
  if(s.studying){let e=s.studying;const tuition=e.price;if(s.cash>=tuition){s.cash-=tuition}else{s.debt+=Math.round(tuition*1.045)}e.years--;s.grades=cap(s.grades+rand(-3,5)+(s.stats.smart>75?3:0));if(e.years<=0){s.degrees.push(e.major);s.degree=e.major;s.education=`${e.level} in ${e.major}`;s.studying=null;stat('smart',7);log(`🎓 Graduated! You earned a ${e.level} in ${e.major}.`,'event')}}
@@ -191,13 +221,54 @@ function ageUp(){
  if(s.age>=70){if(chance(cap((s.age-68)*.55,1,55)+Math.max(0,35-s.stats.health)*.4)){die(pick(['natural causes','old age','a sudden illness']));return}}
  if(s.stats.health<=0){die('ill health');return}
  if(s.age>119){die('old age');return}
- const relevant=EVENTS.filter(e=>(!e.min||s.age>=e.min)&&(!e.max||s.age<=e.max)&&(!e.when||e.when()));const selected=pick(relevant);if(selected)eventModal(selected);
+ const selected=selectUnseenLifeEvent();
+ if(selected)eventModal(selected);
+ else log('🌿 This was a quieter year, filled with small everyday moments.');
  checkAward();save();render();
 }
 function die(cause){s.alive=false;s.deathCause=cause;log(`🕯️ ${s.name} died at age ${s.age} from ${cause}. Net worth: ${cash(worth())}.`,'event');checkAward();const history=JSON.parse(storage.getItem(ARCHIVE)||'[]');history.unshift({name:s.name,avatar:s.avatar,age:s.age,year:s.year,worth:worth(),cause:s.deathCause,awards:s.awards.length,children:s.relationships.filter(x=>x.type==='child').length});storage.setItem(ARCHIVE,JSON.stringify(history.slice(0,30)));save();modal={title:'Your story has ended',icon:'🕯️',body:`${esc(s.name)} lived for ${s.age} years. Final net worth: <b>${cash(worth())}</b>.<br><br>You earned ${s.awards.length} achievements and had ${s.relationships.filter(x=>x.type==='child').length} children. Your story lives in the Legacy Hall.`,choices:[{text:'👶 Begin another life',fn:()=>{s=null;save();render()}},{text:'🏆 View your legacy',fn:()=>{modal=null;setTab('saves')}}]};render()}
 function effect(o){if(!o)return;for(const [k,v] of Object.entries(o)){if(k==='money')s.cash+=v;if(k==='debt')s.debt+=v;if(k==='karma')stat('karma',v);if(k==='happy')stat('happy',v);if(k==='health')stat('health',v);if(k==='smart')stat('smart',v);if(k==='looks')stat('looks',v);if(k==='fame')stat('fame',v);if(k==='reputation')stat('reputation',v);if(k==='fitness')stat('fitness',v);if(k==='discipline')stat('discipline',v);if(k==='followers')s.followers=Math.max(0,s.followers+v);if(k.startsWith('skill:'))skill(k.split(':')[1],v);if(k==='grades')s.grades=cap(s.grades+v);if(k==='bond'){const r=pick(s.relationships.filter(x=>x.alive));if(r)r.bond=cap(r.bond+v)}if(k==='randomMoney')s.cash+=rand(v[0],v[1]);if(k==='randomFame')stat('fame',rand(v[0],v[1]))}}
 function eventModal(e){modal={title:e.title,icon:e.icon||'✨',body:e.desc,choices:e.options.map(o=>({text:o[0],hint:o[1],fn:()=>{effect(o[2]);if(o[3])o[3]();modal=null;commit(`✨ ${e.title}: ${o[4]||o[0]}`,'event')}}))};if(!ageFxPending)renderModal()}
 const EVENTS=[
+{min:1,max:5,icon:"🫧",title:"Bubbles Everywhere",desc:"A cloud of bubbles floats across the garden.",options:[["Chase them",'Follow your curiosity',{"happy":7,"fitness":2}],["Pop a big one",'See what happens',{"smart":4,"happy":2}],["Watch them drift",'Another way to play',{"happy":4}]]},
+{min:1,max:5,icon:"📚",title:"Picture Book Adventure",desc:"A family member opens an enormous picture book.",options:[["Find the animals",'Follow your curiosity',{"smart":6}],["Ask for another story",'See what happens',{"happy":6,"bond":3}],["Turn the pages",'Another way to play',{"discipline":3,"smart":3}]]},
+{min:1,max:5,icon:"🎵",title:"Bedtime Song",desc:"You hear your favourite bedtime song.",options:[["Sing along",'Follow your curiosity',{"happy":4,"skill:music":5}],["Dance around",'See what happens',{"fitness":4,"happy":4}],["Cuddle up",'Another way to play',{"happy":7,"bond":3}]]},
+{min:1,max:5,icon:"🧱",title:"Block Tower",desc:"Your tower of toy blocks is getting very tall.",options:[["Keep stacking",'Follow your curiosity',{"smart":5,"discipline":2}],["Knock it down",'See what happens',{"happy":7}],["Invite a helper",'Another way to play',{"karma":4,"happy":4}]]},
+{min:1,max:5,icon:"🐶",title:"Friendly Puppy",desc:"A gentle puppy visits with a family friend.",options:[["Pet it softly",'Follow your curiosity',{"karma":5,"happy":6}],["Learn its name",'See what happens',{"smart":5}],["Wave hello",'Another way to play',{"happy":4}]]},
+{min:1,max:5,icon:"🌧️",title:"Rainy Window",desc:"Raindrops make patterns down your bedroom window.",options:[["Count the drops",'Follow your curiosity',{"happy":7,"fitness":2}],["Dance to the rhythm",'See what happens',{"smart":4,"happy":2}],["Watch the clouds",'Another way to play',{"happy":4}]]},
+{min:1,max:5,icon:"🧸",title:"The Missing Plushie",desc:"Your favourite stuffed animal is nowhere to be found.",options:[["Look under the bed",'Follow your curiosity',{"smart":6}],["Ask for help",'See what happens',{"happy":6,"bond":3}],["Choose another toy",'Another way to play',{"discipline":3,"smart":3}]]},
+{min:1,max:5,icon:"🎨",title:"Finger Paint Surprise",desc:"Someone gives you colourful paints and lots of paper.",options:[["Paint a rainbow",'Follow your curiosity',{"happy":4,"skill:music":5}],["Make handprints",'See what happens',{"fitness":4,"happy":4}],["Mix new colours",'Another way to play',{"happy":7,"bond":3}]]},
+{min:1,max:5,icon:"🥁",title:"Kitchen Drum Kit",desc:"Wooden spoons and containers become a drum kit.",options:[["Keep the beat",'Follow your curiosity',{"smart":5,"discipline":2}],["Perform a song",'See what happens',{"happy":7}],["Help tidy up",'Another way to play',{"karma":4,"happy":4}]]},
+{min:1,max:6,icon:"🛝",title:"The Big Playground",desc:"There is a slide, a swing and so much room to explore.",options:[["Try the slide",'Follow your curiosity',{"karma":5,"happy":6}],["Play with a friend",'See what happens',{"smart":5}],["Explore with family",'Another way to play',{"happy":4}]]},
+{min:2,max:6,icon:"🌱",title:"A Tiny Garden",desc:"Your family lets you plant your very own flower seed.",options:[["Water it",'Follow your curiosity',{"happy":7,"fitness":2}],["Sketch the plant",'See what happens',{"smart":4,"happy":2}],["Learn how it grows",'Another way to play',{"happy":4}]]},
+{min:2,max:7,icon:"🐦",title:"Bird on the Fence",desc:"A little bird lands nearby and starts hopping around.",options:[["Watch quietly",'Follow your curiosity',{"smart":6}],["Draw the bird",'See what happens',{"happy":6,"bond":3}],["Tell your family",'Another way to play',{"discipline":3,"smart":3}]]},
+{min:2,max:6,icon:"🍎",title:"Snack Time Surprise",desc:"There are two tasty snacks waiting on the table.",options:[["Try the fruit",'Follow your curiosity',{"happy":4,"skill:music":5}],["Share a snack",'See what happens',{"fitness":4,"happy":4}],["Try something new",'Another way to play',{"happy":7,"bond":3}]]},
+{min:2,max:6,icon:"🎈",title:"A Balloon Escapes",desc:"A party balloon floats all the way up to the ceiling.",options:[["Ask for help",'Follow your curiosity',{"smart":5,"discipline":2}],["Find a new balloon",'See what happens',{"happy":7}],["Watch it float",'Another way to play',{"karma":4,"happy":4}]]},
+{min:2,max:7,icon:"🎪",title:"The Puppet Show",desc:"A silly puppet show starts in the living room.",options:[["Perform a scene",'Follow your curiosity',{"karma":5,"happy":6}],["Invent a story",'See what happens',{"smart":5}],["Applaud loudly",'Another way to play',{"happy":4}]]},
+{min:2,max:7,icon:"🪁",title:"Kite in the Wind",desc:"A colourful kite is dancing in the breeze.",options:[["Fly the kite",'Follow your curiosity',{"happy":7,"fitness":2}],["Hold the string",'See what happens',{"smart":4,"happy":2}],["Watch from the grass",'Another way to play',{"happy":4}]]},
+{min:3,max:8,icon:"🧩",title:"The Tricky Puzzle",desc:"A jigsaw puzzle is nearly done, but the last pieces are tricky.",options:[["Keep trying",'Follow your curiosity',{"smart":6}],["Ask for a hint",'See what happens',{"happy":6,"bond":3}],["Take a break",'Another way to play',{"discipline":3,"smart":3}]]},
+{min:3,max:8,icon:"🎂",title:"Birthday Party Games",desc:"A friend invites you to a birthday party full of games.",options:[["Join the treasure hunt",'Follow your curiosity',{"happy":4,"skill:music":5}],["Help set up",'See what happens',{"fitness":4,"happy":4}],["Dance to the music",'Another way to play',{"happy":7,"bond":3}]]},
+{min:3,max:9,icon:"🦋",title:"Butterfly Discovery",desc:"A colourful butterfly lands right beside you.",options:[["Watch it carefully",'Follow your curiosity',{"smart":5,"discipline":2}],["Sketch its wings",'See what happens',{"happy":7}],["Ask about butterflies",'Another way to play',{"karma":4,"happy":4}]]},
+{min:3,max:9,icon:"🎭",title:"Dress-Up Day",desc:"You find a box of costumes and a room full of possibilities.",options:[["Be a superhero",'Follow your curiosity',{"karma":5,"happy":6}],["Put on a show",'See what happens',{"smart":5}],["Design a costume",'Another way to play',{"happy":4}]]},
+{min:3,max:7,icon:"🛝",title:"The Slide Challenge",desc:"A taller slide looks exciting but a little scary.",options:[["Try it carefully",'Follow your curiosity',{"happy":7,"fitness":2}],["Start on a small slide",'See what happens',{"smart":4,"happy":2}],["Cheer on a friend",'Another way to play',{"happy":4}]]},
+{min:4,max:9,icon:"🚲",title:"Learning to Balance",desc:"You have a chance to ride a small bicycle.",options:[["Practice carefully",'Follow your curiosity',{"smart":6}],["Ask for a helping hand",'See what happens',{"happy":6,"bond":3}],["Play outside instead",'Another way to play',{"discipline":3,"smart":3}]]},
+{min:4,max:9,icon:"🎨",title:"The Art Competition",desc:"Your class is preparing an exhibition of artwork.",options:[["Draw your dream house",'Follow your curiosity',{"happy":4,"skill:music":5}],["Paint with a friend",'See what happens',{"fitness":4,"happy":4}],["Make a collage",'Another way to play',{"happy":7,"bond":3}]]},
+{min:4,max:10,icon:"🏕️",title:"Backyard Camping",desc:"Blankets and chairs turn into a pretend campsite.",options:[["Build a huge tent",'Follow your curiosity',{"smart":5,"discipline":2}],["Tell funny stories",'See what happens',{"happy":7}],["Tidy everything away",'Another way to play',{"karma":4,"happy":4}]]},
+{min:5,max:12,icon:"📕",title:"Library Treasure Hunt",desc:"The library hides clues inside books.",options:[["Read all the clues",'Follow your curiosity',{"karma":5,"happy":6}],["Team up with a friend",'See what happens',{"smart":5}],["Browse an unfamiliar shelf",'Another way to play',{"happy":4}]]},
+{min:5,max:12,icon:"🤝",title:"New Kid in Class",desc:"A new student looks nervous on their first day.",options:[["Say hello",'Follow your curiosity',{"happy":7,"fitness":2}],["Show them around",'See what happens',{"smart":4,"happy":2}],["Invite them to play",'Another way to play',{"happy":4}]]},
+{min:5,max:12,icon:"🔬",title:"The Science Table",desc:"Your teacher brings out magnets, leaves and experiments.",options:[["Experiment with magnets",'Follow your curiosity',{"smart":6}],["Examine leaves",'See what happens',{"happy":6,"bond":3}],["Explain a discovery",'Another way to play',{"discipline":3,"smart":3}]]},
+{min:6,max:14,icon:"⚽",title:"Playground Match",desc:"Two teams need one more player for their lunchtime match.",options:[["Join the match",'Follow your curiosity',{"happy":4,"skill:music":5}],["Be the referee",'See what happens',{"fitness":4,"happy":4}],["Cheer for everyone",'Another way to play',{"happy":7,"bond":3}]]},
+{min:6,max:15,icon:"💻",title:"First Coding Challenge",desc:"Your class is invited to build a simple digital game.",options:[["Build a maze",'Follow your curiosity',{"smart":5,"discipline":2}],["Make digital art",'See what happens',{"happy":7}],["Team up with friends",'Another way to play',{"karma":4,"happy":4}]]},
+{min:6,max:15,icon:"📖",title:"The Reading Marathon",desc:"Your class challenges everyone to finish a book.",options:[["Pick a huge novel",'Follow your curiosity',{"karma":5,"happy":6}],["Share stories",'See what happens',{"smart":5}],["Read a comic",'Another way to play',{"happy":4}]]},
+{min:7,max:17,icon:"🎻",title:"The Music Tryout",desc:"There is an opening in the school music performance.",options:[["Learn an instrument",'Follow your curiosity',{"happy":7,"fitness":2}],["Join the choir",'See what happens',{"smart":4,"happy":2}],["Help backstage",'Another way to play',{"happy":4}]]},
+{min:7,max:17,icon:"🏅",title:"Sports Day Surprise",desc:"Sports day is coming up and you can pick your event.",options:[["Enter a sprint",'Follow your curiosity',{"smart":6}],["Join the relay",'See what happens',{"happy":6,"bond":3}],["Help organise",'Another way to play',{"discipline":3,"smart":3}]]},
+{min:8,max:17,icon:"🧠",title:"Debate Club",desc:"Someone invites you to debate a surprisingly tricky topic.",options:[["Join the debate",'Follow your curiosity',{"happy":4,"skill:music":5}],["Research the topic",'See what happens',{"fitness":4,"happy":4}],["Judge fairly",'Another way to play',{"happy":7,"bond":3}]]},
+{min:8,max:17,icon:"🧑‍🎨",title:"Community Mural",desc:"Students are invited to help paint a neighbourhood mural.",options:[["Paint a section",'Follow your curiosity',{"smart":5,"discipline":2}],["Organise supplies",'See what happens',{"happy":7}],["Bring friends",'Another way to play',{"karma":4,"happy":4}]]},
+{min:9,max:17,icon:"🎤",title:"Open Mic at School",desc:"Students can perform music, comedy or poetry.",options:[["Perform a song",'Follow your curiosity',{"karma":5,"happy":6}],["Tell a funny story",'See what happens',{"smart":5}],["Cheer on performers",'Another way to play',{"happy":4}]]},
+{min:9,max:17,icon:"🌻",title:"School Garden Project",desc:"Your class starts a garden and needs volunteers.",options:[["Plant vegetables",'Follow your curiosity',{"happy":7,"fitness":2}],["Design the garden",'See what happens',{"smart":4,"happy":2}],["Water the plants",'Another way to play',{"happy":4}]]},
+{min:10,max:18,icon:"🗺️",title:"The Geography Quest",desc:"Your class is entering a world-map challenge.",options:[["Study the world map",'Follow your curiosity',{"smart":6}],["Lead the team",'See what happens',{"happy":6,"bond":3}],["Play for fun",'Another way to play',{"discipline":3,"smart":3}]]},
+{min:10,max:18,icon:"📰",title:"Student Newspaper",desc:"The school is looking for writers and photographers.",options:[["Write an article",'Follow your curiosity',{"happy":4,"skill:music":5}],["Take photos",'See what happens',{"fitness":4,"happy":4}],["Interview a friend",'Another way to play',{"happy":7,"bond":3}]]},
+
 {min:1,max:5,icon:'🧸',title:'The Toy Incident',desc:'Another child wants your favourite toy. They refuse to give it back.',options:[['Share it','Choose kindness',{karma:5,happy:-3,bond:3}],['Ask for help','The grown-up solution',{smart:3,happy:3}],['Grab it back','A loud argument',{happy:4,karma:-5}]]},
 {min:3,max:11,icon:'🍪',title:'Cookie Jar Mystery',desc:'The last cookie is sitting on the kitchen counter. Nobody is watching.',options:[['Eat it','A secret snack',{happy:5,karma:-3}],['Save it for someone','A thoughtful gesture',{karma:5,happy:3}],['Try baking more','A culinary origin story',{smart:3,'skill:cooking':2}]]},
 {min:6,max:18,icon:'📚',title:'The Surprise Test',desc:'Your teacher announces a surprise test and the entire room goes silent.',options:[['Give it your all','Hard work matters',{grades:8,smart:2,happy:-2}],['Guess the answers','Leave it to luck',{grades:rand(-9,6)}],['Help a classmate prepare','Team effort',{grades:3,karma:5}]]},
@@ -257,6 +328,19 @@ const EVENTS=[
 {min:70,icon:'🎖️',title:'Lifetime Achievement',desc:'Your town wants to celebrate some of its oldest residents.',options:[['Attend the celebration','Celebrate your life',{fame:5,happy:12}],['Thank your supporters','Show gratitude',{karma:8,bond:9}],['Stay home and relax','Keep it mellow',{health:6,happy:4}]]},
 {min:75,icon:'🌅',title:'The Golden Years',desc:'You have a beautiful afternoon with no responsibilities.',options:[['Take a long walk','Appreciate the moment',{health:7,happy:9}],['Call your family','Connect with loved ones',{bond:12,happy:8}],['Write down your story','A lasting record',{'skill:writing':9,smart:3}]]}
 ];
+
+function selectUnseenLifeEvent(){
+  // Continue old save files without repeating incidents that already occurred.
+  if(!Array.isArray(s.eventHistory)){
+    s.eventHistory=EVENTS.filter(e=>s.log.some(entry=>entry.text?.startsWith('✨ '+e.title+':'))).map(e=>e.title);
+  }
+  const seen=new Set(s.eventHistory);
+  const available=EVENTS.filter(e=>(!e.min||s.age>=e.min)&&(!e.max||s.age<=e.max)&&(!e.when||e.when())&&!seen.has(e.title));
+  if(!available.length)return null;
+  const selected=pick(available);
+  s.eventHistory.push(selected.title);
+  return selected;
+}
 function dialog(title,icon,body,choices=[],wide=false){modal={title,icon,body,choices,wide};renderModal()}
 function closeDialog(){modal=null;renderModal()}
 function choose(title,icon,body,options){dialog(title,icon,body,options.map(o=>({text:o.text,hint:o.hint,fn:()=>{closeDialog();o.fn()}})))}
@@ -446,7 +530,7 @@ function miniLifeStat(key,emoji,label,tint){
 }
 function homeMobile(){
   const stage=lifeStage();
-  const logItems=s.log.slice(0,120);
+  const logItems=s.log.slice(0,120).reverse();
   return `<div class="mobile-home-only life-home ${ageFxPending?'age-playing':''}">
     <div class="life-header">
       <div class="life-idrow">
@@ -472,9 +556,10 @@ function homeMobile(){
       </div>
     </section>
     <div class="home-controls">
-      <button class="home-control" data-tab="actions"><span class="control-symbol">⚡</span>Actions</button>
-      <button class="home-control" data-tab="${stage.tab}"><span class="control-symbol">${stage.icon}</span>${stage.label}</button>
+      <button class="home-control actions-shortcut" data-tab="actions"><span class="control-symbol">⚡</span>Actions</button>
       <button class="home-control primary" data-act="age" ${s.alive?'':'disabled'}><span class="control-symbol">🎂</span>Age Up</button>
+      <button class="home-control stage-shortcut" data-tab="${stage.tab}"><span class="control-symbol">${stage.icon}</span>${stage.label}</button>
+      <button class="home-control relations-shortcut" data-tab="people"><span class="control-symbol">💞</span>Relationships</button>
     </div>
   </div>`;
 }
@@ -539,16 +624,43 @@ function render(){
   if(!s){renderSetup();document.getElementById('modal-root').innerHTML='';return}
   document.getElementById('app').innerHTML=`<div class="shell">${renderSidebar()}<main class="main">${renderTop()}${renderContent()}</main>${renderRight()}</div>${renderMobile()}`;
   if(tab==='career'&&jobQuery)filterJobList();
+  if(tab==='home'){
+    const feed=document.querySelector('.home-feed');
+    if(feed)feed.scrollTop=feed.scrollHeight;
+  }
   if(ageFxPending&&tab==='home'){
     document.getElementById('modal-root').innerHTML='';
+    document.querySelector('.birthday-scene')?.remove();
+    document.body.insertAdjacentHTML('beforeend',birthdayScreen());
     clearTimeout(ageFxTimer);
-    ageFxTimer=setTimeout(()=>{ageFxPending=false;document.querySelector('.life-home')?.classList.remove('age-playing');renderModal()},850);
+    ageFxTimer=setTimeout(finishBirthday,window.matchMedia('(prefers-reduced-motion: reduce)').matches?200:1550);
   }else renderModal();
+}
+
+function birthdayScreen(){
+  const sparks=Array.from({length:16},(_,i)=>`<span class="birthday-spark" style="--angle:${i*22.5}deg;--delay:${(i%4)*45}ms"></span>`).join('');
+  return `<div class="birthday-scene" role="status" aria-label="You turned ${ageFxTo}">
+    ${sparks}
+    <div class="birthday-caption">✦ New chapter ✦</div>
+    <div class="birthday-numbers"><span class="birthday-previous" aria-hidden="true">${ageFxFrom}</span><span class="birthday-current">${ageFxTo}</span></div>
+    <div class="birthday-message">Happy Birthday! 🎉</div>
+    <div class="birthday-year">Your story continues · ${s.year}</div>
+    <button class="birthday-skip" data-skip-birthday="1">Continue ›</button>
+  </div>`;
+}
+function finishBirthday(){
+  if(!ageFxPending)return;
+  ageFxPending=false;
+  clearTimeout(ageFxTimer);
+  document.querySelector('.birthday-scene')?.remove();
+  document.querySelector('.life-home')?.classList.remove('age-playing');
+  renderModal();
 }
 function renderModal(){const root=document.getElementById('modal-root');if(!modal){root.innerHTML='';return}const m=modal;root.innerHTML=`<div class="modal-backdrop" role="presentation"><div class="modal ${m.wide?'wide':''}" role="dialog" aria-modal="true" aria-label="${esc(m.title)}"><div class="modal-icon">${m.icon||'✨'}</div><h2>${esc(m.title)}</h2><p>${m.body||''}</p><div class="modal-actions">${(m.choices||[]).map((c,i)=>`<button class="choice" data-choice="${i}"><span><strong>${esc(c.text)}</strong>${c.hint?`<small>${esc(c.hint)}</small>`:''}</span><span class="arrow">➜</span></button>`).join('')}</div>${!m.noClose?'<button class="modal-close" data-close="1">✕ Close</button>':''}</div></div>`}
 function filterJobList(){const input=document.getElementById('job-search');if(!input)return;const q=jobQuery.trim().toLowerCase();document.querySelectorAll('[data-job-search]').forEach(el=>{el.hidden=!el.dataset.jobSearch.includes(q)})}
 function openMore(){const choices=NAV.flatMap(([group,items])=>items.map(([id,em,name])=>({text:`${em} ${name}`,hint:group,fn:()=>{tab=id;render()}})));choose('Explore Everafter','🗺️','Jump to any of the game systems. Nothing is locked behind payments.',choices)}
 document.addEventListener('click',e=>{
+ if(e.target.closest('[data-skip-birthday]')){finishBirthday();return}
  const close=e.target.closest('[data-close]');if(close){closeDialog();return}
  const choice=e.target.closest('[data-choice]');if(choice&&modal){const c=modal.choices[Number(choice.dataset.choice)];if(c&&typeof c.fn==='function'){try{c.fn()}catch(err){console.error(err);fail('Something went wrong: '+err.message)}}return}
  const nav=e.target.closest('[data-tab]');if(nav){nav.dataset.tab==='more'?openMore():setTab(nav.dataset.tab);return}

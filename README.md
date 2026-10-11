@@ -79,6 +79,15 @@ This is intended to prevent future **Missing Compliance** warnings on new builds
 
 If the app later adds non-exempt encryption or third-party encryption libraries, reassess this declaration rather than keeping it false automatically.
 
+## Gameplay and layout improvements (build 4)
+
+- Age Up is the central bottom button. A new **Relationships** shortcut sits below the three main controls.
+- The birthday sequence shows a full-screen purple chapter transition, old-to-new age flip, animated sparkles and a **Continue** button. Reduced-motion settings are respected.
+- The Recent Events panel displays oldest-first chronologically and automatically scrolls to the most recent entry.
+- Added **38 new baby, childhood and school events** to vary the youngest years.
+- Each incident can appear only once per life. The game also checks the existing timeline when updating older save files, so previously encountered toy/cookie incidents remain excluded.
+- Both build and TestFlight workflows run a JavaScript regression test for incident uniqueness, save migration and mobile controls.
+
 ## Storage
 
 The game uses a persistent `WKWebView` data store for local save slots. It supports JSON export and import from the in-game interface. Like any app, save data could be lost when uninstalling, so export anything important beforehand.
