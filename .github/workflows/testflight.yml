@@ -123,6 +123,24 @@ jobs:
           ACTUAL_ID=$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$APP_PATH/Info.plist")
           test "$DISPLAY_NAME" = "EverAfter"
           test "$ACTUAL_ID" = "$BUNDLE_ID"
+          APP_INFO="$APP_PATH/Info.plist" python3 - <<'PY'
+          import os, plistlib
+          with open(os.environ['APP_INFO'], 'rb') as f:
+              info = plistlib.load(f)
+          expected_ipad = {
+              'UIInterfaceOrientationPortrait',
+              'UIInterfaceOrientationPortraitUpsideDown',
+              'UIInterfaceOrientationLandscapeLeft',
+              'UIInterfaceOrientationLandscapeRight',
+          }
+          iphone = info.get('UISupportedInterfaceOrientations')
+          ipad = info.get('UISupportedInterfaceOrientations~ipad')
+          if not isinstance(iphone, list) or 'UIInterfaceOrientationPortrait' not in iphone:
+              raise SystemExit(f'Missing iPhone portrait orientation in Info.plist: {iphone!r}')
+          if not isinstance(ipad, list) or not expected_ipad.issubset(ipad):
+              raise SystemExit(f'Missing required iPad orientations in Info.plist: {ipad!r}')
+          print('Verified iPhone portrait and all four iPad interface orientations')
+          PY
 
       - name: Configure automatic App Store distribution signing
         shell: bash
@@ -154,11 +172,21 @@ jobs:
           fi
           echo "IPA_PATH=$IPA_PATH" >> "$GITHUB_ENV"
 
-      - name: Upload signed IPA to Everafter TestFlight
+      - name: Upload signed IPA to EverAfter TestFlight and verify Apple's response
         shell: bash
         run: |
           set -euo pipefail
-          xcrun altool --upload-app --type ios --file "$IPA_PATH" --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+          # Apple's uploader can return status 0 even when the output explicitly says UPLOAD FAILED.
+          xcrun altool --upload-app --type ios --file "$IPA_PATH" --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID" 2>&1 | tee build/upload.log
+          if grep -Eiq 'UPLOAD FAILED|Failed to upload package|Validation failed|ERROR:.*\[(altool|ContentDelivery)' build/upload.log; then
+            echo "::error::Apple rejected the package; inspect the upload log in workflow artifacts."
+            exit 1
+          fi
+          if ! grep -Eiq 'UPLOAD SUCCEEDED|No errors uploading' build/upload.log; then
+            echo "::error::Apple did not explicitly confirm successful upload; do not treat this run as a success."
+            exit 1
+          fi
+          echo "Apple confirmed that the uploaded package was accepted."
 
       - name: Upload build diagnostics
         if: always()
@@ -168,4 +196,5 @@ jobs:
           path: |
             build/archive.log
             build/export.log
+            build/upload.log
           if-no-files-found: warn

@@ -13,6 +13,17 @@ targets:
   Everafter:
     type: application
     platform: iOS
+    info:
+      path: Everafter/Info.plist
+      properties:
+        CFBundleDisplayName: EverAfter
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
     sources:
       - path: Everafter
         excludes:
