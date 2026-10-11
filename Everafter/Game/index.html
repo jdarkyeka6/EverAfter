@@ -187,7 +187,7 @@ body.everafter-home-active{background:radial-gradient(ellipse at 50% -20%,#5b368
  .home-control.relations-shortcut .control-symbol{width:21px;height:21px}
  .life-home .home-controls{gap:7px}
  .modal.life-dilemma{overflow-y:auto;overscroll-behavior:contain;max-height:calc(90dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom))}
- .modal.life-dilemma .event-illustration{display:block;width:100%;height:clamp(132px,24vh,185px);object-fit:cover;border-radius:16px;border:1px solid #c9a9f553;margin:3px 0 14px;box-shadow:0 8px 25px #09061e80;background:#2c1b47}
+ .modal.life-dilemma .event-illustration{display:block;width:100%;aspect-ratio:860/420;height:auto;max-height:210px;object-fit:cover;border-radius:16px;border:1px solid #c9a9f553;margin:3px 0 14px;box-shadow:0 8px 25px #09061e80;background:#2c1b47}
  .modal.life-dilemma .modal-icon{display:none}
  .modal.life-dilemma .event-tag{margin:0 0 11px}
  .birthday-scene .birthday-stage-art{position:absolute;inset:auto 0 0;height:42%;opacity:.22;object-fit:cover;width:100%;pointer-events:none;mask-image:linear-gradient(to bottom,transparent,#000 38%,#000)}
@@ -197,6 +197,22 @@ body.everafter-home-active{background:radial-gradient(ellipse at 50% -20%,#5b368
 }
 @media(min-width:761px){.hero .avatar.portrait{overflow:hidden;padding:0}.hero .avatar.portrait img{width:100%;height:100%;object-fit:cover;border-radius:inherit}}
 
+
+@media(max-width:760px){
+ .life-header{background-position:center;background-size:cover;transition:background-image .28s ease}
+ .life-avatar{width:54px;height:54px;flex-basis:54px;border-radius:18px;box-shadow:0 7px 24px #160c2bd1,0 0 0 1px #ffd9ff61}
+ .life-avatar .portrait-image{image-rendering:auto}
+ .life-stat{box-shadow:0 5px 15px #14081e52;transition:transform .14s ease,background .14s ease}
+ .life-stat:active{transform:scale(.95)}
+ .home-controls .home-control{box-shadow:0 5px 15px #160a2657}
+ .modal.life-dilemma .event-illustration{margin:0 0 15px;border-radius:17px;box-shadow:0 14px 32px #0d061abe;border-color:#eccfff7a}
+ .modal.life-dilemma .event-tag{letter-spacing:1.8px;font-size:10px}
+ .modal.life-dilemma h2{letter-spacing:-.45px;font-weight:900}
+ .modal.life-dilemma .choice{transition:transform .15s ease,background-color .15s ease,border-color .15s ease}
+ .modal.life-dilemma .choice:active{transform:scale(.988);border-color:#e5baff}
+}
+@media(max-width:365px){.life-avatar{width:45px;height:45px;flex-basis:45px}.modal.life-dilemma .event-illustration{max-height:146px}}
+@media(prefers-reduced-motion:reduce){.life-stat,.home-controls .home-control,.modal.life-dilemma .choice{transition:none}}
 </style></head>
 <body><div id="app"></div><div id="modal-root"></div><div class="toast-zone" id="toasts"></div><input type="file" id="import-file" accept=".json,application/json" hidden><script>
 'use strict';
@@ -670,7 +686,7 @@ function homeMobile(){
     return marker+`<div class="entry ${e.type||''}"><span class="entry-age">Age ${e.age}</span><span class="entry-text">${esc(e.text)}</span></div>`;
   }).join('');
   return `<div class="mobile-home-only life-home ${ageFxPending?'age-playing':''}">
-    <div class="life-header" style="background-image:linear-gradient(100deg,#120d20f5 0%,#180c29eb 55%,#190e2ac4 100%),url('assets/stages/${lifeArtStage()}.svg')">
+    <div class="life-header" style="background-image:linear-gradient(100deg,#120d20f2 0%,#180c29c6 51%,#190e2a9d 100%),url('assets/stages/${lifeArtStage()}.svg')">
       <div class="life-idrow">
         <div class="life-avatar"><img class="portrait-image" src="${avatarArt()}" alt="Portrait of ${esc(s.name)}"></div>
         <div class="life-identity">

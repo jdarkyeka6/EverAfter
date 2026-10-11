@@ -116,6 +116,14 @@ The iPhone game now displays the scene for your current age, evolves the charact
 
 Every GitHub Actions build checks the full artwork inventory; the TestFlight workflow also checks that essential assets were embedded into the `.app` archive before Apple upload.
 
+## Artwork quality overhaul (build 7)
+
+The 106 event assets have been **recomposed into distinct scenes**. Instead of a repeated central emoji with virtually identical figures, each event now has hand-authored SVG objects matched to the story (e.g. bakery scenes for cookies, an illustrated puppy, illustrated books, playground equipment, musical instruments, a computer, family scenes, graduation props and more), with environment-specific backgrounds and lighting. The 60 avatar illustrations have also been redrawn with more age-appropriate hairstyles, clothes, accessories and facial details.
+
+A new `scripts/validate_assets.py` runs in both CI and TestFlight workflows. It checks every SVG using a real XML parser, verifies all 187 files are present and self-contained, checks individual portraits and events are unique, and prevents uploading missing or malformed artwork.
+
+Mobile event cards give more screen space to the illustrations, while the home portrait and age-stage background are clearer. Game saves, the 12 avatar IDs, all event IDs and gameplay logic remain compatible.
+
 ## Storage
 
 The game uses a persistent `WKWebView` data store for local save slots. It supports JSON export and import from the in-game interface. Like any app, save data could be lost when uninstalling, so export anything important beforehand.

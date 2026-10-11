@@ -30,6 +30,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate every offline SVG asset
+        shell: bash
+        run: python3 scripts/validate_assets.py
+
       - name: Test life events and mobile UI
         shell: bash
         run: node scripts/test_game_ui.cjs
