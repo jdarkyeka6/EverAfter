@@ -7,6 +7,89 @@
 @media(max-width:1210px){.shell{grid-template-columns:205px minmax(0,1fr);gap:15px;padding:16px}.sidepanel{display:none}.sidebar{top:16px}.hero{padding:22px}.summary-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.shell{display:block;padding:12px 12px 94px}.sidebar,.sidepanel{display:none}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:25;height:calc(72px + env(safe-area-inset-bottom));padding:9px 8px calc(8px + env(safe-area-inset-bottom));background:#111526f5;backdrop-filter:blur(18px);border-top:1px solid #44465c;justify-content:space-around}.mobile-nav button{background:transparent;color:#acb5cc;border:0;padding:4px 6px;font-size:10px;font-weight:750;display:grid;gap:3px;justify-items:center}.mobile-nav button span{font-size:22px}.mobile-nav button.active{color:var(--pink)}.mobile-age{display:block;position:fixed;right:17px;bottom:calc(86px + env(safe-area-inset-bottom));z-index:20;border:0;border-radius:40px;background:linear-gradient(110deg,#f07aaf,#967cff);color:#20102c;box-shadow:0 6px 28px #000b;padding:13px 18px;font-weight:950}.topbar{padding:2px 4px}.hero{border-radius:17px;padding:19px}.avatar{width:61px;height:61px;font-size:36px;border-radius:18px}.person{gap:12px}.hero h1{font-size:23px;letter-spacing:-.8px}.hero .subtitle{font-size:11px}.age-number{font-size:44px;letter-spacing:-2px}.hero-chips{margin-top:13px;gap:5px}.chip{font-size:9px;padding:6px 9px}.stat-grid{grid-template-columns:repeat(2,1fr);gap:7px}.summary-grid{gap:7px}.summary{padding:12px}.summary .value{font-size:14px}.summary .label{font-size:9px}.action-grid{grid-template-columns:1fr 1fr;gap:7px}.action-card{padding:11px;gap:7px;min-height:98px}.action-card .emoji{font-size:20px}.action-card .action-name{font-size:11px}.action-card .desc{font-size:10px}.action-card .price{font-size:9px}.grid2{grid-template-columns:1fr}.section-title h2{font-size:20px}.setup{margin:8px auto 24px;padding:18px}.form-grid{grid-template-columns:1fr 1fr}.modal{padding:20px;max-height:85vh}.toast-zone{bottom:calc(83px + env(safe-area-inset-bottom));right:10px}.award-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:400px){.action-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr 1fr}.setup-points{grid-template-columns:1fr 1fr 1fr}.topbar .eyebrow{font-size:9px}}
+
+/* EverAfter mobile-first life screen */
+.desktop-home-only{display:block}.mobile-home-only,.mobile-topbar{display:none}
+@media(max-width:760px){
+  html{width:100%;min-height:100%;overscroll-behavior-y:none}
+  body{background:#0b0b16;color:#f3f0ff}
+  .shell{display:block;max-width:none;padding:calc(env(safe-area-inset-top) + 10px) 12px calc(env(safe-area-inset-bottom) + 16px);min-height:100dvh}
+  .main{min-width:0}
+  .topbar{margin:0 0 14px}
+  .old-topbar,.desktop-home-only,.mobile-nav,.mobile-age{display:none!important}
+  .mobile-topbar{display:flex;width:100%;align-items:center;gap:8px;min-height:42px;padding:2px 0 9px;border-bottom:1px solid #303048}
+  .mobile-topbar .app-wordmark{font-size:16px;line-height:1;font-weight:950;letter-spacing:-.7px;flex:1;text-align:center;color:#f6ecff}
+  .mobile-topbar .nav-circle{display:grid;place-items:center;height:34px;min-width:34px;padding:0 7px;border:1px solid #47415f;border-radius:11px;background:#201b33;color:#ded4ff;font-size:16px}
+  .mobile-topbar .nav-circle:active{transform:scale(.96);background:#3c2e59}
+  .mobile-topbar .back-circle{font-size:22px}
+  .mobile-topbar .app-wordmark.subpage{font-size:15px}
+  .mobile-home-only{display:flex}
+  body.everafter-home-active{height:100dvh;min-height:100dvh;overflow:hidden}
+  body.everafter-home-active .shell{height:100dvh;min-height:0;display:block;overflow:hidden;padding:calc(env(safe-area-inset-top) + 9px) 12px calc(env(safe-area-inset-bottom) + 10px)}
+  body.everafter-home-active .main{height:100%;display:flex;flex-direction:column;min-height:0}
+  body.everafter-home-active .topbar{flex:0 0 auto;margin-bottom:10px}
+  .life-home{display:flex;flex-direction:column;flex:1;min-height:0;gap:12px}
+  .life-header{flex:0 0 auto;min-width:0}
+  .life-idrow{display:flex;align-items:center;gap:10px;padding:3px 2px 12px;min-width:0}
+  .life-avatar{display:grid;place-items:center;width:48px;height:48px;flex:0 0 48px;background:linear-gradient(155deg,#875fd3,#553c86);border-radius:16px;font-size:27px;border:1px solid #ac8add60}
+  .life-identity{flex:1;min-width:0}
+  .life-name{font-size:16px;line-height:1.2;margin-bottom:4px;font-weight:900;overflow-wrap:anywhere}
+  .life-sub{color:#b4a9c8;font-size:10px;line-height:1.65}
+  .life-money{flex:0 0 auto;align-self:flex-start;max-width:42%;border:1px solid #4b3c60;border-radius:12px;padding:7px 8px;background:#20192e;color:#8ef5c2;text-align:right;font-size:13px;font-weight:900;overflow-wrap:anywhere}
+  .life-money small{font-size:9px;color:#a1beaF;display:block;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;font-weight:750}
+  .life-chips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  .life-stat{min-width:0;background:#1e1b2f;border:1px solid #393048;padding:8px 5px;border-radius:13px;color:#e8dcff;text-align:center}
+  .life-stat .symbol{font-size:16px;display:block}
+  .life-stat .stat-name{font-size:9px;color:#b7aace;display:block;margin-top:3px}
+  .life-stat .stat-value{font-size:11px;font-weight:850;display:block;margin-top:2px}
+  .life-stat .stat-track{display:block;height:3px;border-radius:99px;background:#403451;margin-top:7px;overflow:hidden}
+  .life-stat .stat-track i{display:block;height:100%;border-radius:99px;background:var(--tint,#b19bff);width:var(--amount,0%)}
+  .life-stat:active{background:#302544}
+  .home-scroll-wrap{flex:1;min-height:0;display:flex;flex-direction:column;border:1px solid #3c304e;border-radius:17px;background:linear-gradient(180deg,#1d192c,#171625);overflow:hidden}
+  .home-scroll-title{flex:0 0 auto;padding:12px 14px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid #382e48}
+  .home-scroll-title strong{font-size:13px}
+  .home-scroll-title small{font-size:10px}
+  .home-feed{overflow-y:auto;overscroll-behavior:contain;min-height:0;flex:1;scrollbar-width:thin;scrollbar-color:#69528b transparent;-webkit-overflow-scrolling:touch}
+  .home-feed .entry{padding:11px 12px;border-bottom:1px solid #30283f;gap:9px}
+  .home-feed .entry-age{min-width:39px;height:28px;background:#352747;color:#d9bfff;font-size:10px}
+  .home-feed .entry-text{font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+  .home-controls{flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.17fr) minmax(0,1.1fr);gap:8px}
+  .home-control{min-height:56px;min-width:0;border-radius:15px;border:1px solid #564375;background:#242034;color:#e9dfff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:9px 4px;font-weight:800;font-size:11px;line-height:1.2}
+  .home-control .control-symbol{font-size:18px}
+  .home-control.primary{background:linear-gradient(135deg,#a077ec,#7f55c3);border-color:#ba91ff;color:#160d2b;font-size:12px;box-shadow:0 5px 18px #8159bb42}
+  .home-control:active{transform:scale(.97)}
+  .home-control:disabled{opacity:.45}
+  .age-display{font-variant-numeric:tabular-nums}
+  .life-home.age-playing .age-display{display:inline-block;animation:agePop .6s cubic-bezier(.14,.81,.28,1.22)}
+  .life-home.age-playing .home-scroll-wrap{animation:eventReveal .5s .37s both}
+  @keyframes agePop{0%{transform:scale(.6);opacity:.2;filter:blur(4px)}55%{transform:scale(1.28);opacity:1;filter:blur(0)}100%{transform:scale(1)}}
+  @keyframes eventReveal{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
+  .full-menu{display:grid;gap:13px;padding-bottom:14px}
+  .full-menu-heading{font-size:11px;letter-spacing:1px;color:#aa92d4;text-transform:uppercase;margin:10px 0 6px;font-weight:850}
+  .full-menu-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .full-menu-item{min-width:0;display:flex;align-items:center;gap:9px;padding:14px 12px;min-height:58px;border-radius:15px;border:1px solid #473654;background:#1b192b;color:#efdeff;text-align:left;font-weight:800;font-size:12px}
+  .full-menu-item .menu-emoji{font-size:21px}
+  .full-menu-item:active{background:#31233f}
+  .full-menu-item span:last-child{overflow-wrap:anywhere}
+  .mobile-page-intro{padding:3px 0 8px}
+  .mobile-page-intro h2{font-size:23px;margin-bottom:6px;color:#f7ecff}
+  .mobile-page-intro p{font-size:12px;line-height:1.6;color:#bbaed2}
+  .action-category-card{padding:13px 14px;background:#1c1b30;border:1px solid #443558;border-radius:16px}
+  .action-category-card h3{color:#d8bcff}
+  .modal{max-height:calc(88dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom))}
+}
+@media(max-width:365px){
+ .life-avatar{width:41px;height:41px;flex-basis:41px}
+ .life-name{font-size:14px}
+ .life-money{font-size:11px;padding:6px}
+ .life-sub{font-size:9px}
+ .home-controls{gap:5px}
+ .home-control{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ .life-home.age-playing .age-display,.life-home.age-playing .home-scroll-wrap{animation:none}
+}
+
 </style></head>
 <body><div id="app"></div><div id="modal-root"></div><div class="toast-zone" id="toasts"></div><input type="file" id="import-file" accept=".json,application/json" hidden><script>
 'use strict';
@@ -48,6 +131,7 @@ function newState(o={}){
  return {version:1,id:Date.now(),name,avatar:o.avatar||pick(EMOJIS),gender:o.gender||'Nonbinary',country,origin,age:0,year:2000,alive:true,deathCause:'',stats,skills,ap:6,cash:origin==='royal'?5000:origin==='wealthy'?500:origin==='struggling'?0:50,debt:0,allowance:origin==='wealthy'?120:origin==='struggling'?8:35,familyWealth:familCash,grades:rand(53,86),education:'Preschool',degree:'',degrees:[],studying:null,job:null,jobHistory:[],unemployed:0,office:null,approval:50,relationships:relations,nextRelId:4,childrenBorn:0,pets:[],homes:[],cars:[],businesses:[],portfolio:{index:0,tech:0,green:0,crypto:0,bonds:0},prices:Object.fromEntries(MARKETS.map(m=>[m.id,m.base])),marketNews:'The markets are calm.',followers:rand(0,25),creations:0,records:0,books:0,prison:0,criminalRecord:0,scandal:0,crimeCount:0,healthConditions:[],places:[],donated:0,volunteer:0,log:[{age:0,text:`🌟 ${name} was born in ${country}. A brand-new story begins.`,type:'birth'}],flags:{companiesFounded:0,rewound:false,served:false,gambleLoss:false},yearAction:{},snapshots:[],awards:[],paused:false,legacyParent:o.legacyParent||null,gameplayTurns:0}
 }
 let s=null, tab='home', modal=null, toastTimer=null, categoryFilter='all', jobQuery='', feedLimit=40;
+let ageFxPending=false,ageFxTimer=null;
 try{const loaded=JSON.parse(storage.getItem(KEY));if(loaded&&loaded.version===1&&loaded.stats&&Array.isArray(loaded.log))s=loaded}catch(e){}
 function save(){try{storage.setItem(KEY,JSON.stringify(s))}catch(e){}}
 function log(t,type='normal'){if(!s)return;s.log.unshift({age:s.age,text:t,type});if(s.log.length>520)s.log.length=520}
@@ -77,7 +161,7 @@ function ageUp(){
  ensureExpansions(s);
  if(!s||!s.alive){fail('Your story has ended. Start a new life or open your legacy.');return}
  const snapshot=objcopy({...s,snapshots:[]});s.snapshots.unshift(snapshot);if(s.snapshots.length>8)s.snapshots.length=8;
- s.age++;s.year=2000+s.age;s.ap=9+(s.stats.discipline>=85?2:0);s.yearAction={};
+ s.age++;ageFxPending=tab==='home'&&window.matchMedia('(max-width:760px)').matches;log(`🎂 You turned ${s.age}. Another chapter begins!`,'event');s.year=2000+s.age;s.ap=9+(s.stats.discipline>=85?2:0);s.yearAction={};
  if(s.age<=17){const allowance=Math.round(s.allowance*(s.age>=13?4:1));s.cash+=allowance;s.grades=cap(s.grades+rand(-6,4)+Math.round((s.stats.smart-55)/15));s.education=s.age<5?'Early Childhood':s.age<13?'Primary School':s.age<18?'Secondary School':'Secondary School';if(s.age===5)log('🎒 Your first day at primary school!');if(s.age===13)log('🏫 You started secondary school.');if(s.age===16)log('🚘 You are old enough to start learning to drive.');}
  if(s.age===18){s.education='High School Graduate';log(`🎓 You graduated high school with ${s.grades}% marks. What comes next?`,'event');if(s.origin==='wealthy'&&chance(75)){let gift=rand(10000,75000);s.cash+=gift;log(`🎁 Your family gave you ${cash(gift)} as an adulthood gift.`)}}
  if(s.studying){let e=s.studying;const tuition=e.price;if(s.cash>=tuition){s.cash-=tuition}else{s.debt+=Math.round(tuition*1.045)}e.years--;s.grades=cap(s.grades+rand(-3,5)+(s.stats.smart>75?3:0));if(e.years<=0){s.degrees.push(e.major);s.degree=e.major;s.education=`${e.level} in ${e.major}`;s.studying=null;stat('smart',7);log(`🎓 Graduated! You earned a ${e.level} in ${e.major}.`,'event')}}
@@ -112,7 +196,7 @@ function ageUp(){
 }
 function die(cause){s.alive=false;s.deathCause=cause;log(`🕯️ ${s.name} died at age ${s.age} from ${cause}. Net worth: ${cash(worth())}.`,'event');checkAward();const history=JSON.parse(storage.getItem(ARCHIVE)||'[]');history.unshift({name:s.name,avatar:s.avatar,age:s.age,year:s.year,worth:worth(),cause:s.deathCause,awards:s.awards.length,children:s.relationships.filter(x=>x.type==='child').length});storage.setItem(ARCHIVE,JSON.stringify(history.slice(0,30)));save();modal={title:'Your story has ended',icon:'🕯️',body:`${esc(s.name)} lived for ${s.age} years. Final net worth: <b>${cash(worth())}</b>.<br><br>You earned ${s.awards.length} achievements and had ${s.relationships.filter(x=>x.type==='child').length} children. Your story lives in the Legacy Hall.`,choices:[{text:'👶 Begin another life',fn:()=>{s=null;save();render()}},{text:'🏆 View your legacy',fn:()=>{modal=null;setTab('saves')}}]};render()}
 function effect(o){if(!o)return;for(const [k,v] of Object.entries(o)){if(k==='money')s.cash+=v;if(k==='debt')s.debt+=v;if(k==='karma')stat('karma',v);if(k==='happy')stat('happy',v);if(k==='health')stat('health',v);if(k==='smart')stat('smart',v);if(k==='looks')stat('looks',v);if(k==='fame')stat('fame',v);if(k==='reputation')stat('reputation',v);if(k==='fitness')stat('fitness',v);if(k==='discipline')stat('discipline',v);if(k==='followers')s.followers=Math.max(0,s.followers+v);if(k.startsWith('skill:'))skill(k.split(':')[1],v);if(k==='grades')s.grades=cap(s.grades+v);if(k==='bond'){const r=pick(s.relationships.filter(x=>x.alive));if(r)r.bond=cap(r.bond+v)}if(k==='randomMoney')s.cash+=rand(v[0],v[1]);if(k==='randomFame')stat('fame',rand(v[0],v[1]))}}
-function eventModal(e){modal={title:e.title,icon:e.icon||'✨',body:e.desc,choices:e.options.map(o=>({text:o[0],hint:o[1],fn:()=>{effect(o[2]);if(o[3])o[3]();modal=null;commit(`✨ ${e.title}: ${o[4]||o[0]}`,'event')}}))};renderModal()}
+function eventModal(e){modal={title:e.title,icon:e.icon||'✨',body:e.desc,choices:e.options.map(o=>({text:o[0],hint:o[1],fn:()=>{effect(o[2]);if(o[3])o[3]();modal=null;commit(`✨ ${e.title}: ${o[4]||o[0]}`,'event')}}))};if(!ageFxPending)renderModal()}
 const EVENTS=[
 {min:1,max:5,icon:'🧸',title:'The Toy Incident',desc:'Another child wants your favourite toy. They refuse to give it back.',options:[['Share it','Choose kindness',{karma:5,happy:-3,bond:3}],['Ask for help','The grown-up solution',{smart:3,happy:3}],['Grab it back','A loud argument',{happy:4,karma:-5}]]},
 {min:3,max:11,icon:'🍪',title:'Cookie Jar Mystery',desc:'The last cookie is sitting on the kitchen counter. Nobody is watching.',options:[['Eat it','A secret snack',{happy:5,karma:-3}],['Save it for someone','A thoughtful gesture',{karma:5,happy:3}],['Try baking more','A culinary origin story',{smart:3,'skill:cooking':2}]]},
@@ -322,15 +406,117 @@ const prog=(name,n,max=100)=>`<div style="margin:10px 0"><div class="progresslin
 function renderSetup(){const countries=COUNTRIES.map(c=>`<option value="${esc(c[0])}" ${c[0]==='Australia'?'selected':''}>${c[1]} ${c[0]}</option>`).join('');document.getElementById('app').innerHTML=`<div class="setup glass"><div class="setup-head"><div class="setup-logo">🌠</div><div class="eyebrow">YOUR LIFE. YOUR RULES.</div><h1>EVERAFTER</h1><p>A ridiculously deep, choice-driven life sandbox. Start as a baby, shape your destiny, and leave a legendary legacy. Every expansion is free, forever.</p></div><form id="new-game-form"><div class="form-grid"><div class="fieldbox"><label for="f-name">Full name</label><input class="field" id="f-name" maxlength="32" placeholder="Random if blank"></div><div class="fieldbox"><label for="f-country">Birth country</label><select class="field" id="f-country">${countries}</select></div><div class="fieldbox"><label for="f-origin">Family background</label><select class="field" id="f-origin"><option value="ordinary">🏡 Ordinary family</option><option value="struggling">💪 Struggling family</option><option value="wealthy">💎 Wealthy family</option><option value="royal">👑 Royal dynasty</option></select></div><div class="fieldbox"><label for="f-talent">Natural talent (free Creator power)</label><select class="field" id="f-talent"><option value="random">🎲 Surprise me</option><option value="music">🎸 Musical prodigy</option><option value="sport">⚽ Sports prodigy</option><option value="acting">🎭 Acting prodigy</option><option value="coding">💻 Tech prodigy</option><option value="business">📈 Business prodigy</option><option value="politics">🏛️ Political prodigy</option><option value="social">📱 Social media prodigy</option><option value="all">⚡ Genius at everything</option></select></div><div class="fieldbox"><label for="f-avatar">Your avatar</label><select class="field" id="f-avatar">${EMOJIS.map(e=>`<option value="${e}">${e} Avatar</option>`).join('')}</select></div><div class="fieldbox"><label for="f-gender">Identity</label><select class="field" id="f-gender"><option>Nonbinary</option><option>Male</option><option>Female</option></select></div></div><button class="agebtn" type="submit">✨ BEGIN MY LIFE</button></form><div class="setup-points"><div><span>♾️</span>No paywalls</div><div><span>🕰️</span>Free time travel</div><div><span>💾</span>Offline autosave</div></div><div style="margin-top:19px;text-align:center"><small>Original game, inspired by the life-simulation genre. All amounts are fictional in-game currency.</small></div></div>`;document.querySelector('#new-game-form').addEventListener('submit',e=>{e.preventDefault();s=newState({name:document.getElementById('f-name').value,country:document.getElementById('f-country').value,origin:document.getElementById('f-origin').value,talent:document.getElementById('f-talent').value,avatar:document.getElementById('f-avatar').value,gender:document.getElementById('f-gender').value});tab='home';commit(`✨ Welcome to the world, ${s.name}!`,'birth')});}
 function renderSidebar(){return `<aside class="sidebar"><div class="brand"><div class="brand-icon">🌠</div><div><h3>Everafter</h3><small>UNLIMITED EDITION</small></div></div>${NAV.map(([title,tabs])=>`<div class="navgroup">${title}</div>${tabs.map(([id,icon,name])=>`<button class="navbtn ${tab===id?'active':''}" data-tab="${id}"><span class="ico">${icon}</span><span>${name}</span>${id==='god'?'<span class="navkey">FREE</span>':''}</button>`).join('')}`).join('')}<div class="sidebottom">✦ Indie life sandbox • Version 1.0<br>Everything unlocked • No accounts • No ads</div></aside>`}
 function renderRight(){return `<aside class="sidepanel"><div class="panel glass"><div class="eyebrow">NEXT CHAPTER</div><div class="mini-value" style="margin:6px 0 12px">Age ${s.age+1} 🎂</div><button class="agebtn" data-act="age" ${!s.alive?'disabled':''}>➜ AGE UP ONE YEAR</button><p class="tip" style="margin:12px 0 0">Aging advances your story, pays salaries, changes markets and triggers a fresh dilemma. Your actions refresh too.</p></div><div class="panel glass"><h3>📊 Life at a glance</h3><div class="mini-row"><span>Action points</span><strong>${s.ap} ⚡</strong></div><div class="mini-row"><span>Net worth</span><strong class="money">${cash(worth())}</strong></div><div class="mini-row"><span>Annual income</span><strong>${cash(income())}</strong></div><div class="mini-row"><span>Estimated living costs</span><strong>${cash(lifeCost())}</strong></div><div class="mini-row"><span>Degree</span><strong>${esc(s.degree||'None')}</strong></div><div class="mini-row"><span>Occupation</span><strong>${esc(s.job?.name||'None')}</strong></div><div class="mini-row"><span>Known followers</span><strong>${compact(s.followers)}</strong></div><div class="mini-row"><span>Achievements</span><strong>${s.awards.length}/${AWARDS.length}</strong></div><hr class="separator">${btn('📜 Full timeline','goTimeline','','','smallbutton')}${btn('💾 Save this life','saveSlot','0','','smallbutton')}</div><div class="panel glass"><h3>💫 A little advice</h3><p class="tip">${s.age<13?'Your early choices build your stats. Talk to family, study, have fun, and make friends.':s.age<18?'School performance and practising talents can open future career paths.':s.prison>0?'Use your time to study, exercise or apply for early release.':s.age<25?'Degrees take time and money. Apprenticeship-style jobs, creative careers and startups offer other routes.':'Everything you own changes value over time. Diversify your opportunities, not just your investments.'}</p></div></aside>`}
-function renderTop(){return `<div class="topbar"><div><div class="eyebrow">✦ THE UNWRITTEN STORY</div><small>Chapter ${s.age+1} · Year ${s.year}</small></div><div class="topbar-actions"><span class="pill">⚡ ${s.ap} AP</span><button class="iconbtn" data-tab="saves" title="Save games">💾</button><button class="iconbtn" data-tab="god" title="Creator Mode">✨</button></div></div>`}
+function renderDesktopTop(){return `<div class="topbar old-topbar"><div><div class="eyebrow">✦ THE UNWRITTEN STORY</div><small>Chapter ${s.age+1} · Year ${s.year}</small></div><div class="topbar-actions"><span class="pill">⚡ ${s.ap} AP</span><button class="iconbtn" data-tab="saves" title="Save games">💾</button><button class="iconbtn" data-tab="god" title="Creator Mode">✨</button></div></div>`}
+
+function mobileTop(){
+  const homeTab=tab==='home';
+  const title=homeTab?'EverAfter':({'actions':'Actions','baby':'Baby','education':'School','career':s.job?'Employment':'Unemployed','navigation':'Menu','stats':'Your Stats','settings':'Settings','saves':'Saves'}[tab]||'EverAfter');
+  return `<div class="mobile-topbar">
+    <button class="nav-circle ${homeTab?'':'back-circle'}" data-tab="${homeTab?'navigation':'home'}" aria-label="${homeTab?'Open menu':'Back to life'}">${homeTab?'☰':'‹'}</button>
+    <span class="app-wordmark ${homeTab?'':'subpage'}">${title}</span>
+    <button class="nav-circle" data-tab="saves" aria-label="Save and load">💾</button>
+    <button class="nav-circle" data-tab="settings" aria-label="Settings">⚙️</button>
+  </div>`;
+}
+function renderTop(){return renderDesktopTop()+mobileTop()}
 function renderHero(){return `<div class="hero glass"><div class="hero-grid"><div class="person"><div class="avatar">${s.avatar}</div><div><div class="eyebrow">${s.alive?'✦ YOUR LIFE':'🕯️ IN LOVING MEMORY'}</div><h1>${esc(s.name)}</h1><div class="subtitle">${s.alive?esc(s.education):'Life complete'} · ${countryObj(s.country)[1]} ${esc(s.country)} · ${esc(s.gender)}</div></div></div><div class="age-block"><div class="age-number">${s.age}</div><small>YEARS OLD</small></div></div><div class="hero-chips"><span class="chip">${s.job?s.job.icon+' '+esc(s.job.name):s.age<18?'🎒 Growing up':'💼 Looking for work'}</span><span class="chip">💰 ${cash(worth())} net worth</span><span class="chip">${s.office?'🏛️ '+esc(s.office.name):s.prison>0?'🔒 In prison':'🌟 '+s.stats.fame+' fame'}</span><span class="chip">${s.legacyParent?'🧬 '+esc(s.legacyParent):'♾️ Everything unlocked'}</span></div></div>`}
 function renderStats(){return `<div class="stat-grid">${statBar('happy','😊 Happiness','#ffce79')}${statBar('health','❤️ Health','#fa7a8a')}${statBar('smart','🧠 Intelligence','#a59eff')}${statBar('looks','✨ Looks','#f58fbe')}${statBar('fitness','💪 Fitness','#7ed6fb')}${statBar('discipline','🎯 Discipline','#b9dc8b')}${statBar('reputation','🤝 Reputation','#5ae2cb')}${statBar('fame','🌟 Fame','#ffaf70')}</div>`}
 function renderSummary(){return `<div class="summary-grid"><div class="summary glass"><div class="label">💰 Cash</div><div class="value">${cash(s.cash)}</div><small>Available balance</small></div><div class="summary glass"><div class="label">💎 Net Worth</div><div class="value">${cash(worth())}</div><small>Including assets</small></div><div class="summary glass"><div class="label">⚡ Actions Left</div><div class="value">${s.ap}</div><small>Refresh on birthday</small></div></div>`}
 function timelineList(limit=40){const entries=s.log.slice(0,limit);return `<div class="feed glass">${entries.map(e=>`<div class="entry ${e.type||''}"><span class="entry-age">${e.age}</span><span class="entry-text">${esc(e.text)}</span></div>`).join('')}</div>`}
-function home(){let suggestions=s.age<13?[
+function homeDesktop(){let suggestions=s.age<13?[
  actionCard('📚','Study hard','Improve grades and intelligence','studyHard','','','1 AP'),actionCard('💞','Talk to family','Build stronger relationships','relAction',s.relationships[0]?.id,'call','1 AP'),actionCard('🎮','Have some fun','Enjoy a hobby and gain skill','hobby','gaming','','1 AP'),actionCard('🤝','Make a friend','Meet somebody new','makeFriend','','','1 AP')]:s.age<18?[
  actionCard('📖','Hit the books','Boost your school marks','studyHard','','','1 AP'),actionCard('🛍️','Part-time job','Earn some spending money','summerJob','','','1 AP'),actionCard('🏋️','Hit the gym','Improve fitness and health','gym','','','1 AP + $40'),actionCard('🎸','Learn music','Start building a talent','hobby','music','','1 AP')]:[
  actionCard('💼','Find a job','Choose from 40+ careers','navigate','career','','Open careers'),actionCard('🏢','Build a business','Launch a startup','navigate','business','','All industries unlocked'),actionCard('💞','Find love','Meet a potential partner','findLove','','','1 AP'),actionCard('🎬','Chase fame','Create content or release music','navigate','fame','','Open talent studio'),actionCard('📈','Invest','Trade markets and bonds','navigate','finance','','Open finances'),actionCard('🌍','See the world','Travel or start over abroad','navigate','travel','','Open travel')];return renderHero()+renderStats()+renderSummary()+section('Your next move',grid(suggestions),'Every choice shapes the story')+section('Latest life moments',timelineList(16),`${s.log.length} memories recorded`)+(s.alive?'':'<div class="highlight-card">🕯️ Your story is complete. Save your legacy, start a new life, or use Creator Mode to rewrite time.</div>')}
+
+const LIFE_ACTION_CATEGORIES=[
+  ['Everyday Life',[['activities','⚡','Activities'],['people','💞','Relationships'],['education','🎓','Education'],['travel','🌍','Travel']]],
+  ['Work & Money',[['career','💼','Careers'],['finance','💰','Finances'],['business','🏢','Businesses'],['assets','🏡','Properties']]],
+  ['Your Ambitions',[['fame','🌟','Fame & Talent'],['politics','🏛️','Politics'],['space','🚀','Space Missions'],['society','🔮','Clubs & Society']]],
+  ['More To Explore',[['crime','⚖️','Crime & Justice'],['underworld','🎩','Underworld'],['collect','💎','Collections'],['achievements','🏆','Achievements'],['god','✨','Creator Mode']]]
+];
+function lifeStage(){
+  if(s.age<5)return {label:'Baby',icon:'👶',tab:'baby'};
+  if(s.age<18)return {label:'School',icon:'🎒',tab:'education'};
+  if(s.job)return {label:'Employment',icon:'💼',tab:'career'};
+  return {label:'Unemployed',icon:'🔎',tab:'career'};
+}
+function miniLifeStat(key,emoji,label,tint){
+  const n=cap(s.stats[key]);
+  return `<button class="life-stat" data-tab="stats" title="Open all stats" style="--tint:${tint};--amount:${n}%"><span class="symbol">${emoji}</span><span class="stat-name">${label}</span><span class="stat-value">${n}%</span><span class="stat-track"><i></i></span></button>`;
+}
+function homeMobile(){
+  const stage=lifeStage();
+  const logItems=s.log.slice(0,120);
+  return `<div class="mobile-home-only life-home ${ageFxPending?'age-playing':''}">
+    <div class="life-header">
+      <div class="life-idrow">
+        <div class="life-avatar" aria-hidden="true">${s.avatar}</div>
+        <div class="life-identity">
+          <div class="life-name">${esc(s.name)}</div>
+          <div class="life-sub">${countryObj(s.country)[1]} ${esc(s.country)} · Age <strong class="age-display">${s.age}</strong></div>
+          <div class="life-sub">${esc(s.gender)} · ${esc(s.origin)} · ${esc(stage.label)}</div>
+        </div>
+        <button class="life-money" data-tab="finance" title="Open cash and finances"><small>Cash</small>${cash(s.cash)}</button>
+      </div>
+      <div class="life-chips">
+        ${miniLifeStat('health','❤️','Health','#ff7b98')}
+        ${miniLifeStat('happy','😊','Happy','#ffce79')}
+        ${miniLifeStat('smart','🧠','Smarts','#a88af2')}
+        ${miniLifeStat('looks','✨','Looks','#e887c4')}
+      </div>
+    </div>
+    <section class="home-scroll-wrap" aria-label="Recent life events">
+      <div class="home-scroll-title"><strong>📜 Recent Events</strong><small>${s.log.length} memories</small></div>
+      <div class="home-feed" tabindex="0">
+        ${logItems.map(e=>`<div class="entry ${e.type||''}"><span class="entry-age">Age ${e.age}</span><span class="entry-text">${esc(e.text)}</span></div>`).join('')}
+      </div>
+    </section>
+    <div class="home-controls">
+      <button class="home-control" data-tab="actions"><span class="control-symbol">⚡</span>Actions</button>
+      <button class="home-control" data-tab="${stage.tab}"><span class="control-symbol">${stage.icon}</span>${stage.label}</button>
+      <button class="home-control primary" data-act="age" ${s.alive?'':'disabled'}><span class="control-symbol">🎂</span>Age Up</button>
+    </div>
+  </div>`;
+}
+function home(){return `<div class="desktop-home-only">${homeDesktop()}</div>${homeMobile()}`}
+function fullScreenCategories(){
+  return `<div class="full-menu"><div class="mobile-page-intro"><h2>⚡ Actions</h2><p>Choose what to do with your life. Everything is unlocked.</p></div>
+    ${LIFE_ACTION_CATEGORIES.map(([title,items])=>`<section class="action-category-card"><h3>${title}</h3><div class="full-menu-list">${items.map(([id,em,label])=>`<button class="full-menu-item" data-tab="${id}"><span class="menu-emoji">${em}</span><span>${label}</span></button>`).join('')}</div></section>`).join('')}
+  </div>`;
+}
+function fullMenuPage(){
+  return `<div class="full-menu"><div class="mobile-page-intro"><h2>☰ EverAfter</h2><p>Find every part of your story.</p></div>
+    <div class="full-menu-list"><button class="full-menu-item" data-tab="home">🏠 Life</button><button class="full-menu-item" data-tab="actions">⚡ All Actions</button><button class="full-menu-item" data-tab="stats">📊 Your Stats</button><button class="full-menu-item" data-tab="saves">💾 Save Games</button><button class="full-menu-item" data-tab="settings">⚙️ Settings</button><button class="full-menu-item" data-tab="timeline">📜 Timeline</button></div>
+    ${LIFE_ACTION_CATEGORIES.map(([title,items])=>`<section><div class="full-menu-heading">${title}</div><div class="full-menu-list">${items.map(([id,em,label])=>`<button class="full-menu-item" data-tab="${id}"><span class="menu-emoji">${em}</span><span>${label}</span></button>`).join('')}</div></section>`).join('')}
+  </div>`;
+}
+function extraStatsPage(){
+  return heading('📊 Your Stats','Tap the four main stats on your home screen to see every attribute and skill.')+renderStats()+
+  section('Skills & Talents',`<div class="panel glass">${Object.entries(s.skills).map(([k,v])=>prog(k[0].toUpperCase()+k.slice(1),v)).join('')}</div>`)+
+  section('Life details',`<div class="panel glass"><div class="mini-row"><span>Action points</span><strong>${s.ap}</strong></div><div class="mini-row"><span>School grades</span><strong>${s.grades}%</strong></div><div class="mini-row"><span>Net worth</span><strong>${cash(worth())}</strong></div><div class="mini-row"><span>Education</span><strong>${esc(s.education)}</strong></div></div>`);
+}
+function babyPage(){
+  return heading('👶 Baby & Early Childhood',`Age ${s.age} · Explore your early years with your family.`)+
+  section('Little adventures',grid([
+    actionCard('💗','Cuddle a parent','Spend time together and grow closer','relAction',s.relationships[0]?.id,'call','1 AP'),
+    actionCard('🧸','Play with toys','Discover games and build new skills','hobby','gaming','','1 AP'),
+    actionCard('📚','Learn new words','Build early intelligence','read','','','1 AP'),
+    actionCard('🎨','Draw pictures','Explore your creative side','hobby','art','','1 AP'),
+    actionCard('👨‍👩‍👧','Visit family','Spend time with a loved one','relAction',s.relationships[1]?.id,'outing','1 AP'),
+    actionCard('🤗','Meet a playmate','Find your first friend','makeFriend','','','1 AP')
+  ]))+
+  section('Your Family',`<div class="cards">${s.relationships.filter(r=>r.alive).map(r=>item(esc(r.name),`${esc(r.type)} · Bond ${r.bond}%`,btn('Say hello','relAction',r.id,'call'),'💞')).join('')}</div>`);
+}
+function settingsPage(){
+  return heading('⚙️ Settings','Manage your life, backups and game features.')+
+    section('Your game',grid([
+      actionCard('💾','Save & Load','Manage slots, export and import your lives','navigate','saves'),
+      actionCard('✨','Creator Mode','All powers unlocked','navigate','god'),
+      actionCard('📜','Full Timeline','Review your entire story','navigate','timeline'),
+      actionCard('🏆','Achievements','See your challenges and awards','navigate','achievements')
+    ]))+
+    `<div class="notice">💜 EverAfter saves locally on your device. Export your save from Save & Load before uninstalling the app.</div>`;
+}
 function education(){const isKid=s.age<18;const active=s.studying;const studentOptions=grid([actionCard('📚','Study hard','Improve your grades','studyHard','','','1 AP'),actionCard('🥇','Hire a tutor','Extra help for an exam','tutor','','','1 AP • $250'),actionCard('😎','Skip class','Enjoy life, lose grades','skipSchool','','','1 AP'),actionCard('🧪','Robotics club','Grow your coding skill','schoolClub','coding','','1 AP'),actionCard('⚽','Sports club','Build athletic ability','schoolClub','sport','','1 AP'),actionCard('🎼','Music club','Become a skilled musician','schoolClub','music','','1 AP')]);return heading('🎓 Education',`What you learn affects your whole life. Your current marks are ${s.grades}%.`)+`<div class="panel glass"><div class="item-name">📚 ${esc(s.education)}</div>${prog('Academic performance',s.grades)}<div class="mini-row" style="margin-top:12px"><span>Qualifications</span><strong>${s.degrees.length?esc(s.degrees.join(', ')):'None yet'}</strong></div>${active?`<div class="notice">🎓 Studying ${esc(active.major)} (${active.level}). ${active.years} year(s) remaining • ${cash(active.price)} tuition/year.</div>${btn('Drop out','quitStudy','','','mini-btn red')}`:''}</div>`+(isKid?section('School life',studentOptions,'Build a foundation'):section('Further education',grid([actionCard('🏛️','Apply to university','14 degrees, scholarships and fees','university','','','4-year program',!!active),actionCard('🎓','Postgraduate study','Earn a 2-year Masters qualification','masters','','','$22,000 per year',!!active||!s.degree),actionCard('📚','Read a book','Learn outside the classroom','read','','','1 AP'),actionCard('🧑‍🏫','Private tutoring','Boost your academic performance','tutor','','','1 AP • $250')])))+section('The qualifications',`<div class="grid2">${MAJORS.map(m=>item(esc(m),s.degrees.includes(m)?'Completed ✅':`Degree takes four years. Required for selected careers.`, '', '🎓',s.degrees.includes(m)?'EARNED':'UNLOCKED')).join('')}</div>`)}
 function careers(){const filter=categoryFilter==='all'?JOBS:JOBS.filter(j=>j.tier===Number(categoryFilter));const j=s.job;return heading('💼 Careers & Employment','Explore more than 40 professions. Credentials, skills and reputation affect hiring. Salaries are fictional annual estimates.')+(j?`<div class="highlight-card"><div class="eyebrow">CURRENT JOB</div><h2 style="margin:6px 0">${j.icon} ${esc(j.name)}</h2><div class="grid2"><div><small>Annual salary</small><h2 class="money">${cash(j.salary)}</h2></div><div><small>Years employed</small><h2>${j.years}</h2></div></div>${prog('Job performance',j.performance)}<div class="item-controls">${btn('💪 Work harder','workHard','','','mini-btn primary')}${btn('💰 Ask for raise','askRaise')}${btn('🕒 Overtime','workOvertime')}${btn('📦 Quit','quitJob','','','mini-btn red')}${s.age>=55?btn('🌅 Retire','retire'):''}</div></div>`:empty('🧑‍💻',s.age<18?'You can pursue a full-time career after turning 18.':'You are currently between jobs. Browse openings below.'))+`<div class="toolbar"><h3 style="margin:0">Available paths</h3><select class="field" style="width:150px" id="job-tier"><option value="all" ${categoryFilter==='all'?'selected':''}>All careers</option>${[0,1,2,3,4,5].map(t=>`<option value="${t}" ${categoryFilter===String(t)?'selected':''}>Tier ${t}</option>`).join('')}</select></div><input class="field" id="job-search" placeholder="🔎 Search careers, qualifications, titles..." value="${esc(jobQuery)}" style="margin-bottom:12px"><div class="cards" id="job-list">${filter.map(j=>{let requirement=j.req==='none'?'No degree required':j.req.startsWith('special:')?`Talent route: ${j.req.split(':')[1]} skill (65+), or special requirements`:`Needs a ${j.req} degree`;if(j.id==='astronaut')requirement+=' • Fitness 80+';return`<div data-job-search="${esc((j.name+' '+requirement).toLowerCase())}">${item(esc(j.name),`${requirement}<br>Tier ${j.tier} • Starting salary <strong class="money">${cash(Math.round(j.salary*countryObj(s.country)[3]))}/year</strong>`,btn('Apply for job','applyJob',j.id,'','mini-btn primary',s.age<18),j.icon,j.req==='none'?'ENTRY':'SPECIAL')}</div>`}).join('')}</div>${section('Career development',grid([actionCard('🤝','Professional networking','Improve reputation & opportunities','network','','','1 AP'),actionCard('📚','Improve intelligence','Be competitive in interviews','read','','','1 AP'),actionCard('🎓','Gain qualifications','Unlock specialised jobs','navigate','education')]))}${s.jobHistory.length?section('Past positions',s.jobHistory.map(j=>item(esc(j.name),`${j.years} year(s) • Finished on ${cash(j.salary)}/year`, '',j.icon)).join('')):''}`}
 function people(){return heading('💞 Relationships', 'Maintain a family, make friends, date, marry, and raise children. Relationships change over time.')+section('Connect',grid([actionCard('🤝','Make a friend','Meet somebody new','makeFriend','','','1 AP'),actionCard('💘','Find love','Go on a date with someone new','findLove','','','1 AP'),actionCard('💍','Propose marriage','Ask your partner to marry you','propose','','','1 AP • $1,800',!partner()||partner()?.type==='spouse'),actionCard('👶','Have a child','Grow your family','baby','','','1 AP • $2,500',s.age<18),actionCard('🏡','Adopt a child','Give a child a loving home','adoptChild','','','1 AP • $4,500',s.age<21),actionCard('🐾','Adopt a pet','Choose from six species','pet','','','From $65')]))+section('People in your life',`<div class="cards">${s.relationships.filter(r=>r.alive).map(r=>item(`${r.type==='spouse'?'💍':r.type==='child'?'👶':r.type==='partner'?'💖':r.type==='mother'?'👩':r.type==='father'?'👨':r.type==='friend'?'🫂':'👥'} ${esc(r.name)}`,`${esc(r.type.toUpperCase())} • Age ${r.age}${prog('Relationship',r.bond)}`,btn('📞 Talk','relAction',r.id,'call')+btn('💬 Compliment','relAction',r.id,'compliment')+btn('🎁 Gift','relAction',r.id,'gift')+btn('🎡 Hang out','relAction',r.id,'outing')+btn('🙏 Apologise','relAction',r.id,'apologise')+btn('💥 Argue','relAction',r.id,'argue')+(r.type==='partner'||r.type==='spouse'?btn('💔 Break up','relAction',r.id,'breakup','mini-btn red'):'')+(r.type==='child'?btn('💗 Care for child','relAction',r.id,'care'):''),'',r.bond>=80?'CLOSE':r.bond<25?'STRAINED':'' )).join('')}</div>`,`${s.relationships.filter(r=>r.alive).length} living relationships`)+(s.pets.length?section('Your pets',s.pets.map((p,i)=>item(`${p.icon} ${esc(p.name)}`,`${esc(p.species)} • Age ${p.age} • ${prog('Bond',p.bond)}`,btn('🐾 Play together','petCare',i))).join('')):'')}
@@ -345,9 +531,20 @@ function travel(){return heading('🌍 Travel, Migration & Lifestyle','Discover 
 function achievements(){const awardCount=s.awards.length;return heading('🏆 Achievements & Challenges',`${awardCount} of ${AWARDS.length} achievements unlocked. Challenges are optional personal goals, not paid features.`)+`<div class="highlight-card"><h3>🏅 Your trophy cabinet</h3>${prog('Achievements',awardCount,AWARDS.length)}<p class="tip">Achievements unlock automatically whenever you meet their requirements.</p></div>`+section('Lifetime achievements',`<div class="award-grid">${AWARDS.map(([id,em,name,desc])=>`<div class="award ${s.awards.includes(id)?'':'locked'}"><div class="em">${em}</div><div class="n">${esc(name)} ${s.awards.includes(id)?'✅':''}</div><div class="d">${esc(desc)}</div></div>`).join('')}</div>`)+section('Challenge vault',`<div class="cards">${CHALLENGES.map(([id,name,desc,fn])=>item(`🎯 ${name}`,desc,'','',fn(s)?'COMPLETED ✅':'IN PROGRESS')).join('')}</div>`)}
 function god(){return heading('⚡ Creator Mode','Every character editor, wealth boost and rewind is completely FREE. This is a sandbox, so break the rules of your own universe.')+`<div class="highlight-card"><div class="eyebrow">UNLIMITED EDITION</div><h2 style="margin-top:5px">⚡ You control the universe</h2><p class="tip">No subscriptions, purchases, ads, or hidden locks. Change your stats or cheat your way to $1 billion. You decide what is fun.</p></div>`+section('Rewrite your attributes',`<div class="cards">${[...Object.keys(s.stats),...Object.keys(s.skills)].map(k=>item(`⚡ ${k.charAt(0).toUpperCase()+k.slice(1)}`,`${s.stats[k]??s.skills[k]}%`,btn('−10','godStat',k,'-10')+btn('+10','godStat',k,'10','mini-btn primary')+btn('MAX','godStat',k,'100'))).join('')}</div>`)+section('Reality-bending cheats',grid([actionCard('💵','Grant $10,000','Instant cash, no catch','godMoney','10000','','UNLIMITED'),actionCard('💰','Grant $1,000,000','Become a millionaire','godMoney','1000000','','UNLIMITED'),actionCard('🪙','Grant $1,000,000,000','Join the billionaires','godMoney','1000000000','','UNLIMITED'),actionCard('🌟','Instant fame','100 fame + 10 million followers','godFame','','','UNLIMITED'),actionCard('💖','Perfect health','Restore fitness and happiness','godHeal','','','UNLIMITED'),actionCard('🎓','Perfect grades','Ace every exam','godGrades','','','UNLIMITED'),actionCard('🕰️','Time machine','Rewind up to eight years','rewind','','','UNLIMITED'),actionCard('👑','Become royal','Grant yourself a throne and royal treasury','godRoyal','','','UNLIMITED')]))+section('Rewrite relationships',`<div class="cards">${s.relationships.filter(r=>r.alive).map(r=>item(`💞 ${esc(r.name)}`,`${esc(r.type)} • Bond ${r.bond}%`,btn('❤️ Max bond','godEditRelation',r.id))).join('')}</div>`)}
 function saves(){let slots={};let archived=[];try{slots=JSON.parse(storage.getItem(SLOTS)||'{}');archived=JSON.parse(storage.getItem(ARCHIVE)||'[]')}catch(e){}return heading('💾 Saved Lives & Legacy','Your active life saves automatically in this browser. Save into one of three manual backup slots, or download a JSON file.')+section('Save slots',`<div class="cards">${[0,1,2].map(i=>item(`💾 Save Slot ${i+1}`,slots[i]?`${esc(slots[i].name)} • Age ${slots[i].age} • ${cash(worth(slots[i]))}`:'Empty backup slot',btn('Save here','saveSlot',i,'','mini-btn primary')+(slots[i]?btn('Load life','loadSlot',i)+btn('Delete','deleteSlot',i,'','mini-btn red'):'') ,'',slots[i]?'OCCUPIED':'EMPTY')).join('')}</div>`)+section('Portable saves',grid([actionCard('📤','Export save','Download this life as a JSON file','export','','','Download'),actionCard('📥','Import save','Load an exported JSON save file','import','','','Upload'),actionCard('👶','New life','Start a totally fresh story','newLife','','','Unlimited lives'),actionCard('🧬','Continue as a child','Begin the next generation','descendant','','','Requires a child')]))+section('Legacy Hall',archived.length?`<div class="cards">${archived.map(a=>item(`${esc(a.avatar)} ${esc(a.name)}`,`Lived ${a.age} years • ${a.cause} • Final wealth ${cash(a.worth)} • ${a.awards} achievements • ${a.children} children`,'','🕯️')).join('')}</div>`:empty('🕯️','Your completed lives will appear here, with their stories preserved.'))+`<div class="notice">💡 Saves are stored locally in this browser. Clearing browser storage removes them. Export a JSON backup if you want to keep a special life.</div>`}
-function renderContent(){switch(tab){case'home':return home();case'timeline':return heading('🗓️ The Full Story',`${s.log.length} recorded memories across ${s.age+1} chapters.`)+timelineList(520);case'education':return education();case'career':return careers();case'people':return people();case'activities':return activities();case'finance':return finance();case'assets':return assets();case'business':return business();case'fame':return fame();case'politics':return politics();case'crime':return crime();case'travel':return travel();case'society':return societyPage();case'underworld':return underworldPage();case'space':return spacePage();case'collect':return collectPage();case'achievements':return achievements();case'god':return god();case'saves':return saves();default:return home()}}
-function renderMobile(){const buttons=[['home','🏠','Life'],['activities','⚡','Actions'],['career','💼','Jobs'],['finance','💰','Money'],['more','☰','More']];return `<div class="mobile-nav">${buttons.map(([id,em,txt])=>`<button data-tab="${id}" class="${tab===id?'active':''}"><span>${em}</span>${txt}</button>`).join('')}</div>${s.alive?'<button class="mobile-age" data-act="age">🎂 Age up →</button>':''}`}
-function render(){if(s)ensureExpansions(s);if(!s){renderSetup();document.getElementById('modal-root').innerHTML='';return}document.getElementById('app').innerHTML=`<div class="shell">${renderSidebar()}<main class="main">${renderTop()}${renderContent()}</main>${renderRight()}</div>${renderMobile()}`;if(tab==='career'&&jobQuery)filterJobList();renderModal()}
+function renderContent(){switch(tab){case'home':return home();case'actions':return fullScreenCategories();case'navigation':return fullMenuPage();case'stats':return extraStatsPage();case'baby':return babyPage();case'settings':return settingsPage();case'timeline':return heading('🗓️ The Full Story',`${s.log.length} recorded memories across ${s.age+1} chapters.`)+timelineList(520);case'education':return education();case'career':return careers();case'people':return people();case'activities':return activities();case'finance':return finance();case'assets':return assets();case'business':return business();case'fame':return fame();case'politics':return politics();case'crime':return crime();case'travel':return travel();case'society':return societyPage();case'underworld':return underworldPage();case'space':return spacePage();case'collect':return collectPage();case'achievements':return achievements();case'god':return god();case'saves':return saves();default:return home()}}
+function renderMobile(){return ''}
+function render(){
+  document.body.classList.toggle('everafter-home-active',!!s&&tab==='home');
+  if(s)ensureExpansions(s);
+  if(!s){renderSetup();document.getElementById('modal-root').innerHTML='';return}
+  document.getElementById('app').innerHTML=`<div class="shell">${renderSidebar()}<main class="main">${renderTop()}${renderContent()}</main>${renderRight()}</div>${renderMobile()}`;
+  if(tab==='career'&&jobQuery)filterJobList();
+  if(ageFxPending&&tab==='home'){
+    document.getElementById('modal-root').innerHTML='';
+    clearTimeout(ageFxTimer);
+    ageFxTimer=setTimeout(()=>{ageFxPending=false;document.querySelector('.life-home')?.classList.remove('age-playing');renderModal()},850);
+  }else renderModal();
+}
 function renderModal(){const root=document.getElementById('modal-root');if(!modal){root.innerHTML='';return}const m=modal;root.innerHTML=`<div class="modal-backdrop" role="presentation"><div class="modal ${m.wide?'wide':''}" role="dialog" aria-modal="true" aria-label="${esc(m.title)}"><div class="modal-icon">${m.icon||'✨'}</div><h2>${esc(m.title)}</h2><p>${m.body||''}</p><div class="modal-actions">${(m.choices||[]).map((c,i)=>`<button class="choice" data-choice="${i}"><span><strong>${esc(c.text)}</strong>${c.hint?`<small>${esc(c.hint)}</small>`:''}</span><span class="arrow">➜</span></button>`).join('')}</div>${!m.noClose?'<button class="modal-close" data-close="1">✕ Close</button>':''}</div></div>`}
 function filterJobList(){const input=document.getElementById('job-search');if(!input)return;const q=jobQuery.trim().toLowerCase();document.querySelectorAll('[data-job-search]').forEach(el=>{el.hidden=!el.dataset.jobSearch.includes(q)})}
 function openMore(){const choices=NAV.flatMap(([group,items])=>items.map(([id,em,name])=>({text:`${em} ${name}`,hint:group,fn:()=>{tab=id;render()}})));choose('Explore Everafter','🗺️','Jump to any of the game systems. Nothing is locked behind payments.',choices)}
