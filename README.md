@@ -88,6 +88,18 @@ If the app later adds non-exempt encryption or third-party encryption libraries,
 - Each incident can appear only once per life. The game also checks the existing timeline when updating older save files, so previously encountered toy/cookie incidents remain excluded.
 - Both build and TestFlight workflows run a JavaScript regression test for incident uniqueness, save migration and mobile controls.
 
+## EverAfter quality overhaul (build 5)
+
+- **Cinematic Chapter Reveal:** a custom purple birthday sequence, large animated year transition and three-card year recap showing the current life stage, net cash change and important stat changes.
+- **Adjustable pacing:** Settings → Birthday animation → Cinematic / Quick / Off. Stored locally, independent of the life save.
+- **Choices with lasting consequences:** 10 follow-up story arcs tie decisions from childhood, school, friendships and projects to later events. The returning event text changes depending on the original choice.
+- **Visible consequences:** life-event decisions add their actual stat, cash and grade changes to the saved timeline.
+- **More readable journal:** life memories appear in age-grouped chapters, oldest to newest, with a link to the full timeline.
+- **Scroll that respects the reader:** the journal keeps its position when rerendering without new events, and follows new moments when the timeline changes.
+- **Event decisions redesigned:** richer cards with numbered choices and clear age/context labels.
+- **Regression checks:** verify story arcs, old saves, recap calculations, age controls, chronology and animation settings before any build/upload.
+- The old `everafter_life_v1` save format and its existing game systems are preserved.
+
 ## Storage
 
 The game uses a persistent `WKWebView` data store for local save slots. It supports JSON export and import from the in-game interface. Like any app, save data could be lost when uninstalling, so export anything important beforehand.

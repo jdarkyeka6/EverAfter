@@ -120,6 +120,52 @@
  .birthday-scene,.birthday-scene:before,.birthday-scene .birthday-spark,.birthday-scene .birthday-caption,.birthday-scene .birthday-previous,.birthday-scene .birthday-current,.birthday-scene .birthday-message,.birthday-scene .birthday-year{animation:none!important}
  .birthday-scene .birthday-previous{display:none}
 }
+
+/* Chapter v5: richer life journal, year recap and responsive birthday scene */
+@media(max-width:760px){
+body.everafter-home-active{background:radial-gradient(ellipse at 50% -20%,#5b368555,transparent 65%),#090914}
+.mobile-topbar .app-wordmark{text-shadow:0 0 25px #b78aff45;font-size:17px}
+.life-avatar{border-color:#bd93ff7d;box-shadow:0 5px 19px #9d5ad34d}
+.life-money{border-color:#4b755f;background:linear-gradient(155deg,#14332b,#1b2530);color:#a4ffd4}
+.life-chips{gap:7px}
+.life-stat{background:linear-gradient(145deg,#221e36,#1b182b);border-color:#4a3a61}
+.life-stat:focus-visible,.home-control:focus-visible,.chapter-open:focus-visible{outline:2px solid #d8baff;outline-offset:3px}
+.home-scroll-wrap{border-color:#675184;box-shadow:0 16px 38px #09041055,inset 0 1px #aa87d425;background:linear-gradient(165deg,#22172e,#161427 24%,#141525)}
+.home-scroll-title{background:#3620445e;padding:10px 12px}
+.home-scroll-title .chapter-open{border-radius:9px;border:1px solid #8760aa77;background:#4a337347;color:#e2c8ff;padding:7px 8px;font-size:10px}
+.home-feed .chapter-marker{padding:13px 12px 5px;display:flex;align-items:center;gap:7px;font-size:10px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:#b69bdd}
+.home-feed .chapter-marker:after{content:"";height:1px;background:#604b755c;flex:1}
+.home-feed .entry{margin:0 9px;position:relative;padding:10px 4px 10px 13px;border-color:#6d59722b}
+.home-feed .entry:before{content:"";position:absolute;left:1px;top:17px;height:5px;width:5px;border-radius:50%;background:#8c6ba4}
+.home-feed .entry.event:before{background:#d59aff;box-shadow:0 0 9px #be8cfc88}
+.home-feed .entry-age{background:#3d2b52;color:#decaff;min-width:46px}
+.home-feed .entry-text{line-height:1.65;color:#e1d8ee}
+.home-controls .home-control.primary{overflow:hidden;position:relative;box-shadow:0 6px 24px #a56bff8a;border-color:#ead0ff}
+.home-controls .home-control.primary:before{content:"";position:absolute;inset:0;transform:translateX(-130%) skewX(-20deg);width:45%;background:linear-gradient(90deg,transparent,#ffffff63,transparent);animation:ageShimmer 5s ease-in-out infinite}
+.home-controls .home-control.primary .control-symbol{font-size:22px}
+.home-controls .home-control.relations-shortcut{border-color:#7c4b93;background:linear-gradient(100deg,#301b42,#281936)}
+.birthday-scene{z-index:70;background:radial-gradient(ellipse 92% 74% at 50% 42%,#6b3ca2 0%,#261437 50%,#090914 100%)}
+.birthday-scene .birthday-numbers{height:128px}
+.birthday-scene .birthday-caption{letter-spacing:5px}
+.birthday-scene .birthday-message{font-size:24px;letter-spacing:-.8px}
+.birthday-scene .birthday-summary{z-index:2;width:min(350px,calc(100vw - 40px));margin-top:20px;display:grid;gap:8px;animation:chapterRecapIn .52s 1.05s both}
+.birthday-summary .recap-card{background:linear-gradient(120deg,#ffffff16,#ffffff08);border:1px solid #dab6ff50;padding:11px 14px;border-radius:14px;display:flex;align-items:center;gap:12px;text-align:left;backdrop-filter:blur(7px)}
+.birthday-summary .recap-icon{font-size:22px;flex:0 0 26px}
+.birthday-summary .recap-text{min-width:0;flex:1}
+.birthday-summary .recap-label{font-size:10px;color:#dfbdf5;display:block;margin-bottom:3px}
+.birthday-summary .recap-value{font-size:13px;font-weight:900;color:#fff}
+.birthday-scene .birthday-skip{padding:12px 22px;font-size:13px;font-weight:850;background:#e5cbff;color:#211333;border:0;box-shadow:0 7px 26px #c895f044}
+.modal.life-dilemma{border:1px solid #9270b8;border-radius:23px;background:linear-gradient(150deg,#322145,#171728 45%,#171324);padding:20px}
+.modal.life-dilemma .modal-icon{font-size:43px;display:grid;place-items:center;width:65px;height:65px;border-radius:21px;background:#a36ddd2b;box-shadow:inset 0 0 0 1px #d9b7f440}
+.modal.life-dilemma .event-tag{display:inline-block;color:#cfa7fa;font-size:10px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.modal.life-dilemma .choice{border-color:#5b4675;background:linear-gradient(145deg,#332640,#252036);border-radius:14px;min-height:62px}
+.modal.life-dilemma .choice .option-index{font-size:11px;color:#e4cafa;border:1px solid #8e6baa;background:#49365f;border-radius:9px;flex:0 0 26px;height:26px;display:grid;place-items:center}
+.modal.life-dilemma .choice .option-copy{flex:1;min-width:0}
+@keyframes ageShimmer{0%,69%,100%{transform:translateX(-130%) skewX(-20deg)}84%{transform:translateX(380%) skewX(-20deg)}}
+@keyframes chapterRecapIn{from{transform:translateY(19px);filter:blur(4px);opacity:0}to{transform:translateY(0);filter:blur(0);opacity:1}}
+}
+@media(max-width:365px) and (max-height:720px){.birthday-scene .birthday-numbers{height:85px}.birthday-scene .birthday-previous{font-size:75px}.birthday-scene .birthday-current{font-size:88px}.birthday-scene .birthday-summary{margin-top:9px;gap:5px}.birthday-summary .recap-card{padding:7px 11px}}
+@media(prefers-reduced-motion:reduce){.home-controls .home-control.primary:before,.birthday-scene .birthday-summary{animation:none!important}}
 </style></head>
 <body><div id="app"></div><div id="modal-root"></div><div class="toast-zone" id="toasts"></div><input type="file" id="import-file" accept=".json,application/json" hidden><script>
 'use strict';
@@ -158,10 +204,11 @@ function newState(o={}){
  const stats={health:rand(64,94),happy:rand(65,95),smart:rand(40,91),looks:rand(34,91),fitness:rand(30,80),discipline:rand(35,82),karma:60,fame:0,reputation:65};if(origin==='struggling'){stats.discipline+=8;stats.happy-=8}if(origin==='wealthy'||origin==='royal'){stats.happy+=4;stats.smart+=7}if(talent!=='random'&&talent!=='all')stats[talent]&&(stats[talent]=Math.max(stats[talent],82));Object.keys(stats).forEach(k=>stats[k]=cap(stats[k]));
  const skills={music:rand(0,34),sport:rand(0,34),acting:rand(0,34),coding:rand(0,34),business:rand(0,34),social:rand(0,34),politics:rand(0,34),art:rand(0,34),writing:rand(0,34)};if(talent!=='random'&&skills[talent]!=null)skills[talent]=80;if(talent==='all')Object.keys(skills).forEach(k=>skills[k]=85);
  const relations=[{id:1,name:pick(FIRST)+' '+pick(LAST),type:'mother',bond:base,age:rand(24,42),alive:true},{id:2,name:pick(FIRST)+' '+pick(LAST),type:'father',bond:base,age:rand(26,46),alive:true}];if(chance(58))relations.push({id:3,name:relationshipName(),type:'sibling',bond:rand(35,95),age:rand(0,8),alive:true});
- return {version:1,id:Date.now(),name,avatar:o.avatar||pick(EMOJIS),gender:o.gender||'Nonbinary',country,origin,age:0,year:2000,alive:true,deathCause:'',stats,skills,ap:6,cash:origin==='royal'?5000:origin==='wealthy'?500:origin==='struggling'?0:50,debt:0,allowance:origin==='wealthy'?120:origin==='struggling'?8:35,familyWealth:familCash,grades:rand(53,86),education:'Preschool',degree:'',degrees:[],studying:null,job:null,jobHistory:[],unemployed:0,office:null,approval:50,relationships:relations,nextRelId:4,childrenBorn:0,pets:[],homes:[],cars:[],businesses:[],portfolio:{index:0,tech:0,green:0,crypto:0,bonds:0},prices:Object.fromEntries(MARKETS.map(m=>[m.id,m.base])),marketNews:'The markets are calm.',followers:rand(0,25),creations:0,records:0,books:0,prison:0,criminalRecord:0,scandal:0,crimeCount:0,healthConditions:[],places:[],donated:0,volunteer:0,log:[{age:0,text:`🌟 ${name} was born in ${country}. A brand-new story begins.`,type:'birth'}],eventHistory:[],flags:{companiesFounded:0,rewound:false,served:false,gambleLoss:false},yearAction:{},snapshots:[],awards:[],paused:false,legacyParent:o.legacyParent||null,gameplayTurns:0}
+ return {version:1,id:Date.now(),name,avatar:o.avatar||pick(EMOJIS),gender:o.gender||'Nonbinary',country,origin,age:0,year:2000,alive:true,deathCause:'',stats,skills,ap:6,cash:origin==='royal'?5000:origin==='wealthy'?500:origin==='struggling'?0:50,debt:0,allowance:origin==='wealthy'?120:origin==='struggling'?8:35,familyWealth:familCash,grades:rand(53,86),education:'Preschool',degree:'',degrees:[],studying:null,job:null,jobHistory:[],unemployed:0,office:null,approval:50,relationships:relations,nextRelId:4,childrenBorn:0,pets:[],homes:[],cars:[],businesses:[],portfolio:{index:0,tech:0,green:0,crypto:0,bonds:0},prices:Object.fromEntries(MARKETS.map(m=>[m.id,m.base])),marketNews:'The markets are calm.',followers:rand(0,25),creations:0,records:0,books:0,prison:0,criminalRecord:0,scandal:0,crimeCount:0,healthConditions:[],places:[],donated:0,volunteer:0,log:[{age:0,text:`🌟 ${name} was born in ${country}. A brand-new story begins.`,type:'birth'}],eventHistory:[],storyThreads:[],flags:{companiesFounded:0,rewound:false,served:false,gambleLoss:false},yearAction:{},snapshots:[],awards:[],paused:false,legacyParent:o.legacyParent||null,gameplayTurns:0}
 }
 let s=null, tab='home', modal=null, toastTimer=null, categoryFilter='all', jobQuery='', feedLimit=40;
-let ageFxPending=false,ageFxTimer=null,ageFxFrom=0,ageFxTo=0;
+let ageFxPending=false,ageFxTimer=null,ageFxFrom=0,ageFxTo=0,ageRecap=null;
+let motionPreference=['full','fast','off'].includes(storage.getItem('everafter_motion_v1'))?storage.getItem('everafter_motion_v1'):'full';
 try{const loaded=JSON.parse(storage.getItem(KEY));if(loaded&&loaded.version===1&&loaded.stats&&Array.isArray(loaded.log))s=loaded}catch(e){}
 function save(){try{storage.setItem(KEY,JSON.stringify(s))}catch(e){}}
 function log(t,type='normal'){if(!s)return;s.log.unshift({age:s.age,text:t,type});if(s.log.length>520)s.log.length=520}
@@ -191,7 +238,8 @@ function ageUp(){
  ensureExpansions(s);
  if(!s||!s.alive){fail('Your story has ended. Start a new life or open your legacy.');return}
  const snapshot=objcopy({...s,snapshots:[]});s.snapshots.unshift(snapshot);if(s.snapshots.length>8)s.snapshots.length=8;
- ageFxFrom=s.age;s.age++;ageFxTo=s.age;ageFxPending=tab==='home'&&window.matchMedia('(max-width:760px)').matches;log(`🎂 You turned ${s.age}. Another chapter begins!`,'event');s.year=2000+s.age;s.ap=9+(s.stats.discipline>=85?2:0);s.yearAction={};
+ const birthdayStart={cash:s.cash,grades:s.grades,education:s.education,job:s.job?.name||'',stats:{...s.stats},logLength:s.log.length};
+ ageFxFrom=s.age;s.age++;ageFxTo=s.age;ageFxPending=tab==='home'&&motionPreference!=='off'&&window.matchMedia('(max-width:760px)').matches;log(`🎂 You turned ${s.age}. Another chapter begins!`,'event');s.year=2000+s.age;s.ap=9+(s.stats.discipline>=85?2:0);s.yearAction={};
  if(s.age<=17){const allowance=Math.round(s.allowance*(s.age>=13?4:1));s.cash+=allowance;s.grades=cap(s.grades+rand(-6,4)+Math.round((s.stats.smart-55)/15));s.education=s.age<5?'Early Childhood':s.age<13?'Primary School':s.age<18?'Secondary School':'Secondary School';if(s.age===5)log('🎒 Your first day at primary school!');if(s.age===13)log('🏫 You started secondary school.');if(s.age===16)log('🚘 You are old enough to start learning to drive.');}
  if(s.age===18){s.education='High School Graduate';log(`🎓 You graduated high school with ${s.grades}% marks. What comes next?`,'event');if(s.origin==='wealthy'&&chance(75)){let gift=rand(10000,75000);s.cash+=gift;log(`🎁 Your family gave you ${cash(gift)} as an adulthood gift.`)}}
  if(s.studying){let e=s.studying;const tuition=e.price;if(s.cash>=tuition){s.cash-=tuition}else{s.debt+=Math.round(tuition*1.045)}e.years--;s.grades=cap(s.grades+rand(-3,5)+(s.stats.smart>75?3:0));if(e.years<=0){s.degrees.push(e.major);s.degree=e.major;s.education=`${e.level} in ${e.major}`;s.studying=null;stat('smart',7);log(`🎓 Graduated! You earned a ${e.level} in ${e.major}.`,'event')}}
@@ -224,11 +272,23 @@ function ageUp(){
  const selected=selectUnseenLifeEvent();
  if(selected)eventModal(selected);
  else log('🌿 This was a quieter year, filled with small everyday moments.');
- checkAward();save();render();
+ checkAward();ageRecap=buildAgeRecap(birthdayStart,s);save();render();
 }
-function die(cause){s.alive=false;s.deathCause=cause;log(`🕯️ ${s.name} died at age ${s.age} from ${cause}. Net worth: ${cash(worth())}.`,'event');checkAward();const history=JSON.parse(storage.getItem(ARCHIVE)||'[]');history.unshift({name:s.name,avatar:s.avatar,age:s.age,year:s.year,worth:worth(),cause:s.deathCause,awards:s.awards.length,children:s.relationships.filter(x=>x.type==='child').length});storage.setItem(ARCHIVE,JSON.stringify(history.slice(0,30)));save();modal={title:'Your story has ended',icon:'🕯️',body:`${esc(s.name)} lived for ${s.age} years. Final net worth: <b>${cash(worth())}</b>.<br><br>You earned ${s.awards.length} achievements and had ${s.relationships.filter(x=>x.type==='child').length} children. Your story lives in the Legacy Hall.`,choices:[{text:'👶 Begin another life',fn:()=>{s=null;save();render()}},{text:'🏆 View your legacy',fn:()=>{modal=null;setTab('saves')}}]};render()}
+function die(cause){ageFxPending=false;clearTimeout(ageFxTimer);document.querySelector('.birthday-scene')?.remove();s.alive=false;s.deathCause=cause;log(`🕯️ ${s.name} died at age ${s.age} from ${cause}. Net worth: ${cash(worth())}.`,'event');checkAward();const history=JSON.parse(storage.getItem(ARCHIVE)||'[]');history.unshift({name:s.name,avatar:s.avatar,age:s.age,year:s.year,worth:worth(),cause:s.deathCause,awards:s.awards.length,children:s.relationships.filter(x=>x.type==='child').length});storage.setItem(ARCHIVE,JSON.stringify(history.slice(0,30)));save();modal={title:'Your story has ended',icon:'🕯️',body:`${esc(s.name)} lived for ${s.age} years. Final net worth: <b>${cash(worth())}</b>.<br><br>You earned ${s.awards.length} achievements and had ${s.relationships.filter(x=>x.type==='child').length} children. Your story lives in the Legacy Hall.`,choices:[{text:'👶 Begin another life',fn:()=>{s=null;save();render()}},{text:'🏆 View your legacy',fn:()=>{modal=null;setTab('saves')}}]};render()}
 function effect(o){if(!o)return;for(const [k,v] of Object.entries(o)){if(k==='money')s.cash+=v;if(k==='debt')s.debt+=v;if(k==='karma')stat('karma',v);if(k==='happy')stat('happy',v);if(k==='health')stat('health',v);if(k==='smart')stat('smart',v);if(k==='looks')stat('looks',v);if(k==='fame')stat('fame',v);if(k==='reputation')stat('reputation',v);if(k==='fitness')stat('fitness',v);if(k==='discipline')stat('discipline',v);if(k==='followers')s.followers=Math.max(0,s.followers+v);if(k.startsWith('skill:'))skill(k.split(':')[1],v);if(k==='grades')s.grades=cap(s.grades+v);if(k==='bond'){const r=pick(s.relationships.filter(x=>x.alive));if(r)r.bond=cap(r.bond+v)}if(k==='randomMoney')s.cash+=rand(v[0],v[1]);if(k==='randomFame')stat('fame',rand(v[0],v[1]))}}
-function eventModal(e){modal={title:e.title,icon:e.icon||'✨',body:e.desc,choices:e.options.map(o=>({text:o[0],hint:o[1],fn:()=>{effect(o[2]);if(o[3])o[3]();modal=null;commit(`✨ ${e.title}: ${o[4]||o[0]}`,'event')}}))};if(!ageFxPending)renderModal()}
+function eventModal(e){
+ modal={title:e.title,icon:e.icon||'✨',kind:'life-event',body:esc(e.desc),choices:e.options.map((o,i)=>({
+   text:o[0],hint:o[1],fn:()=>{
+     const before={cash:s.cash,grades:s.grades,stats:{...s.stats},skills:{...s.skills}};
+     rememberStoryChoice(e,i);
+     effect(o[2]);if(o[3])o[3]();
+     const details=eventEffectDetails(before,s);
+     modal=null;
+     commit(`✨ ${e.title}: ${o[4]||o[0]}${details?' · '+details:''}`,'event');
+   }
+ }))};
+ if(!ageFxPending)renderModal();
+}
 const EVENTS=[
 {min:1,max:5,icon:"🫧",title:"Bubbles Everywhere",desc:"A cloud of bubbles floats across the garden.",options:[["Chase them",'Follow your curiosity',{"happy":7,"fitness":2}],["Pop a big one",'See what happens',{"smart":4,"happy":2}],["Watch them drift",'Another way to play',{"happy":4}]]},
 {min:1,max:5,icon:"📚",title:"Picture Book Adventure",desc:"A family member opens an enormous picture book.",options:[["Find the animals",'Follow your curiosity',{"smart":6}],["Ask for another story",'See what happens',{"happy":6,"bond":3}],["Turn the pages",'Another way to play',{"discipline":3,"smart":3}]]},
@@ -329,12 +389,40 @@ const EVENTS=[
 {min:75,icon:'🌅',title:'The Golden Years',desc:'You have a beautiful afternoon with no responsibilities.',options:[['Take a long walk','Appreciate the moment',{health:7,happy:9}],['Call your family','Connect with loved ones',{bond:12,happy:8}],['Write down your story','A lasting record',{'skill:writing':9,smart:3}]]}
 ];
 
+const STORY_ARCS={"The Toy Incident":{title:"A Playground Reunion",icon:"🧸",delay:2,descs:["A child remembers when you shared a favourite toy with them. They invite you to play again.","The same child returns after your decision to ask for help. They bring a toy to share.","The child from the toy dispute wants to make peace after your argument."],options:[["Play together","A new beginning",{"happy":8,"karma":4}],["Apologise and start fresh","Repair the friendship",{"karma":9,"happy":5}],["Keep some distance","Sometimes people grow apart",{"happy":2}]]},
+"Cookie Jar Mystery":{title:"The Family Bake-Off",icon:"🍪",delay:2,descs:["Your secret cookie adventure is remembered when the family organises a baking contest.","Your family remembers that you saved the last cookie for someone else. They invite you to help bake.","Your first attempt at baking inspired a new family challenge."],options:[["Bake together","Make something delicious",{"happy":7,"bond":5}],["Invent a new recipe","Try your own idea",{"smart":6,"happy":3}],["Taste-test everything","An excellent job",{"happy":8,"fitness":-1}]]},
+"New Kid in Class":{title:"A Friendship Comes Back",icon:"🤝",delay:3,descs:["The student you welcomed on their first day wants your advice.","The new student remembers the tour you gave them and asks you to join a club.","The classmate you invited to play is now organising a group outing."],options:[["Make time for them","Friendships need effort",{"happy":6,"karma":5}],["Start a shared hobby","Make new memories",{"skill:social":5,"happy":5}],["Wish them well","A warm moment",{"karma":3}]]},
+"First Coding Challenge":{title:"Your First App Idea",icon:"💻",delay:3,descs:["Your childhood maze game has inspired a new project.","A teacher remembers your digital artwork and invites you to join a creative computing club.","Your first coding teammates want to make another game together."],options:[["Build a prototype","Practice software skills",{"skill:coding":10,"smart":4}],["Work with friends","Build a team",{"skill:coding":5,"happy":6}],["Sketch a new idea","Think creatively",{"smart":7}]]},
+"The Music Tryout":{title:"A Bigger Stage",icon:"🎶",delay:3,descs:["After your music tryout, you have an opportunity to perform at a community event.","Someone from the choir remembers your voice and offers a solo.","Your backstage work opens an opportunity to manage a performance."],options:[["Take the stage","Perform for an audience",{"skill:music":10,"happy":6}],["Practice first","Prepare carefully",{"skill:music":7,"discipline":4}],["Support the group","Share the spotlight",{"karma":6,"happy":5}]]},
+"Startup Weekend":{title:"The Prototype Returns",icon:"🚀",delay:3,descs:["An organiser from the coding event asks you to keep developing your prototype.","Someone remembers your business pitch and offers a mentorship opportunity.","A friend from the event suggests you try a new idea together."],options:[["Work on the idea","Build the project",{"skill:coding":10,"skill:business":5}],["Ask for advice","Find a mentor",{"smart":7,"reputation":4}],["Build with a partner","Collaborate",{"happy":5,"skill:business":5}]]},
+"Group Chat Disaster":{title:"A Digital Second Chance",icon:"📱",delay:2,descs:["Your decision to speak up in the group chat is remembered when another issue arises.","A classmate thanks you for trying to bring some humour to a difficult moment, but asks for more care.","Someone remembers how you stayed out of the chat incident and asks what you think now."],options:[["Stand up for someone","Support a classmate",{"karma":9,"reputation":4}],["Talk privately","Help them feel heard",{"karma":6,"happy":4}],["Ask an adult for advice","Think before acting",{"smart":5,"karma":4}]]},
+"The Science Table":{title:"Science Fair Surprise",icon:"🔬",delay:3,descs:["The magnet experiment sparks an invitation to demonstrate your findings at a school fair.","Your careful observations about plants become the focus of a science project.","Your teacher remembers how clearly you explained a discovery and invites you to present."],options:[["Enter the fair","Show what you learned",{"smart":9,"reputation":4}],["Team up with friends","Share the work",{"smart":5,"karma":5}],["Research something new","Expand your knowledge",{"smart":10}]]},
+"Unexpected Crush":{title:"An Old Note Resurfaces",icon:"💌",delay:3,descs:["You hear from the person who once sent you a sweet note.","The person you became friends with reaches out again after some time.","You find the note again and wonder how that person is doing."],options:[["Reconnect kindly","Be thoughtful",{"happy":7,"karma":4}],["Keep things friendly","No pressure",{"happy":5}],["Leave the past behind","Move forward",{"discipline":3,"happy":3}]]},
+"An Academic Opportunity":{title:"Scholarship Follow-Up",icon:"🎓",delay:2,descs:["The scholarship office reaches out with a new opportunity based on your application.","The mentor who helped you prepare wants to work with you again.","Another scholarship deadline appears, and this time you noticed early."],options:[["Apply with a plan","Build your future",{"grades":7,"smart":4}],["Ask for guidance","Find useful advice",{"grades":5,"reputation":4}],["Explore other options","Stay flexible",{"smart":6,"happy":3}]]}};
+function rememberStoryChoice(event,choiceIndex){
+  const arc=STORY_ARCS[event.title];
+  if(!arc)return;
+  if(!Array.isArray(s.storyThreads))s.storyThreads=[];
+  if(s.storyThreads.some(thread=>thread.origin===event.title))return;
+  s.storyThreads.push({origin:event.title,choice:choiceIndex,dueAge:s.age+arc.delay,seen:false});
+}
 function selectUnseenLifeEvent(){
   // Continue old save files without repeating incidents that already occurred.
   if(!Array.isArray(s.eventHistory)){
     s.eventHistory=EVENTS.filter(e=>s.log.some(entry=>entry.text?.startsWith('✨ '+e.title+':'))).map(e=>e.title);
   }
   const seen=new Set(s.eventHistory);
+  if(Array.isArray(s.storyThreads)){
+    const thread=s.storyThreads.find(t=>!t.seen&&t.dueAge<=s.age&&STORY_ARCS[t.origin]);
+    if(thread){
+      thread.seen=true;
+      const arc=STORY_ARCS[thread.origin];
+      if(!seen.has(arc.title)){
+        s.eventHistory.push(arc.title);
+        return {icon:arc.icon,title:arc.title,desc:arc.descs[thread.choice]||arc.descs[0],options:arc.options,storyFollowup:true};
+      }
+    }
+  }
   const available=EVENTS.filter(e=>(!e.min||s.age>=e.min)&&(!e.max||s.age<=e.max)&&(!e.when||e.when())&&!seen.has(e.title));
   if(!available.length)return null;
   const selected=pick(available);
@@ -531,6 +619,12 @@ function miniLifeStat(key,emoji,label,tint){
 function homeMobile(){
   const stage=lifeStage();
   const logItems=s.log.slice(0,120).reverse();
+  let chapter=-1;
+  const journal=logItems.map(e=>{
+    const marker=e.age!==chapter?(`<div class="chapter-marker">✦ Age ${e.age} · ${2000+e.age}</div>`):'';
+    chapter=e.age;
+    return marker+`<div class="entry ${e.type||''}"><span class="entry-age">Age ${e.age}</span><span class="entry-text">${esc(e.text)}</span></div>`;
+  }).join('');
   return `<div class="mobile-home-only life-home ${ageFxPending?'age-playing':''}">
     <div class="life-header">
       <div class="life-idrow">
@@ -550,9 +644,9 @@ function homeMobile(){
       </div>
     </div>
     <section class="home-scroll-wrap" aria-label="Recent life events">
-      <div class="home-scroll-title"><strong>📜 Recent Events</strong><small>${s.log.length} memories</small></div>
+      <div class="home-scroll-title"><div><strong>📜 Your Story</strong><small style="display:block;margin-top:3px">${s.log.length} memories · Chapter ${s.age+1}</small></div><button class="chapter-open" data-tab="timeline">See all ↗</button></div>
       <div class="home-feed" tabindex="0">
-        ${logItems.map(e=>`<div class="entry ${e.type||''}"><span class="entry-age">Age ${e.age}</span><span class="entry-text">${esc(e.text)}</span></div>`).join('')}
+        ${journal}
       </div>
     </section>
     <div class="home-controls">
@@ -593,7 +687,9 @@ function babyPage(){
   section('Your Family',`<div class="cards">${s.relationships.filter(r=>r.alive).map(r=>item(esc(r.name),`${esc(r.type)} · Bond ${r.bond}%`,btn('Say hello','relAction',r.id,'call'),'💞')).join('')}</div>`);
 }
 function settingsPage(){
-  return heading('⚙️ Settings','Manage your life, backups and game features.')+
+  const modes=[['full','✨ Cinematic','Full birthday animation and year recap'],['fast','⚡ Quick','Short animation with year recap'],['off','🚫 Off','Skip directly to the life decision']];
+  return heading('⚙️ Settings','Make EverAfter feel right for you.')+
+    section('Birthday animation',`<div class="panel glass"><p class="tip" style="margin-bottom:12px">Choose how the game celebrates a new year of your life.</p><div class="cards">${modes.map(([id,label,description])=>`<button class="choice" data-motion="${id}" aria-pressed="${motionPreference===id?'true':'false'}"><span><strong>${label} ${motionPreference===id?'✓':''}</strong><small>${description}</small></span><span class="arrow">${motionPreference===id?'●':'○'}</span></button>`).join('')}</div></div>`)+
     section('Your game',grid([
       actionCard('💾','Save & Load','Manage slots, export and import your lives','navigate','saves'),
       actionCard('✨','Creator Mode','All powers unlocked','navigate','god'),
@@ -619,6 +715,9 @@ function saves(){let slots={};let archived=[];try{slots=JSON.parse(storage.getIt
 function renderContent(){switch(tab){case'home':return home();case'actions':return fullScreenCategories();case'navigation':return fullMenuPage();case'stats':return extraStatsPage();case'baby':return babyPage();case'settings':return settingsPage();case'timeline':return heading('🗓️ The Full Story',`${s.log.length} recorded memories across ${s.age+1} chapters.`)+timelineList(520);case'education':return education();case'career':return careers();case'people':return people();case'activities':return activities();case'finance':return finance();case'assets':return assets();case'business':return business();case'fame':return fame();case'politics':return politics();case'crime':return crime();case'travel':return travel();case'society':return societyPage();case'underworld':return underworldPage();case'space':return spacePage();case'collect':return collectPage();case'achievements':return achievements();case'god':return god();case'saves':return saves();default:return home()}}
 function renderMobile(){return ''}
 function render(){
+  const previousFeed=document.querySelector('.home-feed');
+  const currentKey=s?`${s.id}:${s.log.length}:${s.log[0]?.text||''}`:'';
+  const previousScroll=previousFeed?{top:previousFeed.scrollTop,bottom:previousFeed.scrollHeight-previousFeed.clientHeight-previousFeed.scrollTop}:null;
   document.body.classList.toggle('everafter-home-active',!!s&&tab==='home');
   if(s)ensureExpansions(s);
   if(!s){renderSetup();document.getElementById('modal-root').innerHTML='';return}
@@ -626,26 +725,69 @@ function render(){
   if(tab==='career'&&jobQuery)filterJobList();
   if(tab==='home'){
     const feed=document.querySelector('.home-feed');
-    if(feed)feed.scrollTop=feed.scrollHeight;
+    if(feed){
+      const newKey=`${s.id}:${s.log.length}:${s.log[0]?.text||''}`;
+      if(previousScroll&&currentKey===newKey&&previousScroll.bottom>42)feed.scrollTop=previousScroll.top;
+      else feed.scrollTop=feed.scrollHeight;
+    }
   }
   if(ageFxPending&&tab==='home'){
     document.getElementById('modal-root').innerHTML='';
     document.querySelector('.birthday-scene')?.remove();
     document.body.insertAdjacentHTML('beforeend',birthdayScreen());
     clearTimeout(ageFxTimer);
-    ageFxTimer=setTimeout(finishBirthday,window.matchMedia('(prefers-reduced-motion: reduce)').matches?200:1550);
+    ageFxTimer=setTimeout(finishBirthday,window.matchMedia('(prefers-reduced-motion: reduce)').matches?200:(motionPreference==='fast'?1000:2700));
   }else renderModal();
+}
+
+
+function lifeChapterLabel(age){
+ if(age===0)return 'A new beginning';
+ if(age<5)return 'The wonder years';
+ if(age<13)return 'Growing up';
+ if(age<18)return 'Finding your feet';
+ if(age<25)return 'The next adventure';
+ if(age<40)return 'Making your mark';
+ if(age<60)return 'The story deepens';
+ return 'A lifetime of stories';
+}
+function buildAgeRecap(before,after){
+ const changes=Object.entries(after.stats).map(([key,val])=>({key,amount:val-(before.stats[key]??val)})).filter(x=>Math.abs(x.amount)>=2).sort((a,b)=>Math.abs(b.amount)-Math.abs(a.amount));
+ const milestone=after.education!==before.education?after.education:(after.job?.name||'')!==before.job?(after.job?.name||'New chapter'):lifeChapterLabel(after.age);
+ return {age:after.age,cashDelta:after.cash-before.cash,changes:changes.slice(0,2),milestone,memories:Math.max(0,after.log.length-before.logLength)};
+}
+function recapTile(icon,label,value){
+ return `<div class="recap-card"><span class="recap-icon">${icon}</span><span class="recap-text"><span class="recap-label">${esc(label)}</span><span class="recap-value">${esc(value)}</span></span></div>`;
+}
+function eventEffectDetails(before,after){
+ const descriptions=[];
+ const delta=after.cash-before.cash;
+ if(delta)descriptions.push((delta>0?'+':'−')+cash(Math.abs(delta))+' cash');
+ for(const [key,title] of [['health','Health'],['happy','Happiness'],['smart','Smarts'],['looks','Looks'],['fitness','Fitness'],['karma','Karma'],['reputation','Reputation'],['fame','Fame'],['discipline','Discipline']]){
+   const d=(after.stats[key]||0)-(before.stats[key]||0);
+   if(d)descriptions.push(title+' '+(d>0?'+':'')+d);
+ }
+ const grades=after.grades-before.grades;
+ if(grades)descriptions.push('Grades '+(grades>0?'+':'')+grades);
+ for(const key of Object.keys(after.skills).filter(key=>after.skills[key]!==before.skills[key]).slice(0,2))
+   descriptions.push(key[0].toUpperCase()+key.slice(1)+' '+((after.skills[key]-before.skills[key])>0?'+':'')+(after.skills[key]-before.skills[key]));
+ return descriptions.slice(0,3).join(' · ');
 }
 
 function birthdayScreen(){
   const sparks=Array.from({length:16},(_,i)=>`<span class="birthday-spark" style="--angle:${i*22.5}deg;--delay:${(i%4)*45}ms"></span>`).join('');
   return `<div class="birthday-scene" role="status" aria-label="You turned ${ageFxTo}">
     ${sparks}
-    <div class="birthday-caption">✦ New chapter ✦</div>
+    <div class="birthday-caption">✦ Chapter ${ageFxTo+1} ✦</div>
     <div class="birthday-numbers"><span class="birthday-previous" aria-hidden="true">${ageFxFrom}</span><span class="birthday-current">${ageFxTo}</span></div>
-    <div class="birthday-message">Happy Birthday! 🎉</div>
-    <div class="birthday-year">Your story continues · ${s.year}</div>
-    <button class="birthday-skip" data-skip-birthday="1">Continue ›</button>
+    <div class="birthday-message">Your story evolves ✨</div>
+    <div class="birthday-year">${esc(lifeChapterLabel(ageFxTo))} · ${s.year}</div>
+    <div class="birthday-summary" aria-label="Year recap">
+      ${recapTile('🌟','YOUR CHAPTER',ageRecap?.milestone||lifeChapterLabel(ageFxTo))}
+      ${recapTile('💰','CASH THIS YEAR',(ageRecap?.cashDelta||0)>=0?'+ '+cash(ageRecap?.cashDelta||0):'− '+cash(-(ageRecap?.cashDelta||0)))}
+      ${ageRecap?.changes?.length?recapTile('📈','LIFE CHANGES',ageRecap.changes.map(d=>d.key+' '+(d.amount>0?'+':'')+d.amount).join(' · ')):recapTile('📖','YOUR STORY',(ageRecap?.memories||1)+' new moments')}
+    </div>
+    <button class="birthday-skip" data-skip-birthday="1">Continue to story ›</button>
   </div>`;
 }
 function finishBirthday(){
@@ -656,11 +798,23 @@ function finishBirthday(){
   document.querySelector('.life-home')?.classList.remove('age-playing');
   renderModal();
 }
-function renderModal(){const root=document.getElementById('modal-root');if(!modal){root.innerHTML='';return}const m=modal;root.innerHTML=`<div class="modal-backdrop" role="presentation"><div class="modal ${m.wide?'wide':''}" role="dialog" aria-modal="true" aria-label="${esc(m.title)}"><div class="modal-icon">${m.icon||'✨'}</div><h2>${esc(m.title)}</h2><p>${m.body||''}</p><div class="modal-actions">${(m.choices||[]).map((c,i)=>`<button class="choice" data-choice="${i}"><span><strong>${esc(c.text)}</strong>${c.hint?`<small>${esc(c.hint)}</small>`:''}</span><span class="arrow">➜</span></button>`).join('')}</div>${!m.noClose?'<button class="modal-close" data-close="1">✕ Close</button>':''}</div></div>`}
+function renderModal(){
+ const root=document.getElementById('modal-root');
+ if(!modal){root.innerHTML='';return}
+ const m=modal,isEvent=m.kind==='life-event';
+ root.innerHTML=`<div class="modal-backdrop" role="presentation"><div class="modal ${m.wide?'wide':''} ${isEvent?'life-dilemma':''}" role="dialog" aria-modal="true" aria-label="${esc(m.title)}">
+ ${isEvent?`<div class="event-tag">✦ Age ${s.age} · Your choice matters</div>`:''}
+ <div class="modal-icon">${m.icon||'✨'}</div><h2>${esc(m.title)}</h2><p>${m.body||''}</p>
+ <div class="modal-actions">${(m.choices||[]).map((c,i)=>`<button class="choice" data-choice="${i}">${isEvent?`<span class="option-index">${i+1}</span>`:''}<span class="option-copy"><strong>${esc(c.text)}</strong>${c.hint?`<small>${esc(c.hint)}</small>`:''}</span><span class="arrow">›</span></button>`).join('')}</div>
+ ${!m.noClose?'<button class="modal-close" data-close="1">✕ Close</button>':''}
+ </div></div>`;
+}
 function filterJobList(){const input=document.getElementById('job-search');if(!input)return;const q=jobQuery.trim().toLowerCase();document.querySelectorAll('[data-job-search]').forEach(el=>{el.hidden=!el.dataset.jobSearch.includes(q)})}
 function openMore(){const choices=NAV.flatMap(([group,items])=>items.map(([id,em,name])=>({text:`${em} ${name}`,hint:group,fn:()=>{tab=id;render()}})));choose('Explore Everafter','🗺️','Jump to any of the game systems. Nothing is locked behind payments.',choices)}
 document.addEventListener('click',e=>{
  if(e.target.closest('[data-skip-birthday]')){finishBirthday();return}
+ const motion=e.target.closest('[data-motion]');
+ if(motion){motionPreference=motion.dataset.motion;storage.setItem('everafter_motion_v1',motionPreference);render();showToast('Birthday animation: '+motionPreference);return}
  const close=e.target.closest('[data-close]');if(close){closeDialog();return}
  const choice=e.target.closest('[data-choice]');if(choice&&modal){const c=modal.choices[Number(choice.dataset.choice)];if(c&&typeof c.fn==='function'){try{c.fn()}catch(err){console.error(err);fail('Something went wrong: '+err.message)}}return}
  const nav=e.target.closest('[data-tab]');if(nav){nav.dataset.tab==='more'?openMore():setTab(nav.dataset.tab);return}
