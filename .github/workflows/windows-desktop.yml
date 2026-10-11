@@ -1,0 +1,62 @@
+name: EverAfter Windows Desktop
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "desktop/**"
+      - "Everafter/Game/**"
+      - "scripts/test_game_ui.cjs"
+      - ".github/workflows/windows-desktop.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check gameplay logic
+        run: node scripts/test_game_ui.cjs
+
+      - name: Validate SVG assets
+        run: python scripts/validate_assets.py
+
+      - name: Install Windows app builder
+        working-directory: desktop
+        run: npm install --no-audit --no-fund
+
+      - name: Test offline desktop app and saves
+        working-directory: desktop
+        run: npm test
+
+      - name: Build Windows installer and portable EXE
+        working-directory: desktop
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+        run: npm run build:win
+
+      - name: Check desktop output
+        shell: pwsh
+        run: |
+          $files = @(Get-ChildItem "desktop/dist/EverAfter-*.exe" -ErrorAction Stop)
+          if ($files.Count -lt 2) { throw "Expected both installer and portable Windows EXE, found $($files.Count)" }
+          $files | ForEach-Object { Write-Host "Ready: $($_.Name) ($([math]::Round($_.Length / 1MB, 1)) MB)" }
+
+      - name: Upload Windows downloads
+        uses: actions/upload-artifact@v4
+        with:
+          name: EverAfter-Windows-Desktop
+          path: desktop/dist/EverAfter-*.exe
+          if-no-files-found: error
+          retention-days: 30

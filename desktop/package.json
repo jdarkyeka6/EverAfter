@@ -1,0 +1,50 @@
+{
+  "name": "everafter-desktop",
+  "productName": "EverAfter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EverAfter, an offline life simulator for Windows",
+  "main": "main.cjs",
+  "license": "UNLICENSED",
+  "scripts": {
+    "stage": "node scripts/stage-game.cjs",
+    "start": "npm run stage && electron .",
+    "test": "npm run stage && node tests/smoke.cjs",
+    "build:win": "npm run stage && node scripts/make-icon.cjs && electron-builder --win nsis portable --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "^36.9.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.everafter.desktop",
+    "productName": "EverAfter",
+    "asar": true,
+    "directories": {
+      "output": "dist",
+      "buildResources": "build-resources"
+    },
+    "files": [
+      "main.cjs",
+      "protocol.cjs",
+      "game/**/*",
+      "build-resources/icon.ico"
+    ],
+    "win": {
+      "icon": "build-resources/icon.ico",
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "artifactName": "EverAfter-${version}-${arch}-${target}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "EverAfter",
+      "perMachine": false
+    }
+  }
+}
