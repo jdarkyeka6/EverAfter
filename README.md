@@ -124,6 +124,16 @@ A new `scripts/validate_assets.py` runs in both CI and TestFlight workflows. It 
 
 Mobile event cards give more screen space to the illustrations, while the home portrait and age-stage background are clearer. Game saves, the 12 avatar IDs, all event IDs and gameplay logic remain compatible.
 
+## Unlimited activities with diminishing returns (build 8)
+
+- Action points (AP) have been removed, with **unlimited actions** in each year.
+- Every distinct repeatable activity has three full-strength uses per year. From the fourth onward, personal benefits progressively decline: **72% (4th), 52% (5th), 37% (6th), 27% (7th)** and so on. Aging up refreshes each activity's counter.
+- Relevant gains (stats, skills, school grades, relationships, career performance, followers and payouts for actual earning activities) scale down. **Costs and negative consequences stay at full strength**. Ordinary transactions such as purchasing property, investment trades, and borrowing do not lose money or inventory due to the diminishing-returns algorithm.
+- Cards show the number of full-benefit attempts remaining, or the next repeat's effectiveness.
+- One-off real-life restrictions such as minimum ages and annual raise requests still exist.
+- Removed action-result notifications that used to repeatedly obscure the bottom of the screen; important save/error notices appear briefly near the top.
+- Existing saves are upgraded in place, and age-up begins a fresh practice year.
+
 ## Storage
 
 The game uses a persistent `WKWebView` data store for local save slots. It supports JSON export and import from the in-game interface. Like any app, save data could be lost when uninstalling, so export anything important beforehand.
