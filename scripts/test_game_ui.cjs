@@ -123,54 +123,54 @@ assert.ok(script.includes("x.actionReps??={}"),'Previously saved lives must acqu
 const practiceStart=script.indexOf("let activeActionKey=''");
 const practiceEnd=script.indexOf('function yearlyOnce(key)',practiceStart);
 assert.ok(practiceStart>=0&&practiceEnd>practiceStart,'Unlimited practice code missing');
-const state={
+const practiceState={
  alive:true,age:18,actionReps:{},stats:{health:25,happy:45},skills:{music:15,coding:10},
  grades:40,cash:1000,followers:100,approval:40,
  job:{id:'singer',performance:30},relationships:[{id:1,bond:20}],pets:[],gameplayTurns:0
 };
-const log=[];
-const context=vm.createContext({s:state,
+const practiceLog=[];
+const context=vm.createContext({s:practiceState,
  ensureExpansions(x){x.actionReps??={}},
  cap:(x)=>Math.max(0,Math.min(100,Math.round(x))),
- fail:m=>log.push('ERROR '+m),
- commit:m=>log.push(m),
+ fail:m=>practiceLog.push('ERROR '+m),
+ commit:m=>practiceLog.push(m),
 });
 const practice=vm.runInContext(script.slice(practiceStart,practiceEnd)+'\n({repeatMultiplier,actionKey,withActionContext,doAct,point});',context);
 assert.equal(practice.repeatMultiplier(0),1);
 assert.equal(practice.repeatMultiplier(2),1);
 assert.ok(practice.repeatMultiplier(3)<1&&practice.repeatMultiplier(4)<practice.repeatMultiplier(3));
-const key=practice.actionKey('gig','','');
+const practiceKey=practice.actionKey('gig','','');
 function practiseOnce(){
- practice.withActionContext(key,()=>practice.doAct(1,()=>{
-  state.cash+=100;state.stats.health+=10;state.skills.music+=10;state.grades+=8;
-  state.relationships[0].bond+=10;
+ practice.withActionContext(practiceKey,()=>practice.doAct(1,()=>{
+  practiceState.cash+=100;practiceState.stats.health+=10;practiceState.skills.music+=10;practiceState.grades+=8;
+  practiceState.relationships[0].bond+=10;
   return 'You practiced and earned some money';
  }));
 }
 for(let i=0;i<3;i++)practiseOnce();
-assert.equal(state.cash,1300,'First three repeats should award full earned cash');
-assert.equal(state.stats.health,55,'First three repeats should award full stats');
-assert.equal(state.grades,64,'First three repeats should award full grades');
-assert.equal(state.relationships[0].bond,50,'First three repeats should award full relationship gains');
+assert.equal(practiceState.cash,1300,'First three repeats should award full earned cash');
+assert.equal(practiceState.stats.health,55,'First three repeats should award full stats');
+assert.equal(practiceState.grades,64,'First three repeats should award full grades');
+assert.equal(practiceState.relationships[0].bond,50,'First three repeats should award full relationship gains');
 practiseOnce();
-assert.equal(state.cash,1372,'Fourth use pays 72% instead of 100%');
-assert.equal(state.stats.health,62,'Fourth use scales stat gains');
-assert.equal(state.skills.music,52,'Fourth use scales skill gains');
-assert.equal(state.grades,70,'Fourth use scales grade gains');
-assert.equal(state.relationships[0].bond,57,'Fourth use scales relationship gains');
+assert.equal(practiceState.cash,1372,'Fourth use pays 72% instead of 100%');
+assert.equal(practiceState.stats.health,62,'Fourth use scales stat gains');
+assert.equal(practiceState.skills.music,52,'Fourth use scales skill gains');
+assert.equal(practiceState.grades,70,'Fourth use scales grade gains');
+assert.equal(practiceState.relationships[0].bond,57,'Fourth use scales relationship gains');
 practiseOnce();
-assert.ok(state.cash>1372&&state.cash<1444,'Fifth use must yield even less');
-assert.equal(state.actionReps[key],5,'Count each successfully completed activity');
-assert.equal(state.gameplayTurns,5,'Activities still count as turns with no AP');
-const past=state.actionReps[key],money=state.cash;
-practice.withActionContext(key,()=>practice.doAct(1,()=>false));
-assert.equal(state.actionReps[key],past,'Failed actions must not burn a repetition');
-assert.equal(state.cash,money,'Failed actions must not create money');
+assert.ok(practiceState.cash>1372&&practiceState.cash<1444,'Fifth use must yield even less');
+assert.equal(practiceState.actionReps[practiceKey],5,'Count each successfully completed activity');
+assert.equal(practiceState.gameplayTurns,5,'Activities still count as turns with no AP');
+const past=practiceState.actionReps[practiceKey],money=practiceState.cash;
+practice.withActionContext(practiceKey,()=>practice.doAct(1,()=>false));
+assert.equal(practiceState.actionReps[practiceKey],past,'Failed actions must not burn a repetition');
+assert.equal(practiceState.cash,money,'Failed actions must not create money');
 practice.withActionContext(practice.actionKey('gym'),()=>practice.doAct(1,()=>{
- state.cash-=40;state.stats.health+=8;return 'A workout';
+ practiceState.cash-=40;practiceState.stats.health+=8;return 'A workout';
 }));
-assert.equal(state.cash,money-40,'Gym costs must be fully charged');
-assert.equal(state.actionReps[practice.actionKey('gym')],1,'Separate activities have separate counters');
+assert.equal(practiceState.cash,money-40,'Gym costs must be fully charged');
+assert.equal(practiceState.actionReps[practice.actionKey('gym')],1,'Separate activities have separate counters');
 assert.equal(practice.repeatMultiplier(0),1,'New year begins with full benefits');
 const extraStart=script.indexOf("function choose(title,icon,body,options){");
 assert.ok(script.slice(extraStart,extraStart+260).includes('const key=activeActionKey'),'Modal action context should be captured');
