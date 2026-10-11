@@ -6,3 +6,5 @@ Signing: automatic, using ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_CONTENT and APPLE_T
 Requested: 2026-10-11
 
 Retry #2: fix iPad multitasking interface orientations and verify Apple upload response. 2026-10-11
+
+Build #3: mobile home screen overhaul (fixed menu header, name and cash row, four expandable stats, only events scroll, Actions categories, life-stage button, animated Age Up). 2026-10-11.
