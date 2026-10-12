@@ -30,7 +30,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Test 332 new discovery options
+      - name: Test 1,000 discovery activities and projects
         shell: bash
         run: node scripts/test_discovery.cjs
 
