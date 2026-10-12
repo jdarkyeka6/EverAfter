@@ -9,7 +9,7 @@ vm.runInNewContext(source,env);
 const data=env.window.EVERAFTER_DISCOVER;
 assert.ok(data,'Discovery data was not loaded');
 assert.equal(data.categories.length,22);
-assert.equal(data.activities.length,308);
+assert.equal(data.activities.length,976);
 assert.equal(data.projects.length,24);
 const ids=new Set(),titles=new Set();
 for(const a of data.activities){
@@ -21,7 +21,7 @@ for(const a of data.activities){
  assert.ok(a.skill&&a.stat&&Number.isFinite(a.cost)&&a.cost>=0);
 }
 for(const c of data.categories){
- assert.equal(c.ids.length,14,'Category should contain 14 distinct choices: '+c.id);
+ assert.equal(c.ids.length,c.id==='tiny'?52:44,'Unexpected category size: '+c.id);
  for(const id of c.ids)assert.ok(ids.has(id),'Broken category link: '+id);
 }
 const projects=new Set();
@@ -39,8 +39,14 @@ assert.ok(html.includes("case 'discoveryActivity':doDiscoveryActivity(value)"),'
 assert.ok(html.includes("case 'discoveryProject':doDiscoveryProject(value)"),'Multi-step projects must be playable');
 assert.ok(html.includes("x.discoveryRecords??={};x.discoveryProjects??={}"),'Legacy saves must migrate without reset');
 assert.ok(html.includes("discoveryRecords:{},discoveryProjects:{}"),'New lives need persistent discovery records');
-assert.ok(html.includes("['discover','🧭','Explore 332+']"),'Explore must appear in main navigation and mobile actions');
+assert.ok(html.includes("['discover','🧭','Explore 1,000']"),'Explore must appear in main navigation and mobile actions');
 assert.ok(html.includes("id='discovery-results'")||html.includes('id="discovery-results"'),'Search needs activity-result container');
+assert.equal(data.activities.length+data.projects.length,1000,'EverAfter must have exactly 1,000 discoverable options');
+assert.ok(html.includes("discoveryShown=72"),'Results should load progressively for mobile');
+assert.ok(html.includes("data-discovery-more"),'Load more button is missing');
+assert.ok(html.includes("DISCOVERY.activities.length"),'Experience counter must be calculated from catalogue');
+assert.ok(data.activities.some(a=>a.id==='tiny-52'),'The 38 new baby activities should be included');
+assert.ok(data.activities.some(a=>a.id==='family-44'),'The 30 new family activities should be included');
 const script=html.slice(html.indexOf('<script>')+8,html.lastIndexOf('</script>'));
 new Function(script);
 const start=script.indexOf("let discoveryFilter='recommended'");
@@ -100,4 +106,21 @@ vm.runInContext("discoveryFilter='technology';discoverySearch='website';",contex
 const filtered=impl.discoveryActivityList();
 assert.equal(filtered.length,1);
 assert.equal(filtered[0].title,'Build a personal website');
-console.log('PASS: 308 original activities in 22 categories, 24 multi-step projects, playable actions, search/age gating, persistent progress, rewards and legacy saves.');
+vm.runInContext("discoveryFilter='science';discoverySearch='periscope';",context);
+const addedSearch=impl.discoveryActivityList();
+assert.equal(addedSearch.length,1,'Search should find a newly added activity');
+assert.equal(addedSearch[0].title,'Build a cardboard periscope');
+impl.doDiscoveryActivity('science-44');
+assert.equal(state.discoveryRecords['science-44'],1,'Newly added activities must be executable');
+vm.runInContext("discoveryFilter='all';discoverySearch='';discoveryShown=72;",context);
+const all=impl.discoveryActivityList();
+assert.equal(all.length,976,'All filter must include the entire catalogue');
+const firstPage=impl.discoveryResults();
+assert.ok(firstPage.includes('data-discovery-more'),'Large lists need pagination');
+assert.ok(firstPage.includes('72 of 976'),'First page should show 72 of 976 activities');
+assert.ok(!firstPage.includes('family-44'),'The first page should not render the entire catalogue');
+vm.runInContext("discoveryShown=976;",context);
+const everyCard=impl.discoveryResults();
+assert.ok(everyCard.includes('family-44'),'Pagination must make the last activity reachable');
+assert.ok(!everyCard.includes('data-discovery-more'),'No pagination button after the final activity');
+console.log('PASS: exactly 1,000 choices (976 activities + 24 projects), 668 new activities, 22 categories, progressive loading, playable actions, search/age gating and save compatibility.');

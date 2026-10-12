@@ -153,16 +153,18 @@ Mobile event cards give more screen space to the illustrations, while the home p
 - Removed action-result notifications that used to repeatedly obscure the bottom of the screen; important save/error notices appear briefly near the top.
 - Existing saves are upgraded in place, and age-up begins a fresh practice year.
 
-## Massive activity expansion: Explore 332+ options
+## Explore 1,000 things to do
 
-EverAfter now includes **308 new distinct activities across 22 categories** and **24 multi-step projects**. Explore them through the **🧭 Explore** tab on desktop or **Actions → Explore** on mobile. The same content is bundled on the website, iOS app and Windows edition.
+**Exactly 1,000 options** in the Explore library: **976 playable activities** and **24 multi-step projects**. This release added **668 original activities** to the previous 308 without changing or deleting existing content. The 22 categories remain easy to navigate, and existing category/option IDs and save files are preserved.
 
-- All new activities are age-gated and searchable. The *For you* filter shows a manageable age-appropriate sample, while category filters and All reveal the complete catalogue.
-- Activities have individual titles, outcomes, appropriate costs and effects on player stats, skills, grades, relationships, fame, reputation, and sometimes income. The existing first-three-full-uses-then-diminishing-returns rule applies per activity, resetting each birthday.
-- Projects such as launching an app, making a movie, publishing a novel, starting a sports club and organising a festival need multiple steps. Costs are charged once when you start; completing a project earns its specific reward and a record in your life history.
-- Career skills, helping others and creative projects can produce follow-up effects on followers, volunteering, grades and cash. Lifetime activity counts and completed projects are permanently saved in your life.
-- Existing `everafter_life_v1` saves are automatically upgraded in place. New content is in `Everafter/Game/content/discover.js` and automatically included in offline browser caching.
-- `scripts/test_discovery.cjs` validates activity completeness, searchable age filters, playable outcomes, payouts and project progression in all platform CI pipelines.
+- Find activities for all ages across school, friendships, sports, coding, art, music, science, small businesses, wellness, home life, travel, family and more.
+- Every activity has its own title, description, age eligibility, relevant skill/stat effects and any associated cash cost; some also reward grades, reputation, followers, relationships, volunteering or earned income.
+- **For You** selects a small set of age-appropriate activities from each category, while **All** and category browsing show activities **72 at a time** with a Load More button. Search always looks through the complete list of 976.
+- Repeating activities follows the existing rule: first three uses per activity per year give full rewards, then returns diminish. Age-up refreshes these counters; lifetime activity histories remain saved.
+- The 24 projects still have multi-step progress and one-time completion rewards, with records saved across years.
+- Existing `everafter_life_v1` lives gain the new catalogue automatically; no save reset, login, or external service required.
+- The expanded `Everafter/Game/content/discover.js` is bundled into the website's offline cache, the iPhone app and the Windows desktop release.
+- `scripts/test_discovery.cjs` verifies the exact count, ID uniqueness, playable new activities, age restrictions, search, pagination, projects and save compatibility across platform build pipelines.
 
 ## Storage
 
