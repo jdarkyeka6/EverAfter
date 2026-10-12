@@ -29,6 +29,10 @@ jobs:
       - name: Check gameplay logic
         run: node scripts/test_game_ui.cjs
 
+      - name: Test 332 new discovery options
+        shell: bash
+        run: node scripts/test_discovery.cjs
+
       - name: Validate SVG assets
         run: python scripts/validate_assets.py
 

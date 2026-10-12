@@ -153,6 +153,17 @@ Mobile event cards give more screen space to the illustrations, while the home p
 - Removed action-result notifications that used to repeatedly obscure the bottom of the screen; important save/error notices appear briefly near the top.
 - Existing saves are upgraded in place, and age-up begins a fresh practice year.
 
+## Massive activity expansion: Explore 332+ options
+
+EverAfter now includes **308 new distinct activities across 22 categories** and **24 multi-step projects**. Explore them through the **🧭 Explore** tab on desktop or **Actions → Explore** on mobile. The same content is bundled on the website, iOS app and Windows edition.
+
+- All new activities are age-gated and searchable. The *For you* filter shows a manageable age-appropriate sample, while category filters and All reveal the complete catalogue.
+- Activities have individual titles, outcomes, appropriate costs and effects on player stats, skills, grades, relationships, fame, reputation, and sometimes income. The existing first-three-full-uses-then-diminishing-returns rule applies per activity, resetting each birthday.
+- Projects such as launching an app, making a movie, publishing a novel, starting a sports club and organising a festival need multiple steps. Costs are charged once when you start; completing a project earns its specific reward and a record in your life history.
+- Career skills, helping others and creative projects can produce follow-up effects on followers, volunteering, grades and cash. Lifetime activity counts and completed projects are permanently saved in your life.
+- Existing `everafter_life_v1` saves are automatically upgraded in place. New content is in `Everafter/Game/content/discover.js` and automatically included in offline browser caching.
+- `scripts/test_discovery.cjs` validates activity completeness, searchable age filters, playable outcomes, payouts and project progression in all platform CI pipelines.
+
 ## Storage
 
 The game uses a persistent `WKWebView` data store for local save slots. It supports JSON export and import from the in-game interface. Like any app, save data could be lost when uninstalling, so export anything important beforehand.

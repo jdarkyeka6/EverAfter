@@ -30,6 +30,10 @@ jobs:
       - name: Check gameplay
         run: node scripts/test_game_ui.cjs
 
+      - name: Test 332 new discovery options
+        shell: bash
+        run: node scripts/test_discovery.cjs
+
       - name: Validate all 187 illustrations
         run: python3 scripts/validate_assets.py
 

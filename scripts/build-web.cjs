@@ -108,7 +108,7 @@ for(const n of [192,512])fs.writeFileSync(path.join(icons,'everafter-'+n+'.png')
 
 const buildId=crypto.createHash('sha256').update(html).digest('hex').slice(0,12);
 const cached=['/','/index.html','/manifest.webmanifest','/icons/everafter-192.png','/icons/everafter-512.png',
-...files.filter(f=>f.startsWith('assets/')&&(f.endsWith('.svg')||f.endsWith('.png'))).map(f=>'/'+f)];
+...files.filter(f=>(f.startsWith('assets/')&&(f.endsWith('.svg')||f.endsWith('.png')))||f==='content/discover.js').map(f=>'/'+f)];
 const sw=`
 'use strict';
 const CACHE='everafter-web-${buildId}';

@@ -24,5 +24,6 @@ for(const f of ['index.html','sw.js','manifest.webmanifest','icons/everafter-192
 }
 const sw=fs.readFileSync(path.join(out,'sw.js'),'utf8');
 assert.ok(sw.includes('everafter-web-')&&sw.includes('caches.open'),'Service worker must support offline play');
+assert.ok(sw.includes('/content/discover.js'),'Offline cache must include all expanded gameplay code');
 assert.ok(sw.includes('/assets/events/the-toy-incident.svg'),'Offline cache must include illustrated events');
 console.log('PASS: Browser game, artwork, local saves, installable manifest and offline cache are packaged.');
