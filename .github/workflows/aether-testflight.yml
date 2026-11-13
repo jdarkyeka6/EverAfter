@@ -1,0 +1,175 @@
+name: Aether Particle Lab to TestFlight
+
+# 2026-11-13: Use Xcode automatic distribution signing, avoiding certificate revocations.
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/aether-testflight.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: swipestart-testflight
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - name: Check out Aether Particle Lab
+        uses: actions/checkout@v4
+        with:
+          repository: jdarkyeka6/startup-generator
+          ref: main
+          path: swipestart
+
+      - name: Select Xcode
+        run: |
+          if [ -d /Applications/Xcode_26.3.app ]; then
+            sudo xcode-select -s /Applications/Xcode_26.3.app
+          fi
+          xcodebuild -version
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Capacitor
+        working-directory: swipestart
+        run: npm install
+
+      - name: Prepare offline web bundle
+        working-directory: swipestart
+        run: npm run prepare:web
+
+      - name: Generate iOS project
+        working-directory: swipestart
+        run: |
+          npx cap add ios
+          npx cap sync ios
+
+      - name: Declare export compliance
+        working-directory: swipestart
+        run: |
+          /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" ios/App/App/Info.plist 2>/dev/null || \
+          /usr/libexec/PlistBuddy -c "Set :ITSAppUsesNonExemptEncryption false" ios/App/App/Info.plist
+
+      - name: Install Aether Particle Lab icon
+        working-directory: swipestart
+        run: |
+          python3 scripts/make-ios-icon.py ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png
+          file ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png
+
+      - name: Validate Apple API credentials
+        shell: bash
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          set -euo pipefail
+          for key in ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_CONTENT APPLE_TEAM_ID; do
+            if [ -z "$(printenv "$key")" ]; then
+              echo "::error::Missing GitHub secret: $key"
+              exit 1
+            fi
+          done
+          ASC_KEY_ID=$(printf '%s' "$ASC_KEY_ID" | tr -d '[:space:]')
+          ASC_ISSUER_ID=$(printf '%s' "$ASC_ISSUER_ID" | tr -d '[:space:]')
+          APPLE_TEAM_ID=$(printf '%s' "$APPLE_TEAM_ID" | tr -d '[:space:]')
+          echo "ASC_KEY_ID=$ASC_KEY_ID" >> "$GITHUB_ENV"
+          echo "ASC_ISSUER_ID=$ASC_ISSUER_ID" >> "$GITHUB_ENV"
+          echo "APPLE_TEAM_ID=$APPLE_TEAM_ID" >> "$GITHUB_ENV"
+          KEY_PATH="$RUNNER_TEMP/AuthKey_$ASC_KEY_ID.p8"
+          ASC_KEY_CONTENT="$ASC_KEY_CONTENT" KEY_PATH="$KEY_PATH" python3 - <<'PY'
+          import os,base64,pathlib,sys
+          value=os.environ['ASC_KEY_CONTENT'].strip()
+          data=value.encode() if 'BEGIN PRIVATE KEY' in value else base64.b64decode(''.join(value.split()))
+          if b'BEGIN PRIVATE KEY' not in data:
+              sys.exit('Invalid App Store Connect key')
+          pathlib.Path(os.environ['KEY_PATH']).write_bytes(data)
+          PY
+          chmod 600 "$KEY_PATH"
+          openssl pkey -in "$KEY_PATH" -noout
+          mkdir -p "$HOME/.appstoreconnect/private_keys"
+          cp "$KEY_PATH" "$HOME/.appstoreconnect/private_keys/AuthKey_$ASC_KEY_ID.p8"
+          echo "ASC_KEY_PATH=$KEY_PATH" >> "$GITHUB_ENV"
+
+      - name: Archive unsigned Aether iOS app
+        shell: bash
+        working-directory: swipestart
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          BUILD_NUMBER=$((1000 + GITHUB_RUN_NUMBER))
+          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$PWD/build/Aether.xcarchive" \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+            PRODUCT_BUNDLE_IDENTIFIER="com.jdarkyeka6.swipestart" \
+            MARKETING_VERSION="1.1.0" CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
+            archive 2>&1 | tee build/archive.log
+          test -d build/Aether.xcarchive/Products/Applications/App.app
+          /usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' build/Aether.xcarchive/Products/Applications/App.app/Info.plist
+
+      - name: Export IPA with Apple's automatic distribution signing
+        shell: bash
+        working-directory: swipestart
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>teamID</key><string>$APPLE_TEAM_ID</string>
+            <key>destination</key><string>export</string>
+          </dict>
+          </plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath "$PWD/build/Aether.xcarchive" \
+            -exportPath "$PWD/build/export" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$ASC_KEY_PATH" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+            2>&1 | tee build/export.log
+          IPA_PATH=$(find "$PWD/build/export" -maxdepth 1 -name '*.ipa' -print -quit)
+          test -n "$IPA_PATH" || { echo "::error::No signed IPA produced"; exit 1; }
+          echo "IPA_PATH=$IPA_PATH" >> "$GITHUB_ENV"
+
+      - name: Upload Aether IPA to TestFlight
+        shell: bash
+        working-directory: swipestart
+        run: |
+          set -euo pipefail
+          xcrun altool --upload-app --type ios --file "$IPA_PATH" \
+            --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID" \
+            2>&1 | tee build/upload.log
+          if grep -Eiq 'UPLOAD FAILED|Failed to upload package|Validation failed' build/upload.log; then
+            echo "::error::Apple rejected the IPA upload"
+            exit 1
+          fi
+          if ! grep -Eiq 'UPLOAD SUCCEEDED|No errors uploading' build/upload.log; then
+            echo "::error::Upload was not explicitly confirmed"
+            exit 1
+          fi
+          echo "Aether Particle Lab uploaded to App Store Connect for TestFlight processing."
+
+      - name: Save iOS build diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aether-testflight-logs
+          path: swipestart/build/*.log
+          if-no-files-found: warn
